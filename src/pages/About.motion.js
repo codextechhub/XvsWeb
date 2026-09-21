@@ -57,23 +57,50 @@ export default class PageMotion {
   }
 
   _initReveals() {
-    if (this._reduce) return;
+    const targets = Array.from(this.root.querySelectorAll(
+      '.xa-hero-copy, .xa-record, .xa-belief > div, .xa-story > div, ' +
+      '.xa-section-heading, .xa-person, .xa-trust-intro, .xa-principle, .xa-invitation-inner'
+    ));
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const reveal = (node) => {
+      node.classList.remove('xa-reveal-pending');
+      this._revealIo?.unobserve(node);
+    };
+    const reset = () => {
+      this._revealIo?.disconnect();
+      targets.forEach(node => {
+        node.classList.remove('xa-reveal', 'xa-reveal-pending');
+        node.style.removeProperty('--xa-reveal-delay');
+      });
+    };
+    this._resetReveals = reset;
+    this._listen(preference, 'change', () => { if (preference.matches) reset(); });
+    if (preference.matches) return;
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (!entry.isIntersecting) return;
-        entry.target.style.opacity = "1";
-        entry.target.style.transform = "none";
-        io.unobserve(entry.target);
+        reveal(entry.target);
       });
     }, { rootMargin: "0px 0px -8% 0px", threshold: 0.06 });
-    this.root.querySelectorAll("[data-reveal]").forEach((n) => {
-      if (n.getBoundingClientRect().top < window.innerHeight * 0.9) return;
-      n.style.opacity = "0";
-      n.style.transform = "translateY(22px)";
-      n.style.transition = "opacity 520ms cubic-bezier(.16,1,.3,1), transform 560ms cubic-bezier(.16,1,.3,1)";
+    this._revealIo = io;
+    targets.forEach((n) => {
+      const bounds = n.getBoundingClientRect();
+      if (bounds.top < window.innerHeight * 0.9) return;
+      // Stagger cards sharing a row; stacked mobile cards reveal independently.
+      const siblings = Array.from(n.parentElement.children);
+      const column = siblings.filter(sibling =>
+        sibling !== n && sibling.getBoundingClientRect().left < bounds.left &&
+        Math.abs(sibling.getBoundingClientRect().top - bounds.top) < 4
+      ).length;
+      n.style.setProperty('--xa-reveal-delay', `${Math.min(column, 2) * 100}ms`);
+      n.classList.add('xa-reveal', 'xa-reveal-pending');
       io.observe(n);
     });
-    this._revealIo = io;
+    // Keyboard navigation must never land on an invisible link.
+    this._listen(this.root, 'focusin', (event) => {
+      const pending = event.target.closest('.xa-reveal-pending');
+      if (pending) reveal(pending);
+    });
   }
 
   componentWillUnmount() {
@@ -83,5 +110,6 @@ export default class PageMotion {
     if (this._offScroll) this._offScroll();
     if (this._offResize) this._offResize();
     if (this._revealIo) this._revealIo.disconnect();
+    this._resetReveals?.();
   }
 }
