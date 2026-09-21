@@ -56,7 +56,7 @@ export function submitEmail(event: FormEvent<HTMLFormElement>) {
         submitButton.textContent = originalLabel
       }
       if (status) {
-        status.textContent = 'Something went wrong sending your message. Please email hello@codextechhub.com directly.'
+        status.textContent = 'Something went wrong sending your message. Please email info@codexng.com directly.'
         status.style.color = '#A81E1E'
       }
     })

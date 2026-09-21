@@ -1,0 +1,26 @@
+<!--
+EMAILJS DASHBOARD SETTINGS (set separately from the email body):
+Template name: XVS Demo Request
+To Email: info@codexng.com
+Subject: XVS demo request from {{name}} - {{organization}}
+From Name: XVS Website | CodeX
+From Email: use the default address of your connected email service
+Reply To: {{email}}
+Paste this entire file into the Content HTML / Code Editor and save.
+Put this template's ID in VITE_EMAILJS_TEMPLATE_DEMO.
+See emailjs-setup.md for instructions. Keep double braces unchanged.
+-->
+<div style="font-family:Arial,sans-serif;color:#212121;line-height:1.6;max-width:640px;margin:0 auto;padding:24px">
+  <h2 style="color:#3B5482;margin-top:0">New XVS demo request</h2>
+  <p><strong>Form:</strong> XVS homepage - Request a demo</p>
+  <p><strong>Enquiry type:</strong> {{reason}}</p>
+  <p><strong>Full name:</strong> {{name}}</p>
+  <p><strong>School or group:</strong> {{organization}}</p>
+  <p><strong>Work email:</strong> {{email}}</p>
+  <p><strong>Phone:</strong> {{phone}}{{^phone}}Not provided{{/phone}}</p>
+  <p><strong>Branches / operation size:</strong> {{branches}}{{^branches}}Not provided{{/branches}}</p>
+  <p><strong>What they would like to cover:</strong></p>
+  <div style="white-space:pre-wrap;overflow-wrap:break-word;background:#F5F6F8;padding:16px;border-radius:8px">{{message}}{{^message}}Not provided{{/message}}</div>
+  <hr style="border:0;border-top:1px solid #E3E6ED;margin:24px 0">
+  <p style="font-size:13px;color:#555654">Use Reply to respond to the visitor's work email.</p>
+</div>

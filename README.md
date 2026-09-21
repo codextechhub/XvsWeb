@@ -22,7 +22,7 @@ Browser tests use Playwright Chromium (`npx playwright install chromium` on a ne
 
 Routes: `/` and `/xvs` (XVS), `/products`, `/about`, `/contact`, `/privacy`, `/terms`, and a catch-all 404. Privacy and Terms are placeholders pending approved documents.
 
-Forms validate their fields and open an email addressed to `hello@codextechhub.com`. A backend is not connected; the site does not claim to have received submissions.
+Forms validate their fields and send through EmailJS using separate contact and demo templates. Follow [the EmailJS setup guide](docs/emailjs-setup.md) for copy-and-paste HTML templates, dashboard settings, environment variables, and delivery checks.
 
 Netlify (`public/_redirects`) and Vercel (`vercel.json`) SPA fallback rules are included. Other hosts should serve `index.html` for application routes.
 

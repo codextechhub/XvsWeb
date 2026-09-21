@@ -70,7 +70,7 @@ export default function Contact() {
           <span style={{"display": "grid", "placeItems": "center", "width": "34px", "height": "34px", "borderRadius": "11px", "background": "rgba(74,101,157,.09)", "color": "#4A659D", "flex": "none"}}><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2.5"></rect><path d="m3 7 9 6 9-6"></path></svg></span>
           <div style={{"display": "flex", "flexDirection": "column", "gap": "3px", "minWidth": "0"}}>
             <span style={{"fontSize": "11px", "fontWeight": "600", "letterSpacing": ".08em", "textTransform": "uppercase", "color": "#8F918F"}}>{"Email"}</span>
-            <a href="mailto:hello@codextechhub.com" style={{"fontSize": "14.5px", "fontWeight": "500", "wordBreak": "break-word"}} >{"hello@codextechhub.com"}</a>
+            <a href="mailto:info@codexng.com" style={{"fontSize": "14.5px", "fontWeight": "500", "wordBreak": "break-word"}} >{"info@codexng.com"}</a>
           </div>
         </div>
         <div style={{"display": "flex", "gap": "12px", "paddingTop": "16px", "borderTop": "1px solid #F7F7F7"}}>
