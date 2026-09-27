@@ -1,3 +1,356 @@
-:root { font-family: 'Outfit', system-ui, sans-serif; color: #212121; background: #fbfbfc; font-synthesis: none; }
-body { margin: 0; min-width: 320px; }
-* { box-sizing: border-box; }
+/* ─────────────────────────────────────────────────────────────
+ *  GLOBAL STYLES
+ *  1. Design tokens (XVS colours, fonts, sizes)  ← change the look here
+ *  2. Base elements
+ *  3. Layout helpers (.container, .section)
+ *  4. Buttons and links
+ *  5. Text helpers (.eyebrow, .serif)
+ *  6. Load-in and reveal animations
+ *
+ *  Page-specific styles live next to each page, e.g. src/pages/Home/home.css
+ * ───────────────────────────────────────────────────────────── */
+
+/* ── 1. Design tokens ─────────────────────────────────────── */
+:root {
+  color-scheme: light;
+
+  /* XVS brand colours, taken from the shield logo */
+  --navy: #0b1f4a; /* dark side of the shield */
+  --navy-deep: #07142f;
+  --blue: #1a4a9c; /* light side of the shield */
+  --blue-bright: #2e72d2; /* the orbit dots */
+  --blue-soft: #e9effa;
+  --blue-line: #cbd8ef;
+  --cream: #fbf4ec; /* the hexagon badge */
+
+  /* Neutrals */
+  --bg: #f7f6f3;
+  --surface: #ffffff;
+  --ink: #0e1a33;
+  --ink-soft: #3a4660;
+  --muted: #6a7389;
+  --line: #e6e3dc;
+  --line-strong: #d6d2c8;
+
+  /* Status */
+  --success: #15803d;
+  --success-soft: #e7f5ec;
+  --warning: #b45309;
+  --warning-soft: #fdf1e1;
+  --danger: #b42318;
+
+  /* Type */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Shape and depth */
+  --radius-sm: 10px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --shadow-sm: 0 1px 2px rgba(11, 31, 74, 0.06), 0 1px 1px rgba(11, 31, 74, 0.04);
+  --shadow: 0 12px 32px -12px rgba(11, 31, 74, 0.18), 0 2px 6px rgba(11, 31, 74, 0.05);
+  --shadow-lg: 0 40px 80px -30px rgba(11, 31, 74, 0.35), 0 12px 30px -12px rgba(11, 31, 74, 0.15);
+
+  /* Layout */
+  --container: 1200px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --header-height: 68px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── 2. Base elements ─────────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-padding-top: calc(var(--header-height) + 16px);
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+textarea,
+button,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+::selection {
+  background: var(--blue-line);
+}
+
+:focus-visible {
+  outline: 2px solid var(--blue-bright);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  background: var(--navy);
+  color: #fff;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ── 3. Layout helpers ────────────────────────────────────── */
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + var(--gutter) * 2);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.section {
+  padding: clamp(72px, 10vw, 136px) 0;
+}
+
+.section-dark {
+  background: var(--navy);
+  color: #fff;
+}
+
+/* ── 4. Buttons and links ─────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 46px;
+  padding: 0 20px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 200ms var(--ease),
+    background 200ms ease,
+    border-color 200ms ease,
+    box-shadow 200ms ease,
+    color 200ms ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn .arrow-icon {
+  transition: transform 200ms var(--ease);
+}
+
+.btn:hover .arrow-icon {
+  transform: translateX(3px);
+}
+
+.btn-primary {
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 8px 20px -8px rgba(11, 31, 74, 0.6);
+}
+
+.btn-primary:hover {
+  background: var(--blue);
+}
+
+.btn-ghost {
+  background: var(--surface);
+  border-color: var(--line-strong);
+  color: var(--ink);
+}
+
+.btn-ghost:hover {
+  border-color: var(--ink-soft);
+}
+
+/* White button for dark backgrounds */
+.btn-light {
+  background: #fff;
+  color: var(--navy);
+}
+
+.btn-light:hover {
+  background: var(--cream);
+}
+
+.btn-small {
+  min-height: 38px;
+  padding: 0 16px;
+  font-size: 14px;
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 500;
+  color: var(--blue);
+}
+
+.text-link:hover {
+  color: var(--navy);
+}
+
+.text-link:hover .arrow-icon {
+  transform: translateX(3px);
+}
+
+.arrow-icon {
+  flex: none;
+  transition: transform 200ms var(--ease);
+}
+
+/* ── 5. Text helpers ──────────────────────────────────────── */
+
+/* Small label above a heading, e.g. "01 — Money" */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+.section-dark .eyebrow {
+  color: #9db8e8;
+}
+
+/* The italic accent words in headings, e.g. "from one place" */
+.serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+.lead {
+  font-size: clamp(17px, 1.5vw, 19px);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+
+.section-dark .lead {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* ── 6. Animations ────────────────────────────────────────── */
+
+/* .load-in: plays once when the page opens. Stagger with style={{ "--delay": "200ms" }} */
+.load-in {
+  animation: load-in 900ms var(--ease) both;
+  animation-delay: var(--delay, 0ms);
+}
+
+@keyframes load-in {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* Gentle up-and-down bob for floating cards */
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+/* .reveal: added by the <Reveal> component, plays when scrolled into view */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 900ms var(--ease),
+    transform 900ms var(--ease);
+  transition-delay: var(--delay, 0ms);
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

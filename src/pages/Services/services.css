@@ -1,0 +1,533 @@
+/* ─────────────────────────────────────────────────────────────
+ *  SERVICES PAGE — same order as ServicesPage.tsx
+ *  1. Hero + group cards
+ *  2. Sticky group tabs
+ *  3. Group section heading
+ *  4. Service rows (closed + open panel)
+ * ───────────────────────────────────────────────────────────── */
+
+/* ── 1. Hero ──────────────────────────────────────────────── */
+.services-hero {
+  position: relative;
+  padding: clamp(56px, 8vw, 104px) 0 clamp(40px, 5vw, 64px);
+  overflow: hidden;
+}
+
+.services-hero-glow {
+  position: absolute;
+  top: -320px;
+  left: 50%;
+  width: 1100px;
+  height: 640px;
+  transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(46, 114, 210, 0.16), transparent);
+  pointer-events: none;
+}
+
+.services-hero .container {
+  position: relative;
+}
+
+.services-hero h1 {
+  max-width: 15ch;
+  margin: 18px 0 22px;
+  font-size: clamp(42px, 6.6vw, 84px);
+}
+
+.services-hero .lead {
+  max-width: 640px;
+}
+
+.group-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin-top: clamp(40px, 5vw, 64px);
+}
+
+.group-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  transition:
+    transform 300ms var(--ease),
+    box-shadow 300ms var(--ease),
+    border-color 300ms ease;
+}
+
+.group-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--blue-line);
+  box-shadow: var(--shadow);
+}
+
+.group-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.group-card-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--blue-soft);
+  color: var(--blue);
+}
+
+.group-card-number {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.group-card strong {
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.group-card-summary {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+.group-card-count {
+  margin-top: auto;
+  padding-top: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--blue);
+}
+
+.services-demo-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 24px;
+  padding: 14px 18px;
+  border-radius: var(--radius-sm);
+  background: var(--cream);
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+
+.services-demo-note svg {
+  flex: none;
+  margin-top: 2px;
+  color: var(--blue);
+}
+
+@media (max-width: 900px) {
+  .group-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .group-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 2. Sticky group tabs ─────────────────────────────────── */
+.group-nav {
+  position: sticky;
+  top: var(--header-height);
+  z-index: 40;
+  padding: 10px 0;
+  background: rgba(247, 246, 243, 0.88);
+  backdrop-filter: saturate(160%) blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+
+.group-nav-track {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.group-nav-track::-webkit-scrollbar {
+  display: none;
+}
+
+.group-nav-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: none;
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  white-space: nowrap;
+  transition:
+    background 200ms ease,
+    color 200ms ease;
+}
+
+.group-nav-tab:hover {
+  background: rgba(11, 31, 74, 0.05);
+}
+
+.group-nav-tab.is-active {
+  background: var(--navy);
+  color: #fff;
+}
+
+/* Sections should land below the header + the tabs */
+.services .group-section,
+.services .service-anchor {
+  scroll-margin-top: calc(var(--header-height) + 72px);
+}
+
+/* The list above the closing banner has no bottom padding of its own */
+.services .demo-banner-section {
+  padding-top: clamp(72px, 10vw, 128px);
+}
+
+/* ── 3. Group section heading ─────────────────────────────── */
+.group-section {
+  padding: clamp(72px, 9vw, 120px) 0 0;
+}
+
+.group-head {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+  margin-bottom: clamp(32px, 4vw, 48px);
+}
+
+.group-head-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.group-head h2 {
+  font-size: clamp(36px, 4.8vw, 60px);
+}
+
+.group-head-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.group-head-list a {
+  display: inline-block;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  transition:
+    border-color 200ms ease,
+    color 200ms ease;
+}
+
+.group-head-list a:hover {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.group-head-visual .browser {
+  transform: perspective(1400px) rotateY(-5deg) rotateX(2deg);
+  transition: transform 700ms var(--ease);
+}
+
+.group-head-visual:hover .browser {
+  transform: none;
+}
+
+@media (max-width: 900px) {
+  .group-head {
+    grid-template-columns: 1fr;
+  }
+
+  .group-head-visual .browser {
+    transform: none;
+  }
+}
+
+/* ── 4. Service rows ──────────────────────────────────────── */
+.service-list {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line-strong);
+}
+
+.service-row {
+  position: relative;
+  border-bottom: 1px solid var(--line-strong);
+}
+
+.service-anchor {
+  position: absolute;
+  top: 0;
+}
+
+.service-row-toggle {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 26px 4px;
+  border: 0;
+  background: none;
+  text-align: left;
+  cursor: pointer;
+}
+
+.service-row-index {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.service-row-title {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 20px;
+}
+
+.service-row-title h3 {
+  font-size: clamp(20px, 2.2vw, 26px);
+  letter-spacing: -0.02em;
+  transition: color 200ms ease;
+}
+
+.service-row-promise {
+  font-size: 15.5px;
+  color: var(--muted);
+}
+
+.service-row-icon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--surface);
+  transition:
+    transform 400ms var(--ease),
+    background 200ms ease,
+    color 200ms ease,
+    border-color 200ms ease;
+}
+
+.service-row-toggle:hover h3 {
+  color: var(--blue);
+}
+
+.service-row-toggle:hover .service-row-icon {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.service-row.is-open .service-row-icon {
+  transform: rotate(45deg);
+  background: var(--navy);
+  border-color: var(--navy);
+  color: #fff;
+}
+
+/* Open/close animation: rows go from 0fr to 1fr */
+.service-panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 500ms var(--ease);
+}
+
+.service-row.is-open .service-panel {
+  grid-template-rows: 1fr;
+}
+
+.service-panel-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+.service-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  padding: 0 0 14px 72px;
+}
+
+.service-block {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+
+.service-block-label {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--blue);
+}
+
+/* "Without XVS" gets the warm cream "before" colour */
+.service-problem {
+  background: var(--cream);
+  border-color: #efe3d3;
+}
+
+.service-problem .service-block-label {
+  color: var(--warning);
+}
+
+.service-for {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-top: auto;
+  padding-top: 14px;
+  border-top: 1px dashed #e4d4bf;
+  font-size: 14px;
+  color: var(--ink);
+}
+
+.service-for span {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.service-steps,
+.service-benefits {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.service-steps li,
+.service-benefits li {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 10px;
+}
+
+.service-steps li span {
+  display: grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+}
+
+.service-benefits svg {
+  margin-top: 3px;
+  color: var(--success);
+}
+
+.service-story {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  align-items: center;
+  margin: 0 0 32px 72px;
+  padding: 28px;
+  border-radius: var(--radius);
+  background: var(--navy);
+  color: #fff;
+}
+
+.service-story.no-image {
+  grid-template-columns: 1fr;
+}
+
+.service-story-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.service-story .service-block-label {
+  color: #9db8e8;
+}
+
+.service-story blockquote {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(20px, 2vw, 25px);
+  line-height: 1.35;
+}
+
+.service-story .text-link {
+  color: #fff;
+}
+
+.service-story .text-link:hover {
+  color: #c9d8f3;
+}
+
+.service-story-image {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  object-position: top left;
+  border-radius: 12px;
+  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 960px) {
+  .service-panel-grid {
+    grid-template-columns: 1fr;
+    padding-left: 0;
+  }
+
+  .service-story {
+    grid-template-columns: 1fr;
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .service-row-toggle {
+    grid-template-columns: 1fr auto;
+  }
+
+  .service-row-index {
+    display: none;
+  }
+
+  .service-story {
+    padding: 20px;
+  }
+}

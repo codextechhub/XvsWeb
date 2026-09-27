@@ -1,0 +1,321 @@
+/* ─────────────────────────────────────────────────────────────
+ *  LAYOUT: logo, header, mobile menu, footer, "Book a demo" banner
+ * ───────────────────────────────────────────────────────────── */
+
+/* ── Logo ─────────────────────────────────────────────────── */
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  width: auto;
+  height: 34px;
+}
+
+.logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.logo-name {
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--navy);
+}
+
+.logo-by {
+  margin-top: 3px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.logo.is-light .logo-name {
+  color: #fff;
+}
+
+.logo.is-light .logo-by {
+  color: rgba(255, 255, 255, 0.55);
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  border-bottom: 1px solid transparent;
+  transition:
+    background 300ms ease,
+    border-color 300ms ease,
+    backdrop-filter 300ms ease;
+}
+
+.site-header.is-solid {
+  background: rgba(247, 246, 243, 0.82);
+  backdrop-filter: saturate(160%) blur(14px);
+  border-bottom-color: var(--line);
+}
+
+.site-header-inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: var(--header-height);
+}
+
+.site-header-logo {
+  flex: none;
+}
+
+.site-nav {
+  display: flex;
+  gap: 4px;
+  margin: 0 auto;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.site-nav-link {
+  padding: 7px 16px;
+  border-radius: 999px;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  transition:
+    background 200ms ease,
+    color 200ms ease;
+}
+
+.site-nav-link:hover {
+  color: var(--ink);
+}
+
+.site-nav-link.active {
+  background: var(--surface);
+  color: var(--navy);
+  box-shadow: var(--shadow-sm);
+}
+
+.site-header-cta {
+  flex: none;
+}
+
+.menu-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  margin-left: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.mobile-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-top: 8px;
+  padding-bottom: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.mobile-menu-link {
+  padding: 14px 4px;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--line);
+}
+
+.mobile-menu-link.active {
+  color: var(--navy);
+}
+
+.mobile-menu .btn {
+  margin-top: 16px;
+}
+
+@media (max-width: 860px) {
+  .site-nav,
+  .site-header-cta {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+  }
+}
+
+/* ── Footer ───────────────────────────────────────────────── */
+.site-footer {
+  position: relative;
+  overflow: hidden;
+  padding-top: clamp(64px, 8vw, 96px);
+  background: var(--navy-deep);
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.site-footer-top {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 40px;
+}
+
+.site-footer-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 340px;
+}
+
+.site-footer-brand p {
+  font-size: 15px;
+}
+
+.site-footer-email {
+  color: #fff;
+  font-weight: 500;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.site-footer-column {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.site-footer-column p {
+  margin-bottom: 4px;
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.site-footer-column a {
+  font-size: 15px;
+  transition: color 200ms ease;
+}
+
+.site-footer-column a:hover,
+.site-footer-email:hover {
+  color: #fff;
+}
+
+.site-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 64px;
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 14px;
+}
+
+.site-footer-wordmark {
+  margin-bottom: -0.2em;
+  font-size: clamp(120px, 30vw, 420px);
+  font-weight: 700;
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  text-align: center;
+  color: transparent;
+  background: linear-gradient(180deg, rgba(46, 114, 210, 0.35), rgba(46, 114, 210, 0));
+  -webkit-background-clip: text;
+  background-clip: text;
+  user-select: none;
+}
+
+@media (max-width: 760px) {
+  .site-footer-top {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .site-footer-brand {
+    grid-column: 1 / -1;
+  }
+
+  .site-footer-bottom {
+    flex-direction: column;
+  }
+}
+
+/* ── "Book a demo" banner ─────────────────────────────────── */
+.demo-banner-section {
+  padding: clamp(24px, 3vw, 40px) 0 clamp(72px, 10vw, 128px);
+}
+
+.demo-banner {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  padding: clamp(56px, 8vw, 96px) clamp(20px, 5vw, 64px);
+  border-radius: var(--radius-lg);
+  background: var(--navy);
+  color: #fff;
+  text-align: center;
+  isolation: isolate;
+}
+
+.demo-banner-glow {
+  position: absolute;
+  inset: auto -20% -60% -20%;
+  height: 120%;
+  z-index: -1;
+  background:
+    radial-gradient(closest-side, rgba(46, 114, 210, 0.55), transparent 70%),
+    radial-gradient(closest-side at 20% 80%, rgba(26, 74, 156, 0.8), transparent 70%);
+  filter: blur(20px);
+}
+
+.demo-banner::before {
+  /* faint grid */
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse at center, #000 20%, transparent 75%);
+}
+
+.demo-banner-logo {
+  width: auto;
+  height: 64px;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.35));
+}
+
+.demo-banner .eyebrow {
+  color: #9db8e8;
+}
+
+.demo-banner h2 {
+  max-width: 16ch;
+  font-size: clamp(36px, 5.4vw, 68px);
+}
+
+.demo-banner-body {
+  max-width: 540px;
+  margin-bottom: 12px;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.75);
+}

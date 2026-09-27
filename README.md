@@ -1,29 +1,61 @@
 # XvsWeb
 
-React + TypeScript website built with Vite. The XVS homepage and supporting pages preserve the supplied CodeX HTML designs, including the animated consoles and showcase rails.
-
-## Development
+The XVS website, built with React, TypeScript and Vite.
 
 ```sh
 npm install
-npm run dev
-```
-
-## Checks and production build
-
-```sh
+npm run dev       # local site at http://localhost:5173
 npm run lint
 npm run build
-npm run preview
-npm test
+npm test          # Playwright browser tests (first time: npx playwright install chromium)
 ```
 
-Browser tests use Playwright Chromium (`npx playwright install chromium` on a new machine). They cover phone, tablet, and desktop widths, navigation, direct URLs, reduced motion, and form validation.
+## Where things live
 
-Routes: `/` and `/xvs` (XVS), `/products`, `/about`, `/contact`, `/privacy`, `/terms`, and a catch-all 404. Privacy and Terms are placeholders pending approved documents.
+```
+public/
+  logo.png, favicon.*        XVS shield (header logo + browser tab icon)
+  images/xvs/                XVS screenshots used on the pages
 
-Forms validate their fields and send through EmailJS using separate contact and demo templates. Follow [the EmailJS setup guide](docs/emailjs-setup.md) for copy-and-paste HTML templates, dashboard settings, environment variables, and delivery checks.
+src/
+  App.tsx                    every page's address (routes)
+  index.css                  colours, fonts, buttons, animations  ← change the look here
+  pageTitles.ts              browser tab names + search descriptions
+  lib/emailjs.ts             sends the contact form
 
-Netlify (`public/_redirects`) and Vercel (`vercel.json`) SPA fallback rules are included. Other hosts should serve `index.html` for application routes.
+  components/
+    navigation.ts            menu links, footer links, email, city  ← edit links here
+    PageLayout.tsx           header + page + footer wrapper
+    SiteHeader.tsx / SiteFooter.tsx / Logo.tsx
+    BookDemoBanner.tsx       the navy "Book a demo" panel that ends most pages
+    shared/                  small building blocks (Reveal, BrowserFrame, icons…)
 
-The native React page markup and original animation logic live in `src/pages`. `scripts/import_reference.py` records the original import process; rerunning it replaces these generated pages and `src/reference.css`. Shared responsive refinements live in `src/App.css`.
+  pages/
+    Home/        HomePage.tsx · content.ts · home.css · sections/
+    Services/    ServicesPage.tsx · content.ts · services.css · sections/
+    About/       AboutPage.tsx · content.ts · about.css · sections/
+    Contact/     ContactPage.tsx · ContactForm.tsx · content.ts · contact.css
+    Legal/       Privacy + Terms placeholders
+    NotFound/    404 page
+```
+
+Every page folder follows the same pattern:
+
+- **`content.ts`**: all the words, numbers and image paths. To change copy, edit only this file.
+- **`XxxPage.tsx`**: lists the sections in order. Move or delete a line to reorder or remove a section.
+- **`sections/`**: one file per section (layout and animation only).
+- **`xxx.css`**: that page's styles, in the same order as the sections.
+
+Put words between `*asterisks*` in a heading to show them in the italic serif accent.
+
+## Services
+
+All 24 services (6 groups) from the XVS Services Guide are in `src/pages/Services/content.ts`. The home page's "What XVS does" grid reads the same list, so each service is only written once. Link straight to an opened service with `/services#<service-id>`, e.g. `/services#billing-invoicing`.
+
+## Contact form
+
+The form sends through EmailJS. Follow [the EmailJS setup guide](docs/emailjs-setup.md) and put your IDs in `.env` (see `.env.example`).
+
+## Hosting
+
+Netlify (`public/_redirects`) and Vercel (`vercel.json`) fallback rules are included. Other hosts should serve `index.html` for every page address. The old `/products` and `/xvs` addresses redirect to `/services` and `/`.

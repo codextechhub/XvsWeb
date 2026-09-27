@@ -1,0 +1,232 @@
+/* ─────────────────────────────────────────────────────────────
+ *  SITE BACKGROUND ("The XVS orbit"), behind every page
+ *  The living backdrop from SiteBackground.tsx.
+ *  JS sets --scroll (0 top → 1 bottom) and --night (0 day → 1 night).
+ *  Tweak colours, sizes and speeds here.
+ * ───────────────────────────────────────────────────────────── */
+.site-bg {
+  /* Orbit colours blend from day (blue) to night (pale) */
+  --orbit-day: rgba(26, 74, 156, 0.16);
+  --orbit-night: rgba(157, 184, 232, 0.2);
+  --scroll: 0;
+  --night: 0;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.site-bg > * {
+  position: absolute;
+  inset: 0;
+}
+
+/* Daylight: warm paper white, a touch brighter towards the top */
+.site-bg-day {
+  background:
+    radial-gradient(120% 70% at 50% -10%, #ffffff 0%, transparent 60%),
+    linear-gradient(180deg, #f9f7f2 0%, #f4f3ef 55%, #eef1f7 100%);
+}
+
+/* Night sky wrapper: JS masks it to the dark sections' position */
+.site-bg-nightsky {
+  position: absolute;
+  inset: 0;
+}
+
+.site-bg-nightsky > * {
+  position: absolute;
+  inset: 0;
+}
+
+/* Deep navy sky */
+.site-bg-night {
+  background:
+    radial-gradient(90% 60% at 70% 10%, #163873 0%, transparent 65%),
+    radial-gradient(70% 60% at 10% 90%, #0f2a5e 0%, transparent 70%),
+    linear-gradient(180deg, #07142f 0%, var(--navy) 100%);
+}
+
+/* Aurora: big soft glows. `translate` follows the scroll,
+ *    `transform` (the keyframes) makes them breathe and drift. */
+.aurora {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.aurora-dawn {
+  /* Warm morning light, strongest at the top of the page */
+  width: 70vmax;
+  height: 70vmax;
+  top: -38vmax;
+  left: -12vmax;
+  background: radial-gradient(closest-side, rgba(251, 225, 196, 0.85), rgba(251, 244, 236, 0.4) 45%, transparent 70%);
+  opacity: calc((1 - var(--scroll) * 1.6) * (1 - var(--night)));
+  translate: calc(var(--scroll) * 30vw) 0;
+  animation: aurora-drift 26s ease-in-out infinite;
+}
+
+.aurora-blue {
+  width: 62vmax;
+  height: 62vmax;
+  top: 8vh;
+  right: -24vmax;
+  background: radial-gradient(closest-side, rgba(46, 114, 210, 0.42), transparent 70%);
+  translate: calc(var(--scroll) * -55vw) calc(var(--scroll) * 30vh);
+  animation: aurora-drift 32s ease-in-out infinite reverse;
+}
+
+.aurora-royal {
+  width: 55vmax;
+  height: 55vmax;
+  bottom: -30vmax;
+  left: -10vmax;
+  background: radial-gradient(closest-side, rgba(26, 74, 156, 0.34), transparent 70%);
+  translate: calc(var(--scroll) * 45vw) calc(var(--scroll) * -35vh);
+  animation: aurora-drift 38s ease-in-out infinite;
+  animation-delay: -12s;
+}
+
+.aurora-sky {
+  width: 40vmax;
+  height: 40vmax;
+  top: 45%;
+  left: 40%;
+  background: radial-gradient(closest-side, rgba(125, 170, 240, calc(0.22 + var(--night) * 0.25)), transparent 70%);
+  translate: calc(var(--scroll) * -20vw) calc(var(--scroll) * -40vh);
+  animation: aurora-drift 22s ease-in-out infinite reverse;
+  animation-delay: -6s;
+}
+
+@keyframes aurora-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(6vw, -4vh) scale(1.12);
+  }
+  66% {
+    transform: translate(-5vw, 5vh) scale(0.92);
+  }
+}
+
+/* Stars */
+.site-bg-stars i {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.shooting-star {
+  position: absolute;
+  top: 18%;
+  left: 72%;
+  width: 140px;
+  height: 1.5px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #fff, transparent);
+  transform: rotate(-24deg);
+  opacity: 0;
+  animation: shoot 9s ease-in infinite 3s;
+}
+
+@keyframes shoot {
+  0%,
+  88% {
+    opacity: 0;
+    translate: 0 0;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    translate: -420px 190px;
+  }
+}
+
+/* Orbits: the logo's orbit ring, turning slowly as you scroll */
+.site-bg-orbits {
+  width: 100%;
+  height: 100%;
+  transform: rotate(calc(var(--scroll) * 28deg)) scale(calc(1 + var(--scroll) * 0.25));
+  transform-origin: 50% 50%;
+}
+
+.orbit-line {
+  fill: none;
+  stroke: color-mix(in srgb, var(--orbit-night) calc(var(--night) * 100%), var(--orbit-day));
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.orbit-line-1 {
+  stroke-dasharray: 2 10;
+  animation: orbit-dash 60s linear infinite;
+}
+
+.orbit-line-3 {
+  stroke-dasharray: 6 14;
+  animation: orbit-dash 90s linear infinite reverse;
+}
+
+@keyframes orbit-dash {
+  to {
+    stroke-dashoffset: -600;
+  }
+}
+
+.orbit-dot-core {
+  fill: var(--blue-bright);
+  stroke: #fff;
+  stroke-width: 1.5;
+}
+
+/* Spotlight: follows the mouse on desktop */
+.site-bg-spotlight {
+  opacity: 0;
+  background: radial-gradient(
+    420px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(46, 114, 210, calc(0.1 + var(--night) * 0.08)),
+    transparent 70%
+  );
+  transition: opacity 600ms ease;
+}
+
+.site-bg.has-pointer .site-bg-spotlight {
+  opacity: 1;
+}
+
+/* Grain */
+.site-bg-grain {
+  opacity: 0.07;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-bg-orbits {
+    transform: none;
+  }
+}
+
+/* Night sections (data-bg="dark") and the footer drop their own navy
+   so the night sky behind them shows through */
+[data-bg="dark"],
+.site-footer {
+  background: transparent;
+}

@@ -1,0 +1,388 @@
+/* ─────────────────────────────────────────────────────────────
+ *  ABOUT PAGE — same order as AboutPage.tsx
+ *  1. Hero + connected-record diagram
+ *  2. Belief band + story
+ *  3. People cards
+ *  4. Principles
+ * ───────────────────────────────────────────────────────────── */
+
+/* ── 1. Hero ──────────────────────────────────────────────── */
+.about-hero {
+  padding: clamp(48px, 7vw, 96px) 0 clamp(72px, 9vw, 120px);
+  overflow: hidden;
+}
+
+.about-hero-inner {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(40px, 6vw, 80px);
+  align-items: center;
+}
+
+.about-hero-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.about-hero h1 {
+  font-size: clamp(42px, 6vw, 76px);
+}
+
+.about-hero h1 .serif {
+  color: var(--blue);
+}
+
+.about-hero-intro {
+  font-size: clamp(19px, 1.8vw, 22px);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.about-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 24px;
+  margin-top: 8px;
+}
+
+/* The diagram: logo in the middle, orbits, four nodes around it */
+.record {
+  position: relative;
+  aspect-ratio: 1;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.record-orbit {
+  position: absolute;
+  inset: 12%;
+  border: 1px dashed var(--blue-line);
+  border-radius: 50%;
+  animation: spin 60s linear infinite;
+}
+
+.record-orbit-2 {
+  inset: 26%;
+  border-style: solid;
+  border-color: var(--line);
+  animation-duration: 40s;
+  animation-direction: reverse;
+}
+
+/* A small dot riding each orbit */
+.record-orbit::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--blue-bright);
+  box-shadow: 0 0 0 5px rgba(46, 114, 210, 0.18);
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.record-core {
+  position: absolute;
+  inset: 33%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  text-align: center;
+  box-shadow: var(--shadow-lg);
+}
+
+.record-core img {
+  width: auto;
+  height: 30%;
+  margin-bottom: 6px;
+}
+
+.record-core span {
+  font-size: clamp(11px, 1.1vw, 13px);
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.record-core strong {
+  max-width: 10ch;
+  font-size: clamp(13px, 1.4vw, 17px);
+  line-height: 1.2;
+}
+
+.record-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px 10px 10px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  animation: float 6s ease-in-out infinite;
+}
+
+.record-node strong {
+  display: block;
+  font-size: 14px;
+}
+
+.record-node span:not(.record-node-number) {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.record-node-number {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: 9px;
+  background: var(--blue-soft);
+  color: var(--blue);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.record-node-1 {
+  top: 4%;
+  left: 0;
+}
+
+.record-node-2 {
+  top: 18%;
+  right: -4%;
+  animation-delay: -1.5s;
+}
+
+.record-node-3 {
+  bottom: 18%;
+  left: -4%;
+  animation-delay: -3s;
+}
+
+.record-node-4 {
+  bottom: 4%;
+  right: 0;
+  animation-delay: -4.5s;
+}
+
+
+@media (max-width: 900px) {
+  .about-hero-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .record-node {
+    padding: 8px 10px 8px 8px;
+  }
+
+  .record-node span:not(.record-node-number) {
+    display: none;
+  }
+
+  .record-node-2 {
+    right: 0;
+  }
+
+  .record-node-3 {
+    left: 0;
+  }
+}
+
+/* ── 2. Belief + story ────────────────────────────────────── */
+.belief {
+  /* Tall enough that the night sky fully settles behind the text */
+  padding: clamp(120px, 14vw, 180px) 0;
+}
+
+.belief-text {
+  max-width: 900px;
+  margin-top: 16px;
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 4.2vw, 54px);
+  line-height: 1.15;
+}
+
+.story-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 96px);
+}
+
+.story-head {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.story-head h2 {
+  font-size: clamp(34px, 4.4vw, 54px);
+}
+
+.story-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  font-size: 17.5px;
+  color: var(--ink-soft);
+}
+
+.story-copy p:last-child {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+@media (max-width: 860px) {
+  .story-inner {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 3. People ────────────────────────────────────────────── */
+.people {
+  padding-top: 0;
+}
+
+.people-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  transition:
+    transform 350ms var(--ease),
+    box-shadow 350ms var(--ease);
+}
+
+.person.is-visible:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.person-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.person-top span:first-child {
+  color: var(--blue);
+}
+
+.person h3 {
+  font-size: 24px;
+  letter-spacing: -0.02em;
+}
+
+.person p {
+  font-size: 15.5px;
+  color: var(--ink-soft);
+}
+
+.person-role {
+  margin-top: auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-weight: 500;
+}
+
+.person p.person-role {
+  color: var(--navy);
+}
+
+@media (max-width: 860px) {
+  .people-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── 4. Principles ────────────────────────────────────────── */
+.principles {
+  padding-top: 0;
+}
+
+.principles-inner {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: clamp(32px, 6vw, 96px);
+  align-items: start;
+}
+
+.principles-intro {
+  position: sticky;
+  top: calc(var(--header-height) + 32px);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.principles-intro h2 {
+  font-size: clamp(32px, 4vw, 50px);
+}
+
+.principle {
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 16px;
+  padding: 28px 0;
+  border-top: 1px solid var(--line-strong);
+}
+
+.principle > span {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--blue);
+}
+
+.principle h3 {
+  margin-bottom: 8px;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.principle p {
+  color: var(--ink-soft);
+}
+
+@media (max-width: 860px) {
+  .principles-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .principles-intro {
+    position: static;
+  }
+}

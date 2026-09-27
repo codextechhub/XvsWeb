@@ -1,69 +1,76 @@
-import { test, expect } from '@playwright/test'
+import { test, expect } from "@playwright/test";
 
-for (const width of [320, 360, 390, 430, 768, 820, 834, 1024, 1180, 1440]) {
-  test(`homepage fits ${width}px`, async ({ page }) => {
-    const errors: string[] = []
-    page.on('pageerror', error => errors.push(error.message))
-    await page.setViewportSize({ width, height: 1000 })
-    await page.goto('/')
-    await expect(page.locator('h1')).toHaveText('One system for every campus, every record, every day')
-    await expect(page.locator('[data-hcount="8640"]')).toHaveText('8,640')
-    await expect(page.locator('[data-rail-track]').first().locator(':scope > div')).toHaveCount(10)
-    if ([390, 820, 1440].includes(width)) await page.screenshot({ path: `test-results/home-${width}.png` })
-    await page.locator('#demo').scrollIntoViewIfNeeded()
-    const overflow = await page.evaluate(() => ({ page: document.documentElement.scrollWidth, viewport: innerWidth,
-      fields: [...document.querySelectorAll('input, textarea')].filter(el => {
-        const r = el.getBoundingClientRect(); return r.right > innerWidth + 1 || r.left < 0
-      }).length }))
-    expect(overflow.page).toBeLessThanOrEqual(overflow.viewport)
-    expect(overflow.fields).toBe(0)
-    const clipped = await page.evaluate(() => [...document.querySelectorAll('h1, h2, h3, form, input, textarea')]
-      .filter(el => { const r = el.getBoundingClientRect(); return r.right > innerWidth + 1 || r.left < -1 })
-      .map(el => el.textContent?.slice(0, 60) || el.tagName))
-    expect(clipped).toEqual([])
-    expect(errors).toEqual([])
-  })
+const PAGES = ["/", "/services", "/about", "/contact", "/privacy", "/terms", "/missing-page"];
+
+for (const width of [320, 390, 768, 1024, 1440]) {
+  test(`every page fits ${width}px without errors`, async ({ page }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    await page.setViewportSize({ width, height: 900 });
+    for (const path of PAGES) {
+      await page.goto(path);
+      await expect(page.locator("h1")).toBeVisible();
+      const overflow = await page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+      expect(overflow, `${path} scrolls sideways`).toBeLessThanOrEqual(0);
+    }
+    expect(errors).toEqual([]);
+  });
 }
 
-test('mobile menu, route navigation, browser back, and reload', async ({ page }) => {
-  await page.setViewportSize({ width: 390, height: 844 })
-  await page.goto('/')
-  const menu = page.getByRole('button', { name: 'Menu' })
-  await menu.click()
-  await expect(menu).toHaveAttribute('aria-expanded', 'true')
-  await page.locator('[data-nav-panel]').getByRole('link', { name: 'About', exact: true }).click()
-  await expect(page).toHaveURL('/about')
-  await page.reload()
-  await expect(page.locator('h1')).toBeVisible()
-  await page.goBack()
-  await expect(page).toHaveURL('/')
-  await menu.click()
-  await expect(menu).toHaveAttribute('aria-expanded', 'true')
-  await page.locator('[data-nav-panel]').getByRole('link', { name: 'Book a Demo' }).click()
-  await expect(menu).toHaveAttribute('aria-expanded', 'false')
-  await expect(page.getByLabel('Full name')).toBeInViewport()
-})
+test("home page shows the headline and links to services", async ({ page }) => {
+  await page.goto("/");
+  await expect(page).toHaveTitle(/XVS/);
+  await expect(page.locator("h1")).toContainText("Run your whole school");
+  await expect(page.locator(".preview-card")).toHaveCount(6);
+  await page.locator(".preview-card").first().click();
+  await expect(page).toHaveURL("/services#run-the-school");
+});
 
-for (const path of ['/products', '/about', '/contact', '/privacy', '/terms', '/missing-page']) {
-  test(`direct route ${path}`, async ({ page }) => {
-    const errors: string[] = []
-    page.on('pageerror', error => errors.push(error.message))
-    await page.setViewportSize({ width: 320, height: 740 })
-    await page.goto(path)
-    await expect(page.locator('h1')).toBeVisible()
-    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
-    expect(errors).toEqual([])
-  })
-}
+test("services page lists all 24 services and opens one", async ({ page }) => {
+  await page.goto("/services");
+  await expect(page.locator(".service-row")).toHaveCount(24);
+  const toggle = page.getByRole("button", { name: /Billing & Invoicing/ });
+  await expect(toggle).toHaveAttribute("aria-expanded", "false");
+  await toggle.click();
+  await expect(toggle).toHaveAttribute("aria-expanded", "true");
+  await expect(page.getByText("Without XVS").first()).toBeVisible();
+});
 
-test('reduced motion renders completed data and validates demo fields', async ({ page }) => {
-  await page.emulateMedia({ reducedMotion: 'reduce' })
-  await page.goto('/')
-  await expect(page.locator('[data-hcount="8640"]')).toHaveText('8,640')
-  await expect(page.locator('[data-fpct]')).toHaveText('78%')
-  await page.getByLabel('Full name').fill('A')
-  await page.getByLabel('School or group').click()
-  await expect(page.locator('[data-err="name"]')).toHaveText('Enter your full name')
-  await page.getByLabel('Full name').fill('Ada Okonkwo')
-  await expect(page.locator('[data-err="name"]')).toBeHidden()
-})
+test("a link to a service opens it", async ({ page }) => {
+  await page.goto("/services#audit-activity-logging");
+  await expect(page.getByRole("button", { name: /Audit & Activity Logging/ })).toHaveAttribute("aria-expanded", "true");
+});
+
+test("old addresses redirect", async ({ page }) => {
+  await page.goto("/products");
+  await expect(page).toHaveURL("/services");
+  await page.goto("/xvs");
+  await expect(page).toHaveURL("/");
+});
+
+test("mobile menu navigates and closes", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  const menu = page.getByRole("button", { name: "Menu" });
+  await menu.click();
+  await expect(menu).toHaveAttribute("aria-expanded", "true");
+  await page.locator("#mobile-menu").getByRole("link", { name: "About", exact: true }).click();
+  await expect(page).toHaveURL("/about");
+  await expect(menu).toHaveAttribute("aria-expanded", "false");
+  await page.goBack();
+  await expect(page).toHaveURL("/");
+});
+
+test("contact form checks required fields", async ({ page }) => {
+  await page.goto("/contact");
+  await page.getByRole("button", { name: "Book my demo" }).click();
+  await expect(page.getByText("Enter your first name")).toBeVisible();
+  await expect(page.getByLabel("First name")).toBeFocused();
+  await page.getByLabel("First name").fill("Ada");
+  await expect(page.getByText("Enter your first name")).toBeHidden();
+  await page.getByLabel("Work email").fill("not-an-email");
+  await page.getByLabel("Work email").blur();
+  await expect(page.getByText("Enter a valid email")).toBeVisible();
+  await page.getByText("A question").click();
+  await expect(page.getByRole("button", { name: "Send message" })).toBeVisible();
+});

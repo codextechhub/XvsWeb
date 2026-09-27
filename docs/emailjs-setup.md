@@ -24,7 +24,10 @@ These instructions use `info@codexng.com`, the contact address currently display
 
 This template handles all three contact choices: **Book a demo** (`Demo`), **General question** (`Question`), and **Partnership** (`Partnership`).
 
-## 2. Create the homepage demo template
+## 2. Homepage demo template (no longer used)
+
+> The home page no longer has its own form: every "Book a demo" button now leads to `/contact`, which uses the contact template above. You can skip this section. It is kept only in case a separate demo form is added again.
+
 
 Create another template named `XVS Demo Request`, with these settings:
 
@@ -87,7 +90,7 @@ The site shows a sending state, clears the form after EmailJS accepts the reques
 
 ## Field matching and references
 
-The existing [submission handler](../src/submitEmail.ts) uses `emailjs.sendForm`, which takes values from named form fields. Contact sends `name`, `organization`, `email`, `phone`, `scale`, `message`, and `reason`; the homepage sends `name`, `organization`, `email`, `phone`, `branches`, `message`, and `reason`. See [EmailJS sendForm documentation](https://www.emailjs.com/docs/sdk/send-form/).
+The contact form ([ContactForm.tsx](../src/pages/Contact/ContactForm.tsx)) sends its values with `emailjs.send` from [src/lib/emailjs.ts](../src/lib/emailjs.ts): `name`, `firstName`, `lastName`, `organization`, `role`, `email`, `phone`, `scale` (number of branches), `message`, and `reason`. See [EmailJS send documentation](https://www.emailjs.com/docs/sdk/send/).
 
 Keep all placeholders exactly as written. Double braces escape submitted HTML. The `{{^phone}}...{{/phone}}` style sections supply fallback text when a field is empty. See [EmailJS template variables](https://www.emailjs.com/docs/user-guide/dynamic-variables-templates/).
 
