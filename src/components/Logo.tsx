@@ -1,15 +1,12 @@
 /**
- * The XVS shield + wordmark. The image lives at /public/logo.png
- * (the browser tab icons in /public are made from the same file).
+ * The XVS shield logo, on its own (no text beside it).
+ * The image lives at /public/logo.png (the browser tab icons are made from it).
+ * Change its size in layout.css → ".logo img".
  */
-export default function Logo({ light = false }: { light?: boolean }) {
+export default function Logo() {
   return (
-    <span className={`logo ${light ? "is-light" : ""}`}>
-      <img src="/logo.png" alt="" width={233} height={296} />
-      <span className="logo-text">
-        <span className="logo-name">XVS</span>
-        <span className="logo-by">by CodeX</span>
-      </span>
+    <span className="logo">
+      <img src="/logo.png" alt="XVS" width={233} height={296} />
     </span>
   );
 }

@@ -1,47 +1,18 @@
 /* ─────────────────────────────────────────────────────────────
- *  LAYOUT: logo, header, mobile menu, footer, "Book a demo" banner
+ *  LAYOUT: logo, header (+ NAV ANIMATION SETTINGS), mobile menu,
+ *  footer, "Book a demo" banner
  * ───────────────────────────────────────────────────────────── */
 
 /* ── Logo ─────────────────────────────────────────────────── */
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
 }
 
+/* ✏️ Logo size (header, footer and contact page) */
 .logo img {
   width: auto;
-  height: 34px;
-}
-
-.logo-text {
-  display: flex;
-  flex-direction: column;
-  line-height: 1;
-}
-
-.logo-name {
-  font-size: 19px;
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--navy);
-}
-
-.logo-by {
-  margin-top: 3px;
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.logo.is-light .logo-name {
-  color: #fff;
-}
-
-.logo.is-light .logo-by {
-  color: rgba(255, 255, 255, 0.55);
+  height: 40px;
 }
 
 /* ── Header ───────────────────────────────────────────────── */
@@ -73,35 +44,101 @@
   flex: none;
 }
 
+/* ─────────────────────────────────────────────────────────────
+ *  ✏️ NAV ANIMATION SETTINGS
+ *  Everything about the sliding menu highlight, in one place.
+ * ───────────────────────────────────────────────────────────── */
 .site-nav {
+  /* How long the highlight takes to slide from one link to another */
+  --nav-slide-duration: 100ms;
+
+  /* The slide's motion curve. This one starts gently (so you can watch it
+     travel), overshoots the new link a little and settles back.
+     For no bounce, use: cubic-bezier(0.65, 0, 0.35, 1) */
+  --nav-slide-ease: cubic-bezier(0.55, 0, 0.25, 1.3);
+
+  /* Link sizes: 1 = normal size */
+  --nav-active-scale: 1.17; /* the page you're on */
+  --nav-idle-scale: 0.94; /* all the other links */
+  --nav-hover-scale: 1; /* a link under the mouse */
+
+  /* How long a link takes to grow or shrink */
+  --nav-scale-duration: 550ms;
+
+  /* Colours */
+  --nav-pill-color: var(--navy); /* the sliding highlight */
+  --nav-active-text: #fff; /* text on the highlight */
+  --nav-idle-text: var(--ink-soft); /* text on the other links */
+}
+
+/* The menu bar itself */
+.site-nav {
+  position: relative;
   display: flex;
-  gap: 4px;
+  /* Extra room so the enlarged active link never pokes out of the bar.
+     If you raise --nav-active-scale a lot, raise these too. */
+  gap: 10px;
   margin: 0 auto;
-  padding: 4px;
+  padding: 5px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
   background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* The sliding highlight. JS sets --pill-x / --pill-w to the active link's
+   position and width; CSS animates the move. */
+.site-nav-pill {
+  position: absolute;
+  top: 5px;
+  bottom: 5px;
+  left: 0;
+  width: var(--pill-w, 0);
+  border-radius: 999px;
+  background: var(--nav-pill-color);
+  box-shadow: 0 8px 20px -8px rgba(11, 31, 74, 0.55);
+  transform: translateX(var(--pill-x, 0)) scale(var(--nav-active-scale));
+  pointer-events: none;
+}
+
+/* Animation is switched on after the first placement (see SiteHeader.tsx) */
+.site-nav-pill.is-ready {
+  transition:
+    transform var(--nav-slide-duration) var(--nav-slide-ease),
+    width var(--nav-slide-duration) var(--nav-slide-ease),
+    opacity 300ms ease;
 }
 
 .site-nav-link {
+  position: relative; /* sits above the pill */
   padding: 7px 16px;
   border-radius: 999px;
   font-size: 14.5px;
   font-weight: 500;
-  color: var(--ink-soft);
+  color: var(--nav-idle-text);
+  transform: scale(var(--nav-idle-scale));
   transition:
-    background 200ms ease,
-    color 200ms ease;
+    transform var(--nav-scale-duration) var(--nav-slide-ease),
+    color calc(var(--nav-slide-duration) * 0.6) ease;
 }
 
 .site-nav-link:hover {
   color: var(--ink);
+  transform: scale(var(--nav-hover-scale));
 }
 
-.site-nav-link.active {
-  background: var(--surface);
-  color: var(--navy);
-  box-shadow: var(--shadow-sm);
+.site-nav-link.is-active {
+  color: var(--nav-active-text);
+  font-weight: 600;
+  transform: scale(var(--nav-active-scale));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav-pill.is-ready,
+  .site-nav-link {
+    transition: none;
+  }
 }
 
 .site-header-cta {

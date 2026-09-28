@@ -9,7 +9,7 @@ export default function SiteFooter() {
       <div className="container">
         <div className="site-footer-top">
           <div className="site-footer-brand">
-            <Logo light />
+            <Logo />
             <p>
               The school management platform that keeps students, staff, fees, buying and approvals in one place, for
               every branch.

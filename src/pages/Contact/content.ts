@@ -8,7 +8,7 @@
 
 /* ── Left side: the form ─────────────────────────────────── */
 export const FORM_INTRO = {
-  backLabel: "Back to site",
+  backLabel: "Return",
   title: "Get started",
   body: "Get a first-hand look at how XVS can run your school. Tell us a little about it, and we'll shape the demo around your own classes and fees.",
 };

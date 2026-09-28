@@ -48,6 +48,8 @@ Every page folder follows the same pattern:
 
 Put words between `*asterisks*` in a heading to show them in the italic serif accent.
 
+The menu's sliding highlight (speed, bounce, link sizes, colours) is tuned in `src/components/layout.css` under **NAV ANIMATION SETTINGS**. The moving background is tuned in `src/components/background.css`.
+
 ## Services
 
 All 24 services (6 groups) from the XVS Services Guide are in `src/pages/Services/content.ts`. The home page's "What XVS does" grid reads the same list, so each service is only written once. Link straight to an opened service with `/services#<service-id>`, e.g. `/services#billing-invoicing`.

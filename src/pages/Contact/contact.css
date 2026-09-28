@@ -61,6 +61,7 @@
   font-size: 14px;
   font-weight: 500;
   color: var(--ink-soft);
+  cursor: pointer;
   transition: border-color 200ms ease;
 }
 
