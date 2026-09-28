@@ -14,7 +14,7 @@ test('navbar stretches and magnifies text only during navigation', async ({ page
   expect(scale).toBeGreaterThan(1.1);
   await label.evaluate(el => el.getAnimations()[0].finish());
   await expect(label).toHaveCSS('transform', 'none');
-  await expect.poll(() => page.locator('.site-nav-pill').evaluate(el => el.getAnimations().length)).toBe(0);
+  await expect.poll(() => page.locator('.site-nav .site-nav-pill').evaluate(el => el.getAnimations().length)).toBe(0);
   const alignment = await page.locator('.site-nav').evaluate(nav => {
     const pill = nav.querySelector('.site-nav-pill')!.getBoundingClientRect();
     const link = nav.querySelector('[aria-current="page"]')!.getBoundingClientRect();

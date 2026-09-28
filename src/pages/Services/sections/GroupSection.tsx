@@ -7,7 +7,7 @@ import ServiceRow from "./ServiceRow";
 export default function GroupSection({ group }: { group: ServiceGroup }) {
   return (
     <section id={group.id} className="group-section">
-      <div className="container">
+      <div className="container group-content">
         <div className="group-head">
           <Reveal className="group-head-copy">
             <p className="eyebrow">

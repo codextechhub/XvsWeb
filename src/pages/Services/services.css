@@ -150,6 +150,11 @@
 }
 
 .group-nav-track {
+  --nav-slide-duration: 680ms;
+  --nav-pill-color: var(--navy);
+  position: relative;
+  isolation: isolate;
+  padding: 6px 0;
   display: flex;
   gap: 6px;
   overflow-x: auto;
@@ -160,7 +165,12 @@
   display: none;
 }
 
+.group-nav-pill {
+  opacity: 0;
+}
+
 .group-nav-tab {
+  position: relative;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -181,7 +191,7 @@
 }
 
 .group-nav-tab.is-active {
-  background: var(--navy);
+  background: transparent;
   color: #fff;
 }
 
@@ -198,6 +208,7 @@
 
 /* ── 3. Group section heading ─────────────────────────────── */
 .group-section {
+  overflow-x: clip;
   padding: clamp(72px, 9vw, 120px) 0 0;
 }
 
@@ -530,4 +541,8 @@
   .service-story {
     padding: 20px;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .group-nav-tab { transition: none; }
 }
