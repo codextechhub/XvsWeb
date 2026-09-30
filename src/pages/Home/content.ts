@@ -21,26 +21,42 @@ export const HERO = {
   body: "XVS brings students, staff, fees, buying and approvals into one system, so owners, bursars and teachers work from the same record, at every branch.",
   primaryCta: { label: "Book a demo", href: "/contact" },
   secondaryCta: { label: "Explore services", href: "/services" },
-  image: `${IMG}/school-dashboard.jpg`,
-  imageAlt: "XVS school dashboard: students on roll, staff, classes, pending approvals and term progress",
 };
 
 /**
- * The "Live activity" card in the hero. One new event slides in every few
- * seconds. `tone` picks the colour: success (green), warning (amber), info (blue).
- * Stories come from Bright Star Schools, the demo school in the Services Guide.
+ * The "How XVS works" reel that plays under the hero headline
+ * (ported from the Claude Design file "XVS How It Works v2").
+ * `dur` is how long each scene plays for, in seconds; `nat` is the length the
+ * choreography was written at, so changing `dur` speeds a scene up or slows it
+ * down without cutting it off. The camera moves live in sections/HeroReel.tsx.
  */
-/** Time labels shown down the card, newest first. */
-export const HERO_ACTIVITY_TIMES = ["Just now", "2 min ago", "6 min ago", "11 min ago"];
+const REEL = "/images/xvs/how-it-works";
 
-export const HERO_ACTIVITY = [
-  { tone: "success", icon: "naira", title: "₦185,000 received", detail: "Mr Okonkwo paid from the invoice email" },
-  { tone: "warning", icon: "alert", title: "Clash caught", detail: "Mr Bello is already at Ikeja in period 3" },
-  { tone: "info", icon: "route", title: "Waiting for the owner", detail: "₦750,000 supplier bill, over ₦500,000" },
-  { tone: "info", icon: "bell", title: "Absence notice sent", detail: "Amaka, Primary 4 · in the app and by email" },
-  { tone: "warning", icon: "box", title: "Reorder alert", detail: "Exercise books at Lekki store down to 300" },
-  { tone: "success", icon: "branches", title: "Lekki Branch is live", detail: "Mrs Okafor added as branch admin" },
-] as const;
+export const HERO_REEL = {
+  label:
+    "How XVS works: a school's branches, a student profile, an exam room clash being flagged, " +
+    "an invoice paid by a parent and matched to a receipt, an approval routed, and the school dashboard.",
+  scenes: [
+    { name: "Intro", dur: 1.2, nat: 1.6 },
+    { name: "Setup", dur: 2.9, nat: 2.8 },
+    { name: "Day", dur: 2.8, nat: 2.6 },
+    { name: "Fees", dur: 3.4 },
+    { name: "Approve", dur: 2, nat: 2.2 },
+    { name: "Overview", dur: 2.8, nat: 2.4 },
+  ],
+  screens: {
+    branches: `${REEL}/branches.webp`,
+    profile: `${REEL}/profile.webp`,
+    clash: `${REEL}/clash.webp`,
+    invoices: `${REEL}/invoices.webp`,
+    pay: `${REEL}/pay.webp`,
+    receipts: `${REEL}/receipts.webp`,
+    approvals: `${REEL}/approvals.webp`,
+    dashboard: `${REEL}/dashboard.webp`,
+  },
+  /** Frame shown (in playback seconds) when the visitor prefers reduced motion: the full dashboard. */
+  stillAt: 14.3,
+} as const;
 
 /* ── 2. BUILT FOR (scrolling band) ───────────────────────── */
 export const BUILT_FOR = {
