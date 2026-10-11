@@ -9,8 +9,8 @@
 /* ── Left side: the form ─────────────────────────────────── */
 export const FORM_INTRO = {
   backLabel: "Return",
-  title: "Get started",
-  body: "Get a first-hand look at how XVS can run your school. Tell us a little about it, and we'll shape the demo around your own classes and fees.",
+  title: "Contact our team",
+  body: "Tell us about your school and what you would like to discuss. For demo requests, we will tailor the session to your own classes, branches and fees.",
 };
 
 /** "What is this about?" choices. `value` is what arrives in the email. */
@@ -34,8 +34,8 @@ export const BRANCH_OPTIONS = ["1 branch", "2–3 branches", "4–10 branches", 
 export const MESSAGE_MAX_LENGTH = 600;
 
 export const SUCCESS = {
-  title: "Thank you. It's on its way.",
-  body: "Your message has reached the CodeX team. We'll reply by email within one business day.",
+  title: "Thank you. Your message has been received.",
+  body: "A member of the CodeX team will reply by email within one business day.",
   again: "Send another message",
 };
 
@@ -46,7 +46,7 @@ export const PANEL = {
   steps: [
     { title: "Forty minutes on your workflows", body: "Bring your branch list and a sample register." },
     { title: "Your structure, set up live", body: "See your branches, classes and fees inside XVS." },
-    { title: "Straight answers", body: "On moving your records across, and on whether XVS is the right fit." },
+    { title: "Clear answers", body: "On migrating your existing records, and whether XVS meets your requirements." },
   ],
   image: "/images/xvs/school-dashboard.jpg",
 };

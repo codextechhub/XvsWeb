@@ -112,7 +112,7 @@ export const FEATURES = [
   {
     number: "02",
     label: "Money",
-    title: "Fees billed, paid and reconciled, *without the chase*",
+    title: "Fees billed, paid and *reconciled in one place*",
     body: "Invoice a whole class at once. Parents pay from the email through Paystack or by transfer, and every naira is matched to its invoice and booked into the accounts.",
     points: [
       "A pay link on every invoice, no login needed",
@@ -146,7 +146,7 @@ export const DAY = {
   eyebrow: "A day at Bright Star",
   title: "One school day, *on one system*",
   intro:
-    "Bright Star Schools is our demo school, with an Ikeja and a Lekki branch. Here's what a normal day looks like once XVS is running it.",
+    "Bright Star Schools is our demo school, with an Ikeja and a Lekki branch. The timeline below shows a typical day once XVS is in place.",
   quote:
     "Mr Adebayo opens XVS on Monday morning: fees collected last week at each branch, ₦2.1m still owed, and four purchase requests waiting for him. He approves two before his first meeting.",
   quoteBy: "Mr Adebayo, owner · Bright Star Schools (demo school)",
@@ -164,21 +164,21 @@ export const DAY = {
  */
 export const SERVICES_PREVIEW = {
   eyebrow: "What XVS does",
-  title: "Six areas. *Twenty-four services.* One system.",
-  intro: "Grouped by what a school needs, not by how the software is built. Start with the problem you have.",
+  title: "Twenty-four services, *organised in six areas*",
+  intro: "Each area maps to a part of school operations, so your team can go straight to what matters most.",
   cta: { label: "See every service", href: "/services" },
 };
 
 /* ── 7. TRUST ────────────────────────────────────────────── */
 export const TRUST = {
-  eyebrow: "Control, built in",
-  title: "Secure by design. *On the record by default.*",
-  intro: "A school's records carry real responsibility. XVS makes sure the right people see the right things, and that every change can be traced.",
+  eyebrow: "Security & governance",
+  title: "Controlled access and *a complete audit trail*",
+  intro: "School records hold sensitive personal, medical and financial information. XVS limits access by role and branch, and records every change so it can be traced.",
   image: `${IMG}/audit-trail.jpg`,
   imageAlt: "XVS finance audit trail listing who did what, and when",
   points: [
     { icon: "key", title: "The right access for every role", body: "Ready-made roles, branch-by-branch access and control down to single fields, like salaries or medical notes." },
-    { icon: "route", title: "Approvals that follow your rules", body: "Nothing goes through without an approver. It waits instead." },
+    { icon: "route", title: "Approvals that follow your rules", body: "Requests go to the correct approver and do not proceed until a decision is made." },
     { icon: "history", title: "Every action recorded", body: "Who, what and when, searchable and ready to export for your auditors." },
     { icon: "branches", title: "One branch or many", body: "School-wide records stay shared; branch records stay with their branch." },
   ],

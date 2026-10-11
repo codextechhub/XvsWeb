@@ -257,7 +257,7 @@ select {
 
 /* ── 5. Text helpers ──────────────────────────────────────── */
 
-/* Small label above a heading, e.g. "01 — Money" */
+/* Small label above a heading, e.g. "01 · Money" */
 .eyebrow {
   display: inline-flex;
   align-items: center;

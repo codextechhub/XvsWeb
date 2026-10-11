@@ -1,5 +1,5 @@
 /* ─────────────────────────────────────────────────────────────
- *  HOME PAGE — same order as HomePage.tsx
+ *  HOME PAGE: same order as HomePage.tsx
  *  1. Hero (headline, "How XVS works" reel)
  *  2. Built for (scrolling band)
  *  3. Statement (lights up on scroll)
@@ -623,9 +623,13 @@
 }
 
 .preview-card li::before {
-  content: "—";
-  margin-right: 8px;
-  color: var(--line-strong);
+  content: "";
+  display: inline-block;
+  width: 10px;
+  height: 1px;
+  margin-right: 10px;
+  vertical-align: middle;
+  background: var(--line-strong);
 }
 
 .preview-card-more {

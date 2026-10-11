@@ -21,7 +21,7 @@ export default function NotFoundPage() {
         <h1>
           This page is not <span className="serif">in the register.</span>
         </h1>
-        <p className="lead">The link may be out of date, or the page may have moved. Nothing has been lost. Try one of these instead.</p>
+        <p className="lead">The link may be out of date, or the page may have moved. Try one of the pages below.</p>
         <Link to="/" className="btn btn-primary">
           Back to home
           <ArrowIcon />

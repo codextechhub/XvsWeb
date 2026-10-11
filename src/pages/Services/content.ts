@@ -53,7 +53,7 @@ export type ServiceGroup = {
 export const SERVICES_HERO = {
   eyebrow: "Services",
   title: "Everything your school runs on, *in one system*",
-  body: "XVS covers 24 services in 6 groups. They're grouped by what a school needs, not by how the software is built, so start with the problem you have and open any service to see how it works.",
+  body: "XVS covers 24 services in 6 groups, organised around school operations. Open any service to see who uses it, the problem it solves and how it works.",
 };
 
 /** The demo school every story uses. */
@@ -79,10 +79,10 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
       {
         id: "school-branch-management",
         name: "School & Branch Management",
-        promise: "One school, every branch, one place to run it.",
+        promise: "Manage every branch of your school from one system.",
         forWho: "School owner, proprietor, school administrator",
         problem:
-          "A school that opens a second branch usually ends up with two of everything: two spreadsheets, two sets of records, two versions of the truth. The owner cannot see the whole school without phoning each branch.",
+          "A school that opens a second branch usually ends up with two of everything: two spreadsheets, two sets of records and figures that do not agree. The owner cannot see the whole school without phoning each branch.",
         steps: [
           "Set up the school with its main branch, logo and contact details.",
           "Add branches as the school grows, each with its own code and status.",
@@ -104,7 +104,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
       {
         id: "student-management",
         name: "Student Management",
-        promise: "Every student's story, from admission to graduation.",
+        promise: "A complete student record, from admission to graduation.",
         forWho: "Admissions officer, school administrator, class teacher",
         problem:
           "Student files live in cabinets, spreadsheets and people's heads. When a parent calls, finding the right guardian number, medical note or class history means searching three places.",
@@ -266,7 +266,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
       {
         id: "gradebook-assessments",
         name: "Gradebook & Assessments",
-        promise: "From test scores to report cards, without the spreadsheet marathon.",
+        promise: "From test scores to report cards, without manual spreadsheets.",
         forWho: "Teachers, exams officer, principal",
         problem:
           "At the end of every term teachers type scores into spreadsheets, someone adds them up, and report cards take two weeks. One wrong formula changes a child's position in class.",
@@ -322,7 +322,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
           "Reminders for overdue balances",
         ],
         story:
-          "At the start of term the bursar invoices all 420 students at the Ikeja Branch in one go. Mr Okonkwo gets his daughter's invoice by email, taps the pay link, pays ₦185,000 from his phone, and his receipt arrives before he puts it down.",
+          "At the start of term the bursar invoices all 420 students at the Ikeja Branch in one go. Mr Okonkwo gets his daughter's invoice by email, taps the pay link, pays ₦185,000 from his phone, and receives his receipt immediately.",
         image: `${IMG}/invoices.jpg`,
       },
       {
@@ -614,7 +614,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
       {
         id: "dashboards-analytics",
         name: "Dashboards & Operational Analytics",
-        promise: "The whole school's health, on one screen.",
+        promise: "Key school figures on a single dashboard.",
         forWho: "Owner, principal, bursar",
         problem: "To know how the school is doing, the owner asks four people for four reports and gets them next week.",
         steps: [
@@ -638,7 +638,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
       {
         id: "reporting-exports",
         name: "Reporting & Exports",
-        promise: "Any report you need, in the format you need, when you need it.",
+        promise: "Ready-made reports, filtered and exported in minutes.",
         forWho: "Bursar, principal, owner, auditors",
         problem: "Every report is a fresh spreadsheet built by hand, so the numbers never quite match the last time.",
         steps: [
@@ -662,7 +662,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
       {
         id: "workflow-approvals",
         name: "Workflow & Approval Engine",
-        promise: "Approvals that follow your school's rules, not someone's memory.",
+        promise: "Approvals that follow your school's agreed rules.",
         forWho: "Owner, principal, bursar, anyone who approves",
         problem:
           "Approvals happen in passing. Nobody can say who approved a purchase, and when the principal travels, everything stops.",
