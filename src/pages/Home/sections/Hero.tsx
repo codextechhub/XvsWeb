@@ -1,4 +1,4 @@
-import { type CSSProperties } from "react";
+import type { CSSProperties } from "react";
 import { Link } from "react-router-dom";
 import { ArrowIcon } from "../../../components/shared/icons";
 import { usePageScroll } from "../../../components/shared/useScrollEffects";
@@ -6,9 +6,15 @@ import { HERO } from "../content";
 import HeroReel from "./HeroReel";
 
 /**
- * Opening scene: headline (word by word), buttons, then the "How XVS works" reel.
- * The reel starts tilted back and flattens as you scroll
+ * Opening scene, two columns:
+ *   left   the headline, word by word
+ *   right  the short intro and the two buttons
+ * Under them, the "How XVS works" reel sits in a window centred on the
+ * page (a little wider than the text), with coloured XVS light glowing
+ * out from behind its sides and along its top edge.
+ * The window starts tilted back and stands up straight as you scroll
  * (driven by the `--page-scroll` CSS variable, see home.css).
+ * ✏️ The glow colours and the window width are in home.css → "1. Hero".
  */
 export default function Hero() {
   const sectionRef = usePageScroll<HTMLElement>(500);
@@ -16,16 +22,7 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} className="hero">
-      <div className="container hero-copy">
-        {/* <Link to={HERO.badge.href} className="hero-badge load-in">
-          <span className="hero-badge-dot" />
-          {HERO.badge.label}
-          <span className="hero-badge-link">
-            {HERO.badge.linkText}
-            <ArrowIcon />
-          </span>
-        </Link> */}
-
+      <div className="container hero-top">
         <h1>
           {HERO.titleLines.map((line) => {
             const isAccent = line.startsWith("*");
@@ -48,25 +45,23 @@ export default function Hero() {
           })}
         </h1>
 
-        <p className="hero-body load-in" style={{ "--delay": "650ms" } as CSSProperties}>
-          {HERO.body}
-        </p>
-
-        <div className="hero-actions load-in" style={{ "--delay": "780ms" } as CSSProperties}>
-          <Link to={HERO.primaryCta.href} className="btn btn-primary">
-            {HERO.primaryCta.label}
-            <ArrowIcon />
-          </Link>
-          <Link to={HERO.secondaryCta.href} className="btn btn-ghost">
-            {HERO.secondaryCta.label}
-          </Link>
+        <div className="hero-side load-in" style={{ "--delay": "550ms" } as CSSProperties}>
+          <p>{HERO.body}</p>
+          <div className="hero-actions">
+            <Link to={HERO.primaryCta.href} className="btn btn-small btn-primary">
+              {HERO.primaryCta.label}
+              <ArrowIcon />
+            </Link>
+            <Link to={HERO.secondaryCta.href} className="btn btn-small btn-ghost">
+              {HERO.secondaryCta.label}
+            </Link>
+          </div>
         </div>
       </div>
 
-      <div className="container">
-        <div className="hero-stage load-in" style={{ "--delay": "950ms" } as CSSProperties}>
-          <HeroReel className="hero-frame" />
-        </div>
+      <div className="hero-stage load-in" style={{ "--delay": "800ms" } as CSSProperties}>
+        <div className="hero-glow" aria-hidden="true" />
+        <HeroReel className="hero-frame" />
       </div>
     </section>
   );

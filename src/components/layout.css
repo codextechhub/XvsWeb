@@ -1,7 +1,37 @@
 /* ─────────────────────────────────────────────────────────────
- *  LAYOUT: logo, header (+ NAV ANIMATION SETTINGS), mobile menu,
- *  footer, "Book a demo" banner
+ *  LAYOUT: page glow, logo, header (+ NAV ANIMATION SETTINGS),
+ *  mobile menu, footer, "Book a demo" banner
  * ───────────────────────────────────────────────────────────── */
+
+/* ── Page glow ────────────────────────────────────────────────
+ * A soft XVS-blue light behind the top of every page, so the dark
+ * background never feels flat. Rendered by PageLayout (and ContactPage).
+ */
+.page {
+  position: relative;
+  isolation: isolate;
+}
+
+.page-glow {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: -1;
+  height: 720px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.page-glow::before {
+  content: "";
+  position: absolute;
+  inset: -200px -10% auto;
+  height: 820px;
+  background:
+    radial-gradient(35% 45% at 20% 40%, rgba(26, 74, 156, 0.45), transparent 70%),
+    radial-gradient(30% 40% at 80% 35%, rgba(46, 114, 210, 0.25), transparent 70%),
+    radial-gradient(25% 30% at 60% 20%, rgba(251, 244, 236, 0.06), transparent 70%);
+  filter: blur(40px);
+}
 
 /* ── Logo ─────────────────────────────────────────────────── */
 .logo {
@@ -28,7 +58,7 @@
 }
 
 .site-header.is-solid {
-  background: rgba(247, 246, 243, 0.82);
+  background: rgba(5, 11, 26, 0.78);
   backdrop-filter: saturate(160%) blur(14px);
   border-bottom-color: var(--line);
 }
@@ -51,9 +81,9 @@
 .site-nav {
   /* Shared timing for the fluid highlight and temporary text magnification. */
   --nav-slide-duration: 900ms;
-  --nav-pill-color: var(--navy);
-  --nav-active-text: #fff;
-  --nav-idle-text: var(--ink-soft);
+  --nav-pill-color: #fff;
+  --nav-active-text: var(--navy);
+  --nav-idle-text: var(--muted);
   position: relative;
   display: flex;
   isolation: isolate;
@@ -62,8 +92,8 @@
   padding: 6px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.6);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -75,9 +105,8 @@
   left: 0;
   width: var(--pill-w, 0);
   border-radius: 999px;
-  background: linear-gradient(165deg, rgba(255, 255, 255, 0.23), transparent 58%), var(--nav-pill-color);
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4),
-    inset 0 -1px 2px rgba(0, 0, 0, 0.12), 0 5px 14px -7px rgba(11, 31, 74, 0.45);
+  background: var(--nav-pill-color);
+  box-shadow: 0 6px 18px -8px rgba(46, 114, 210, 0.7);
   transform: translateX(var(--pill-x, 0));
   transform-origin: center;
   pointer-events: none;
@@ -98,10 +127,11 @@
   transform-origin: center;
 }
 
-.site-nav-link:hover { color: var(--ink); }
-.site-nav-link.is-active { color: var(--nav-active-text); }
+.site-nav-link:hover { color: #fff; }
+.site-nav-link.is-active,
+.site-nav-link.is-active:hover { color: var(--nav-active-text); }
 .site-nav-link:focus-visible {
-  outline: 2px solid var(--navy);
+  outline: 2px solid var(--blue-bright);
   outline-offset: 4px;
 }
 
@@ -122,7 +152,7 @@
   margin-left: auto;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.04);
   cursor: pointer;
 }
 
@@ -139,12 +169,12 @@
   padding: 14px 4px;
   font-size: 17px;
   font-weight: 500;
-  color: var(--ink-soft);
+  color: var(--muted);
   border-bottom: 1px solid var(--line);
 }
 
 .mobile-menu-link.active {
-  color: var(--navy);
+  color: #fff;
 }
 
 .mobile-menu .btn {
@@ -167,7 +197,8 @@
   position: relative;
   overflow: hidden;
   padding-top: clamp(64px, 8vw, 96px);
-  background: var(--navy-deep);
+  border-top: 1px solid var(--line);
+  background: var(--bg);
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -230,20 +261,6 @@
   font-size: 14px;
 }
 
-.site-footer-wordmark {
-  margin-bottom: -0.2em;
-  font-size: clamp(120px, 30vw, 420px);
-  font-weight: 700;
-  line-height: 0.8;
-  letter-spacing: -0.06em;
-  text-align: center;
-  color: transparent;
-  background: linear-gradient(180deg, rgba(46, 114, 210, 0.35), rgba(46, 114, 210, 0));
-  -webkit-background-clip: text;
-  background-clip: text;
-  user-select: none;
-}
-
 @media (max-width: 760px) {
   .site-footer-top {
     grid-template-columns: 1fr 1fr;
@@ -271,8 +288,9 @@
   align-items: center;
   gap: 20px;
   padding: clamp(56px, 8vw, 96px) clamp(20px, 5vw, 64px);
+  border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  background: var(--navy);
+  background: var(--navy-deep);
   color: #fff;
   text-align: center;
   isolation: isolate;

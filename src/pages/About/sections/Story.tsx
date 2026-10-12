@@ -2,13 +2,13 @@ import { Accent, Reveal } from "../../../components/shared/ui";
 import { BELIEF, STORY } from "../content";
 
 /**
- * The "our belief" band (a night section: data-bg="dark" turns the
- * site background to a starry sky behind it), then why XVS exists.
+ * The "our belief" band (a navy band with a soft glow, see .section-dark
+ * in src/index.css), then why XVS exists.
  */
 export default function Story() {
   return (
     <>
-      <section className="belief section-dark" data-bg="dark">
+      <section className="belief section-dark">
         <div className="container">
           <Reveal>
             <p className="eyebrow">{BELIEF.label}</p>

@@ -1,35 +1,53 @@
+import { useRef } from "react";
 import { Accent, Reveal } from "../../../components/shared/ui";
+import { ArrowIcon } from "../../../components/shared/icons";
 import { DAY } from "../content";
 
 /**
- * Night-time section: a big quote, then a school day as a timeline.
- * data-bg="dark" turns the page background to night while it's on screen.
+ * A school day at Bright Star as a sliding row of moments.
+ * Each moment shows its time (small mono label), a title and a line of text.
+ * The arrow buttons slide the row by one card; it can also be swiped or scrolled.
  */
 export default function DayAtBrightStar() {
+  const rowRef = useRef<HTMLOListElement>(null);
+
+  const slide = (direction: 1 | -1) => {
+    const row = rowRef.current;
+    const card = row?.firstElementChild as HTMLElement | null;
+    if (!row || !card) return;
+    const gap = parseFloat(getComputedStyle(row).columnGap) || 0;
+    row.scrollBy({ left: direction * (card.offsetWidth + gap), behavior: "smooth" });
+  };
+
   return (
-    <section className="day section section-dark" data-bg="dark">
+    <section className="day">
       <div className="container">
-        <Reveal className="day-head">
-          <p className="eyebrow">{DAY.eyebrow}</p>
-          <h2>
-            <Accent text={DAY.title} />
-          </h2>
-          <p className="lead">{DAY.intro}</p>
-        </Reveal>
+        <div className="day-head">
+          <Reveal className="home-heading">
+            <p className="eyebrow">{DAY.eyebrow}</p>
+            <h2>
+              <Accent text={DAY.title} />
+            </h2>
+            <p>{DAY.intro}</p>
+          </Reveal>
 
-        <Reveal className="day-quote" delay={100}>
-          <blockquote>“{DAY.quote}”</blockquote>
-          <p>{DAY.quoteBy}</p>
-        </Reveal>
+          <div className="day-controls">
+            <button type="button" className="day-arrow is-back" aria-label="Previous moment" onClick={() => slide(-1)}>
+              <ArrowIcon />
+            </button>
+            <button type="button" className="day-arrow" aria-label="Next moment" onClick={() => slide(1)}>
+              <ArrowIcon />
+            </button>
+          </div>
+        </div>
 
-        <ol className="day-timeline">
-          {DAY.moments.map((moment, i) => (
-            <Reveal as="li" key={moment.time} className="day-moment" delay={i * 90}>
-              <span className="day-time">{moment.time}</span>
-              <span className="day-dot" aria-hidden="true" />
+        <ol ref={rowRef} className="day-row" aria-label="A school day, hour by hour">
+          {DAY.moments.map((moment) => (
+            <li key={moment.time} className="day-moment">
+              <span className="number-label">{moment.time}</span>
               <h3>{moment.title}</h3>
               <p>{moment.body}</p>
-            </Reveal>
+            </li>
           ))}
         </ol>
       </div>

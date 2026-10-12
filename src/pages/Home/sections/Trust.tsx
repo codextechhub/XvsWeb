@@ -1,33 +1,37 @@
-import { BrowserFrame, Reveal, SectionHeading } from "../../../components/shared/ui";
+import { Reveal } from "../../../components/shared/ui";
 import { Icon } from "../../../components/shared/icons";
 import { TRUST } from "../content";
 
-/** Access, approvals and audit: the audit trail screenshot with four points beside it. */
+/**
+ * One large card: the security heading on the left (white line, then grey line),
+ * and the four points in a grid on the right, each with an icon tile.
+ */
 export default function Trust() {
   return (
-    <section className="trust section">
+    <section className="trust">
       <div className="container">
-        <SectionHeading eyebrow={TRUST.eyebrow} title={TRUST.title} intro={TRUST.intro} />
-
-        <div className="trust-layout">
-          <Reveal className="trust-visual">
-            <BrowserFrame src={TRUST.image} alt={TRUST.imageAlt} />
-          </Reveal>
+        <Reveal className="trust-card">
+          <div className="trust-head">
+            <p className="eyebrow">{TRUST.eyebrow}</p>
+            <h2>
+              {TRUST.title}
+              <span>{TRUST.titleMuted}</span>
+            </h2>
+            <p>{TRUST.intro}</p>
+          </div>
 
           <div className="trust-points">
-            {TRUST.points.map((point, i) => (
-              <Reveal key={point.title} className="trust-point" delay={i * 90}>
+            {TRUST.points.map((point) => (
+              <div key={point.title} className="trust-point">
                 <span className="trust-icon">
                   <Icon name={point.icon} />
                 </span>
-                <div>
-                  <h3>{point.title}</h3>
-                  <p>{point.body}</p>
-                </div>
-              </Reveal>
+                <h3>{point.title}</h3>
+                <p>{point.body}</p>
+              </div>
             ))}
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

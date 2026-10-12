@@ -38,11 +38,6 @@ export default function SiteFooter() {
           <p>{COMPANY.city}</p>
         </div>
       </div>
-
-      {/* Oversized wordmark along the bottom edge */}
-      <div className="site-footer-wordmark" aria-hidden="true">
-        XVS
-      </div>
     </footer>
   );
 }

@@ -35,7 +35,7 @@
   height: 36px;
   padding: 0 14px;
   border-bottom: 1px solid var(--line);
-  background: #fbfaf8;
+  background: var(--surface-raised);
 }
 
 .browser-dots {
@@ -83,7 +83,7 @@
   padding: 14px 16px;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.94);
+  background: rgba(15, 28, 56, 0.94);
   backdrop-filter: blur(10px);
   box-shadow: var(--shadow);
   font-size: 13px;

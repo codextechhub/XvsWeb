@@ -11,33 +11,36 @@
  * ───────────────────────────────────────────────────────────── */
 
 /* ── 1. Design tokens ─────────────────────────────────────── */
+/* The whole site is dark. Change a colour here and every page follows. */
 :root {
-  color-scheme: light;
+  color-scheme: dark;
 
   /* XVS brand colours, taken from the shield logo */
   --navy: #0b1f4a; /* dark side of the shield */
   --navy-deep: #07142f;
-  --blue: #1a4a9c; /* light side of the shield */
-  --blue-bright: #2e72d2; /* the orbit dots */
-  --blue-soft: #e9effa;
-  --blue-line: #cbd8ef;
+  --blue: #6b9ee8; /* accent text and links: XVS blue, lifted so it reads on dark */
+  --blue-bright: #2e72d2; /* the orbit dots, and the "Book a demo" button */
+  --blue-soft: rgba(46, 114, 210, 0.16); /* tinted backgrounds */
+  --blue-line: rgba(107, 158, 232, 0.35);
   --cream: #fbf4ec; /* the hexagon badge */
+  --cream-soft: rgba(251, 244, 236, 0.05); /* warm tinted backgrounds */
 
   /* Neutrals */
-  --bg: #f7f6f3;
-  --surface: #ffffff;
-  --ink: #0e1a33;
-  --ink-soft: #3a4660;
-  --muted: #6a7389;
-  --line: #e6e3dc;
-  --line-strong: #d6d2c8;
+  --bg: #050b1a; /* page background: near-black with a touch of navy */
+  --surface: #0a1428; /* cards */
+  --surface-raised: #0f1c38; /* cards on cards */
+  --ink: #eef2f9; /* main text */
+  --ink-soft: #b4bdd0;
+  --muted: #8a95ab;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-strong: rgba(255, 255, 255, 0.14);
 
   /* Status */
-  --success: #15803d;
-  --success-soft: #e7f5ec;
-  --warning: #b45309;
-  --warning-soft: #fdf1e1;
-  --danger: #b42318;
+  --success: #7ee2a8;
+  --success-soft: rgba(34, 197, 94, 0.14);
+  --warning: #f6c177;
+  --warning-soft: rgba(245, 158, 11, 0.14);
+  --danger: #f87171;
 
   /* Type */
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -48,9 +51,9 @@
   --radius-sm: 10px;
   --radius: 16px;
   --radius-lg: 24px;
-  --shadow-sm: 0 1px 2px rgba(11, 31, 74, 0.06), 0 1px 1px rgba(11, 31, 74, 0.04);
-  --shadow: 0 12px 32px -12px rgba(11, 31, 74, 0.18), 0 2px 6px rgba(11, 31, 74, 0.05);
-  --shadow-lg: 0 40px 80px -30px rgba(11, 31, 74, 0.35), 0 12px 30px -12px rgba(11, 31, 74, 0.15);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow: 0 16px 36px -16px rgba(0, 0, 0, 0.8);
+  --shadow-lg: 0 40px 100px -40px rgba(0, 0, 0, 0.9);
 
   /* Layout */
   --container: 1200px;
@@ -123,7 +126,7 @@ select {
 }
 
 ::selection {
-  background: var(--blue-line);
+  background: rgba(46, 114, 210, 0.45);
 }
 
 :focus-visible {
@@ -159,8 +162,12 @@ select {
   padding: clamp(72px, 10vw, 136px) 0;
 }
 
+/* A band that stands out from the page: navy with a soft blue glow */
 .section-dark {
-  background: var(--navy);
+  background:
+    radial-gradient(60% 80% at 50% 0%, rgba(46, 114, 210, 0.18), transparent 70%),
+    var(--navy-deep);
+  border-block: 1px solid var(--line);
   color: #fff;
 }
 
@@ -198,24 +205,54 @@ select {
   transform: translateX(3px);
 }
 
+/* ✏️ The main button ("Book a demo"): a glowing XVS-blue gradient
+   with a soft light that sweeps across it on hover. */
 .btn-primary {
-  background: var(--navy);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-color: rgba(255, 255, 255, 0.18);
+  background: linear-gradient(180deg, #4a8ef0 0%, var(--blue-bright) 45%, #1d55b0 100%);
   color: #fff;
-  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.12) inset, 0 8px 20px -8px rgba(11, 31, 74, 0.6);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(46, 114, 210, 0.45),
+    0 8px 24px -6px rgba(46, 114, 210, 0.7);
+}
+
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: transform 700ms var(--ease);
 }
 
 .btn-primary:hover {
-  background: var(--blue);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(107, 158, 232, 0.6),
+    0 10px 32px -4px rgba(46, 114, 210, 0.85);
 }
 
+.btn-primary:hover::after {
+  transform: translateX(120%);
+}
+
+/* Second button: dark glass with a thin border */
 .btn-ghost {
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.05);
   border-color: var(--line-strong);
   color: var(--ink);
 }
 
 .btn-ghost:hover {
-  border-color: var(--ink-soft);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.28);
 }
 
 /* White button for dark backgrounds */
@@ -243,7 +280,7 @@ select {
 }
 
 .text-link:hover {
-  color: var(--navy);
+  color: var(--ink);
 }
 
 .text-link:hover .arrow-icon {

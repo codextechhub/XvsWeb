@@ -2,7 +2,6 @@ import { useEffect, type CSSProperties } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../components/Logo";
 import { rememberNavPath } from "../../components/navMemory";
-import SiteBackground from "../../components/SiteBackground";
 import { COMPANY } from "../../components/navigation";
 import { Icon } from "../../components/shared/icons";
 import { usePageMeta } from "../../pageTitles";
@@ -31,9 +30,9 @@ export default function ContactPage() {
 
   return (
     <>
-      {/* No PageLayout on this page, so it adds the background itself */}
-      <SiteBackground />
-      <div className="contact-page">
+      <div className="contact-page page">
+        {/* No PageLayout on this page, so it adds the glow itself */}
+        <div className="page-glow" aria-hidden="true" />
         <main id="main-content" className="contact-main">
           <div className="contact-card">
             {/* Top row: "Return" on the left (like interfere.com/join), logo on the right */}
