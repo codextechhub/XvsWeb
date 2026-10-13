@@ -114,9 +114,8 @@
   gap: 10px;
   margin-top: 24px;
   padding: 14px 18px;
-  border: 1px solid rgba(251, 244, 236, 0.1);
   border-radius: var(--radius-sm);
-  background: var(--cream-soft);
+  background: var(--cream);
   font-size: 14.5px;
   color: var(--ink-soft);
 }
@@ -145,14 +144,14 @@
   top: var(--header-height);
   z-index: 40;
   padding: 10px 0;
-  background: rgba(5, 11, 26, 0.82);
+  background: rgba(247, 246, 243, 0.88);
   backdrop-filter: saturate(160%) blur(14px);
   border-bottom: 1px solid var(--line);
 }
 
 .group-nav-track {
   --nav-slide-duration: 680ms;
-  --nav-pill-color: #fff;
+  --nav-pill-color: var(--navy);
   position: relative;
   isolation: isolate;
   padding: 6px 0;
@@ -188,12 +187,12 @@
 }
 
 .group-nav-tab:hover {
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(11, 31, 74, 0.05);
 }
 
 .group-nav-tab.is-active {
   background: transparent;
-  color: var(--navy);
+  color: #fff;
 }
 
 /* Sections should land below the header + the tabs */
@@ -357,8 +356,8 @@
 
 .service-row.is-open .service-row-icon {
   transform: rotate(45deg);
-  background: var(--blue-bright);
-  border-color: var(--blue-bright);
+  background: var(--navy);
+  border-color: var(--navy);
   color: #fff;
 }
 
@@ -409,8 +408,8 @@
 
 /* "Without XVS" gets the warm cream "before" colour */
 .service-problem {
-  background: var(--cream-soft);
-  border-color: rgba(251, 244, 236, 0.12);
+  background: var(--cream);
+  border-color: #efe3d3;
 }
 
 .service-problem .service-block-label {
@@ -423,7 +422,7 @@
   gap: 2px;
   margin-top: auto;
   padding-top: 14px;
-  border-top: 1px dashed rgba(251, 244, 236, 0.16);
+  border-top: 1px dashed #e4d4bf;
   font-size: 14px;
   color: var(--ink);
 }
@@ -456,7 +455,7 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: var(--blue-bright);
+  background: var(--navy);
   color: #fff;
   font-family: var(--font-mono);
   font-size: 11.5px;
@@ -474,9 +473,8 @@
   align-items: center;
   margin: 0 0 32px 72px;
   padding: 28px;
-  border: 1px solid var(--line);
   border-radius: var(--radius);
-  background: var(--navy-deep);
+  background: var(--navy);
   color: #fff;
 }
 
