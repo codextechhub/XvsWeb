@@ -1,5 +1,16 @@
 import { useLayoutEffect, type RefObject } from "react";
 
+/**
+ * Reads a CSS time like "900ms" or ".9s" as milliseconds.
+ * The production build minifies "900ms" to ".9s", so both forms must work.
+ */
+function toMs(value: string, fallback: number) {
+  const time = value.trim();
+  const number = parseFloat(time);
+  if (!Number.isFinite(number)) return fallback;
+  return time.endsWith("ms") ? number : time.endsWith("s") ? number * 1000 : number;
+}
+
 /** Shared fluid highlight and temporary label magnification for navigation rows. */
 export function useLiquidNav(
   navRef: RefObject<HTMLElement | null>,
@@ -33,7 +44,7 @@ export function useLiquidNav(
       const distance = x - oldX;
       const direction = Math.sign(distance);
       const stretch = Math.min(Math.abs(distance) * 0.38, 62);
-      const duration = parseFloat(getComputedStyle(nav).getPropertyValue("--nav-slide-duration")) || 680;
+      const duration = toMs(getComputedStyle(nav).getPropertyValue("--nav-slide-duration"), 680);
       const frame = (position: number, size: number, height: number, skew: number) => ({
         transform: `translateX(${position}px) scaleY(${height}) skewX(${skew}deg)`,
         width: `${size}px`,
