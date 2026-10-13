@@ -1,6 +1,7 @@
 import { useEffect, type CSSProperties } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import Logo from "../../components/Logo";
+import SiteBackdrop from "../../components/SiteBackdrop";
 import { rememberNavPath } from "../../components/navMemory";
 import { COMPANY } from "../../components/navigation";
 import { Icon } from "../../components/shared/icons";
@@ -31,7 +32,9 @@ export default function ContactPage() {
   return (
     <>
       <div className="contact-page page">
-        {/* No PageLayout on this page, so it adds the glow itself */}
+        {/* No PageLayout on this page, so it adds the backdrop and glow itself.
+            ✏️ Delete <SiteBackdrop /> (and its import) to remove the moving background here. */}
+        <SiteBackdrop />
         <div className="page-glow" aria-hidden="true" />
         <main id="main-content" className="contact-main">
           <div className="contact-card">

@@ -12,8 +12,10 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   min-height: 100svh;
-  padding: 6px;
-  gap: 6px;
+  /* ✏️ Space around and between the two panels, where the moving
+     site background (SiteBackdrop) shows through */
+  padding: clamp(10px, 2.2vw, 28px);
+  gap: clamp(10px, 1.6vw, 20px);
 }
 
 @media (max-width: 980px) {
@@ -33,12 +35,13 @@
   flex: 1;
   gap: 40px;
   padding: clamp(20px, 4vw, 48px) clamp(16px, 5vw, 64px);
-  border: 1px solid rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.9);
   border-radius: 18px;
-  /* Frosted glass over the site background */
-  background: rgba(250, 249, 246, 0.8);
-  backdrop-filter: blur(18px) saturate(140%);
-  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  /* ✏️ Frosted glass: the moving background shows softly through it.
+     Raise 0.6 towards 1 for a more solid white card. */
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px) saturate(140%);
+  -webkit-backdrop-filter: blur(10px) saturate(140%);
   box-shadow: var(--shadow);
 }
 

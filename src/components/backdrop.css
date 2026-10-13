@@ -1,0 +1,162 @@
+/* ─────────────────────────────────────────────────────────────
+ *  SITE BACKDROP (see SiteBackdrop.tsx for what each layer is
+ *  and how to remove it)
+ * ───────────────────────────────────────────────────────────── */
+
+/* ✏️ The settings for the whole backdrop */
+.site-backdrop {
+  --backdrop-blue: rgba(46, 114, 210, 0.16); /* main cloud colour */
+  --backdrop-sky: rgba(107, 158, 232, 0.16); /* second cloud colour */
+  --backdrop-cream: rgba(251, 228, 200, 0.5); /* warm cloud colour */
+  --backdrop-line: rgba(26, 74, 156, 0.1); /* rings and dots */
+  --backdrop-speed: 1; /* 2 = twice as slow, 0.5 = twice as fast */
+  --backdrop-strength: 1; /* 0.5 = half as visible, 0 = invisible */
+
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  opacity: var(--backdrop-strength);
+}
+
+.site-backdrop i {
+  position: absolute;
+  display: block;
+}
+
+/* ── 1. Aurora: three soft clouds drifting around ─────────── */
+.backdrop-aurora i {
+  width: 60vmax;
+  height: 60vmax;
+  border-radius: 50%;
+}
+
+.backdrop-aurora i:nth-child(1) {
+  top: -20vmax;
+  left: -15vmax;
+  background: radial-gradient(circle, var(--backdrop-blue), transparent 65%);
+  animation: aurora-a calc(38s * var(--backdrop-speed)) ease-in-out infinite alternate;
+}
+
+.backdrop-aurora i:nth-child(2) {
+  top: 30vh;
+  right: -25vmax;
+  background: radial-gradient(circle, var(--backdrop-sky), transparent 65%);
+  animation: aurora-b calc(46s * var(--backdrop-speed)) ease-in-out infinite alternate;
+}
+
+.backdrop-aurora i:nth-child(3) {
+  bottom: -30vmax;
+  left: 20vw;
+  background: radial-gradient(circle, var(--backdrop-cream), transparent 65%);
+  animation: aurora-c calc(54s * var(--backdrop-speed)) ease-in-out infinite alternate;
+}
+
+@keyframes aurora-a {
+  to { transform: translate(18vw, 22vh) scale(1.15); }
+}
+
+@keyframes aurora-b {
+  to { transform: translate(-22vw, -18vh) scale(0.9); }
+}
+
+@keyframes aurora-c {
+  to { transform: translate(14vw, -26vh) scale(1.1); }
+}
+
+/* ── 2. Dots: faint pattern, fading out towards the middle ── */
+.backdrop-dots {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(var(--backdrop-line) 1.2px, transparent 1.4px);
+  background-size: 26px 26px;
+  mask-image: radial-gradient(ellipse 70% 65% at 50% 45%, transparent 35%, #000 100%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 45%, transparent 35%, #000 100%);
+}
+
+/* ── 3. Orbits: thin rings with a dot travelling round ───── */
+.backdrop-orbits i {
+  border: 1px solid var(--backdrop-line);
+  border-radius: 50%;
+  animation: orbit-spin calc(70s * var(--backdrop-speed)) linear infinite;
+}
+
+/* The small dot on each ring */
+.backdrop-orbits i::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  left: 50%;
+  width: 7px;
+  height: 7px;
+  margin-left: -3.5px;
+  border-radius: 50%;
+  background: var(--blue-bright);
+  box-shadow: 0 0 0 4px rgba(46, 114, 210, 0.12);
+  opacity: 0.55;
+}
+
+/* Top-right ring */
+.backdrop-orbits i:nth-child(1) {
+  top: -18vmax;
+  right: -14vmax;
+  width: 46vmax;
+  height: 46vmax;
+}
+
+/* Bottom-left ring, turning the other way */
+.backdrop-orbits i:nth-child(2) {
+  bottom: -22vmax;
+  left: -16vmax;
+  width: 52vmax;
+  height: 52vmax;
+  animation-direction: reverse;
+  animation-duration: calc(90s * var(--backdrop-speed));
+}
+
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── 4. Sparks: tiny dots floating up and fading ─────────── */
+.backdrop-sparks i {
+  bottom: -10px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--blue-bright);
+  opacity: 0;
+  animation: spark-rise calc(18s * var(--backdrop-speed)) linear infinite;
+}
+
+/* Spread across the screen, each starting at a different time */
+.backdrop-sparks i:nth-child(1)  { left: 6%;  animation-delay: 0s; }
+.backdrop-sparks i:nth-child(2)  { left: 17%; animation-delay: -4s; width: 3px; height: 3px; }
+.backdrop-sparks i:nth-child(3)  { left: 28%; animation-delay: -9s; }
+.backdrop-sparks i:nth-child(4)  { left: 39%; animation-delay: -13s; width: 3px; height: 3px; }
+.backdrop-sparks i:nth-child(5)  { left: 51%; animation-delay: -2s; }
+.backdrop-sparks i:nth-child(6)  { left: 62%; animation-delay: -7s; width: 5px; height: 5px; }
+.backdrop-sparks i:nth-child(7)  { left: 73%; animation-delay: -11s; }
+.backdrop-sparks i:nth-child(8)  { left: 82%; animation-delay: -15s; width: 3px; height: 3px; }
+.backdrop-sparks i:nth-child(9)  { left: 90%; animation-delay: -5s; }
+.backdrop-sparks i:nth-child(10) { left: 96%; animation-delay: -10s; width: 3px; height: 3px; }
+
+@keyframes spark-rise {
+  0%   { transform: translate(0, 0); opacity: 0; }
+  15%  { opacity: 0.35; }
+  80%  { opacity: 0.2; }
+  100% { transform: translate(24px, -100vh); opacity: 0; }
+}
+
+/* Standing still for visitors who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  .site-backdrop *,
+  .site-backdrop *::after {
+    animation: none !important;
+  }
+
+  .backdrop-sparks {
+    display: none;
+  }
+}
