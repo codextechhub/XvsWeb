@@ -563,7 +563,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
           "Download documents and read notices.",
         ],
         benefits: [
-          "A dashboard of what matters today",
+          "Today's lessons, notices and deadlines on one screen",
           "Timetable and calendar",
           "Attendance record",
           "Assessments and results",
@@ -626,7 +626,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         benefits: [
           "Finance dashboard and statements",
           "Fees owed, by class and by branch",
-          "Procurement and spending insights",
+          "Spending by department and supplier",
           "Approvals waiting on you",
           "Team workload",
           "Money in and out, day by day",

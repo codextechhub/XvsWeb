@@ -36,7 +36,7 @@ export const STORY = {
   paragraphs: [
     "Much of a school's work happens outside the classroom. A new student needs a place on the register. A parent asks about a balance. A branch head needs an accurate report before the next meeting.",
     "When the answers live in separate spreadsheets, paper files and messages, even a simple question can become a morning's work.",
-    "XVS exists to make that everyday work easier to follow. We bring student and staff records, attendance, fees, timetables and reporting into one place, with clear access for the people who need them.",
+    "XVS makes that everyday work easier to keep track of. We bring student and staff records, attendance, fees, timetables and reporting into one place, with clear access for the people who need them.",
     "When a question comes up, staff can answer it from the record instead of searching for it.",
   ],
 };
@@ -74,7 +74,7 @@ export const PEOPLE = {
 /* ── 4. PRINCIPLES ───────────────────────────────────────── */
 export const PRINCIPLES = {
   eyebrow: "Governance & data",
-  title: "Control and visibility *at every level*",
+  title: "Clear access, *and a history of every change*",
   intro:
     "XVS gives your team practical controls over who can access information, how changes are tracked, and how existing records are brought into the system.",
   link: { label: "Explore how XVS works", href: "/services" },
@@ -92,7 +92,7 @@ export const PRINCIPLES = {
       body: "Existing registers can be imported and checked row by row. Problems are flagged for review, and you decide when the information is ready to publish.",
     },
     {
-      title: "Ready for growth.",
+      title: "One branch or a group of schools.",
       body: "Start with one branch or bring a school group together. Each branch keeps its own working view, while leadership can see across the group.",
     },
   ],

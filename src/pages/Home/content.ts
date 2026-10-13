@@ -204,8 +204,8 @@ export const FEATURES = [
  */
 export const TRUST = {
   eyebrow: "Security & governance",
-  title: "Controlled access.",
-  titleMuted: "A complete audit trail.",
+  title: "Access set by role and branch.",
+  titleMuted: "Every change on record.",
   intro: "School records hold sensitive personal, medical and financial information. XVS limits access by role and branch, and records every change so it can be traced.",
   points: [
     { icon: "key", title: "The right access for every role", body: "Ready-made roles, branch-by-branch access and control down to single fields, like salaries or medical notes." },
@@ -221,7 +221,7 @@ export const TRUST = {
 export const SERVICES_PREVIEW = {
   eyebrow: "What XVS does",
   title: "Twenty-four services, *organised in six areas*",
-  intro: "Each area maps to a part of school operations, so your team can go straight to what matters most.",
+  intro: "Each area covers one part of running a school, from student records and fees to purchasing, parent portals and approvals.",
   cta: { label: "See every service", href: "/services" },
 };
 
