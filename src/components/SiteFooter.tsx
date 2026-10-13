@@ -2,7 +2,11 @@ import { Link } from "react-router-dom";
 import Logo from "./Logo";
 import { COMPANY, FOOTER_COLUMNS } from "./navigation";
 
-/** Site-wide footer. Links and contact details come from ./navigation.ts */
+/**
+ * Site-wide footer. Links and contact details come from ./navigation.ts
+ * At the very bottom: the XVS shield and name, very large and faded
+ * (styles in layout.css → .site-footer-wordmark).
+ */
 export default function SiteFooter() {
   return (
     <footer className="site-footer">
@@ -36,6 +40,11 @@ export default function SiteFooter() {
             © {new Date().getFullYear()} {COMPANY.name}
           </p>
           <p>{COMPANY.city}</p>
+        </div>
+
+        <div className="site-footer-wordmark" aria-hidden="true">
+          <img src="/logo.png" alt="" width={233} height={296} />
+          <span>XVS</span>
         </div>
       </div>
     </footer>

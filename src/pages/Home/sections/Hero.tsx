@@ -12,12 +12,13 @@ import HeroReel from "./HeroReel";
  * Under them, the "How XVS works" reel sits in a window centred on the
  * page (a little wider than the text), with coloured XVS light glowing
  * out from behind its sides and along its top edge.
- * The window starts tilted back and stands up straight as you scroll
+ * The window starts laid back and stands up straight as you scroll
  * (driven by the `--page-scroll` CSS variable, see home.css).
- * ✏️ The glow colours and the window width are in home.css → "1. Hero".
+ * ✏️ The glow colours, the window width and the tilt are in home.css → "1. Hero".
  */
 export default function Hero() {
-  const sectionRef = usePageScroll<HTMLElement>(500);
+  // ✏️ Fully straight after scrolling 60% of the screen height
+  const sectionRef = usePageScroll<HTMLElement>(Math.round(window.innerHeight * 0.6));
   let wordIndex = 0;
 
   return (

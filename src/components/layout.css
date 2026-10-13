@@ -3,9 +3,12 @@
  *  mobile menu, footer, "Book a demo" banner
  * ───────────────────────────────────────────────────────────── */
 
-/* ── Page glow ────────────────────────────────────────────────
- * A soft XVS-blue light behind the top of every page, so the dark
- * background never feels flat. Rendered by PageLayout (and ContactPage).
+/* ── Page background ──────────────────────────────────────────
+ * The site is white. Behind the top of every page sits a soft wash of
+ * XVS blue and cream with a faint grid, fading out as you scroll down.
+ * Rendered by PageLayout (and ContactPage).
+ * ✏️ Colours of the wash: the radial-gradients in .page-glow::before
+ * ✏️ Grid: the two linear-gradients in .page-glow::after (64px squares)
  */
 .page {
   position: relative;
@@ -27,10 +30,23 @@
   inset: -200px -10% auto;
   height: 820px;
   background:
-    radial-gradient(35% 45% at 20% 40%, rgba(26, 74, 156, 0.45), transparent 70%),
-    radial-gradient(30% 40% at 80% 35%, rgba(46, 114, 210, 0.25), transparent 70%),
-    radial-gradient(25% 30% at 60% 20%, rgba(251, 244, 236, 0.06), transparent 70%);
+    radial-gradient(32% 42% at 18% 38%, rgba(46, 114, 210, 0.16), transparent 70%),
+    radial-gradient(30% 40% at 82% 32%, rgba(107, 158, 232, 0.18), transparent 70%),
+    radial-gradient(28% 34% at 55% 18%, rgba(251, 228, 200, 0.55), transparent 70%);
   filter: blur(40px);
+}
+
+.page-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(11, 31, 74, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(11, 31, 74, 0.045) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: center top;
+  mask-image: radial-gradient(70% 80% at 50% 0%, #000, transparent 75%);
+  -webkit-mask-image: radial-gradient(70% 80% at 50% 0%, #000, transparent 75%);
 }
 
 /* ── Logo ─────────────────────────────────────────────────── */
@@ -58,7 +74,7 @@
 }
 
 .site-header.is-solid {
-  background: rgba(5, 11, 26, 0.78);
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: saturate(160%) blur(14px);
   border-bottom-color: var(--line);
 }
@@ -81,9 +97,9 @@
 .site-nav {
   /* Shared timing for the fluid highlight and temporary text magnification. */
   --nav-slide-duration: 900ms;
-  --nav-pill-color: #fff;
-  --nav-active-text: var(--navy);
-  --nav-idle-text: var(--muted);
+  --nav-pill-color: var(--navy);
+  --nav-active-text: #fff;
+  --nav-idle-text: var(--ink-soft);
   position: relative;
   display: flex;
   isolation: isolate;
@@ -92,8 +108,8 @@
   padding: 6px 12px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.04);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: inset 0 1px 0 #fff, var(--shadow-sm);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
 }
@@ -105,8 +121,9 @@
   left: 0;
   width: var(--pill-w, 0);
   border-radius: 999px;
-  background: var(--nav-pill-color);
-  box-shadow: 0 6px 18px -8px rgba(46, 114, 210, 0.7);
+  background: linear-gradient(165deg, rgba(255, 255, 255, 0.23), transparent 58%), var(--nav-pill-color);
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.12), 0 5px 14px -7px rgba(11, 31, 74, 0.45);
   transform: translateX(var(--pill-x, 0));
   transform-origin: center;
   pointer-events: none;
@@ -127,7 +144,7 @@
   transform-origin: center;
 }
 
-.site-nav-link:hover { color: #fff; }
+.site-nav-link:hover { color: var(--ink); }
 .site-nav-link.is-active,
 .site-nav-link.is-active:hover { color: var(--nav-active-text); }
 .site-nav-link:focus-visible {
@@ -152,7 +169,7 @@
   margin-left: auto;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--surface);
   cursor: pointer;
 }
 
@@ -169,12 +186,12 @@
   padding: 14px 4px;
   font-size: 17px;
   font-weight: 500;
-  color: var(--muted);
+  color: var(--ink-soft);
   border-bottom: 1px solid var(--line);
 }
 
 .mobile-menu-link.active {
-  color: #fff;
+  color: var(--navy);
 }
 
 .mobile-menu .btn {
@@ -197,8 +214,7 @@
   position: relative;
   overflow: hidden;
   padding-top: clamp(64px, 8vw, 96px);
-  border-top: 1px solid var(--line);
-  background: var(--bg);
+  background: var(--navy-deep);
   color: rgba(255, 255, 255, 0.7);
 }
 
@@ -261,6 +277,38 @@
   font-size: 14px;
 }
 
+/* The big faded shield + "XVS" along the very bottom (like interfere.com).
+   ✏️ Size: font-size below. ✏️ How faint: the rgba alpha values. */
+.site-footer-wordmark {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: clamp(16px, 4vw, 56px);
+  margin-bottom: -0.12em;
+  font-size: clamp(120px, 26vw, 360px);
+  line-height: 0.8;
+  user-select: none;
+  pointer-events: none;
+  /* Fades out towards the bottom edge */
+  mask-image: linear-gradient(180deg, #000 35%, transparent 95%);
+  -webkit-mask-image: linear-gradient(180deg, #000 35%, transparent 95%);
+}
+
+.site-footer-wordmark img {
+  width: auto;
+  height: 0.92em;
+  opacity: 0.22;
+}
+
+.site-footer-wordmark span {
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  color: transparent;
+  background: linear-gradient(180deg, rgba(107, 158, 232, 0.4), rgba(255, 255, 255, 0.04));
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
 @media (max-width: 760px) {
   .site-footer-top {
     grid-template-columns: 1fr 1fr;
@@ -288,9 +336,8 @@
   align-items: center;
   gap: 20px;
   padding: clamp(56px, 8vw, 96px) clamp(20px, 5vw, 64px);
-  border: 1px solid var(--line);
   border-radius: var(--radius-lg);
-  background: var(--navy-deep);
+  background: var(--navy);
   color: #fff;
   text-align: center;
   isolation: isolate;

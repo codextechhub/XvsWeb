@@ -28,7 +28,7 @@ export default function BookDemoBanner({
             <Accent text={title} />
           </h2>
           <p className="demo-banner-body">{body}</p>
-          <Link to={DEMO_LINK.href} className="btn btn-primary">
+          <Link to={DEMO_LINK.href} className="btn btn-light">
             {DEMO_LINK.label}
             <ArrowIcon />
           </Link>

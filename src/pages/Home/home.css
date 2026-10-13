@@ -24,16 +24,17 @@
   --home-line: var(--line);
   --home-line-strong: var(--line-strong);
   --home-text: var(--ink);
-  --home-muted: rgba(255, 255, 255, 0.6);
-  --home-faint: rgba(255, 255, 255, 0.38);
+  --home-muted: var(--muted);
+  --home-faint: #a3abbb;
   --home-accent: var(--blue);
-  --home-accent-soft: rgba(46, 114, 210, 0.22);
+  --home-accent-soft: var(--blue-soft);
 
   /* ✏️ The soft glow behind the closing band */
   --home-glow:
-    radial-gradient(40% 60% at 22% 60%, rgba(26, 74, 156, 0.75), transparent 70%),
-    radial-gradient(35% 55% at 55% 70%, rgba(46, 114, 210, 0.45), transparent 70%),
-    radial-gradient(30% 50% at 85% 55%, rgba(251, 244, 236, 0.16), transparent 70%);
+    radial-gradient(40% 60% at 22% 60%, rgba(46, 114, 210, 0.2), transparent 70%),
+    radial-gradient(35% 55% at 55% 70%, rgba(107, 158, 232, 0.2), transparent 70%),
+    radial-gradient(30% 50% at 85% 55%, rgba(251, 228, 200, 0.7), transparent 70%);
+
 }
 
 
@@ -103,16 +104,11 @@
 }
 
 /* ── 1. Hero ──────────────────────────────────────────────── */
-/* The hero has its own glow around the reel, so the general page glow is off here */
-.home .page-glow {
-  display: none;
-}
-
 .hero {
   position: relative;
-  /* ✏️ Space above the headline, and the same glowing space below the reel */
-  padding-top: clamp(72px, 11vw, 150px);
-  padding-bottom: clamp(72px, 11vw, 150px);
+  /* ✏️ Space above the headline, and the same space below the reel */
+  padding-top: clamp(56px, 7vw, 96px);
+  padding-bottom: clamp(56px, 7vw, 96px);
   overflow-x: clip; /* the glow may spill below the hero, but never sideways */
 }
 
@@ -124,8 +120,8 @@
 }
 
 .hero h1 {
-  font-size: clamp(40px, 4.4vw, 60px);
-  line-height: 1.02;
+  font-size: clamp(36px, 3.8vw, 52px);
+  line-height: 1.04;
 }
 
 .hero-line {
@@ -164,65 +160,45 @@
   gap: 10px;
 }
 
-/* ✏️ The reel window: centred on the page, a little wider than the text
-   above it (the same space on the left and the right). */
-/* ✏️ The window is tilted back until you scroll, then stands up straight.
-   --tilt is how far back it leans at the top of the page. */
+/* ✏️ The reel window: centred on the page, the same space left and right.
+   Change 1040px to make it wider or narrower. */
 .hero-stage {
-  --tilt: calc((1 - var(--page-scroll, 0)) * 16deg);
   position: relative;
   isolation: isolate;
-  perspective: 1800px;
-  width: min(calc(100% - var(--gutter) * 2), calc(var(--container) + 120px));
-  margin: clamp(48px, 6vw, 72px) auto 0;
+  perspective: 1600px;
+  width: min(calc(100% - var(--gutter) * 2), 1040px);
+  margin: clamp(40px, 5vw, 56px) auto 0;
 }
 
-/* ✏️ The coloured light behind the window: XVS blue glowing out of the
-   left and right sides, and a brighter band along the top edge. */
+/* ✏️ The soft light behind the window: pale XVS blue at the sides,
+   a warm cream patch near the top. */
 .hero-glow {
   position: absolute;
-  inset: -160px -20% -200px;
+  inset: -80px -12% -90px;
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(13% 40% at 16% 42%, rgba(46, 114, 210, 0.6), transparent 70%),
-    radial-gradient(11% 45% at 14% 68%, rgba(26, 74, 156, 0.65), transparent 70%),
-    radial-gradient(13% 40% at 84% 42%, rgba(107, 158, 232, 0.42), transparent 70%),
-    radial-gradient(11% 45% at 86% 68%, rgba(251, 244, 236, 0.12), transparent 70%),
-    radial-gradient(34% 16% at 50% 20%, rgba(46, 114, 210, 0.45), transparent 75%),
-    radial-gradient(14% 10% at 58% 18%, rgba(251, 244, 236, 0.14), transparent 75%),
-    radial-gradient(36% 12% at 45% 87%, rgba(46, 114, 210, 0.4), transparent 75%),
-    radial-gradient(16% 9% at 62% 88%, rgba(251, 244, 236, 0.1), transparent 75%);
-  filter: blur(28px);
+    radial-gradient(22% 45% at 12% 45%, rgba(46, 114, 210, 0.22), transparent 70%),
+    radial-gradient(22% 45% at 88% 50%, rgba(107, 158, 232, 0.24), transparent 70%),
+    radial-gradient(30% 20% at 55% 8%, rgba(251, 228, 200, 0.7), transparent 75%),
+    radial-gradient(40% 18% at 50% 96%, rgba(46, 114, 210, 0.14), transparent 75%);
+  filter: blur(36px);
 }
 
-/* Thin lines of light along the top and bottom edges of the window */
-.hero-stage::before,
-.hero-stage::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 6%;
-  right: 6%;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(107, 158, 232, 0.9), rgba(251, 244, 236, 0.8) 60%, transparent);
-  pointer-events: none;
-}
-
-/* The bottom line only shows once the window has stood up */
-.hero-stage::before {
-  top: auto;
-  bottom: 0;
-  z-index: 1;
-  opacity: calc(0.6 * var(--page-scroll, 0));
-}
-
+/* ✏️ Laid back at the top of the page, straight once you scroll.
+   24deg = how far it leans back; 0.9 = how small it starts. */
 .hero-frame {
-  transform: rotateX(var(--tilt)) scale(calc(0.94 + var(--page-scroll, 0) * 0.06));
+  --s: var(--page-scroll, 0);
+  transform:
+    rotateX(calc((1 - var(--s)) * 24deg))
+    scale(calc(0.9 + var(--s) * 0.1))
+    translateY(calc((1 - var(--s)) * 20px));
   transform-origin: 50% 0;
   will-change: transform;
   border-radius: 14px;
-  box-shadow: 0 40px 120px -30px rgba(0, 0, 0, 0.95);
+  box-shadow:
+    0 0 0 1px rgba(11, 31, 74, 0.06),
+    0 30px 80px -30px rgba(11, 31, 74, 0.35);
 }
 
 /* "How XVS works" reel (see sections/HeroReel.tsx). Uses the shared
@@ -348,7 +324,7 @@
   font-weight: 600;
   letter-spacing: -0.02em;
   white-space: nowrap;
-  color: rgba(255, 255, 255, 0.78);
+  color: #8b93a5;
 }
 
 @keyframes marquee {
@@ -381,7 +357,7 @@
 .statement-chip {
   padding: 0 0.18em;
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(11, 31, 74, 0.06);
   transition:
     background 400ms ease,
     color 400ms ease;
@@ -424,9 +400,9 @@
   border: 1px solid var(--home-line);
   border-radius: 14px;
   background:
-    radial-gradient(circle at 50% 40%, rgba(46, 114, 210, 0.1), transparent 65%),
-    var(--home-surface);
-  opacity: 0.45;
+    radial-gradient(circle at 50% 40%, rgba(46, 114, 210, 0.07), transparent 65%),
+    var(--home-surface-raised);
+  opacity: 0.55;
   transition:
     opacity 500ms ease,
     border-color 500ms ease,
@@ -435,8 +411,8 @@
 
 .pillar.is-active .pillar-visual {
   opacity: 1;
-  border-color: rgba(107, 158, 232, 0.35);
-  box-shadow: 0 24px 60px -30px rgba(46, 114, 210, 0.7);
+  border-color: var(--blue-line);
+  box-shadow: 0 24px 50px -28px rgba(46, 114, 210, 0.5);
 }
 
 .pillar h3 {
@@ -465,7 +441,7 @@
 .scene-bars i {
   display: block;
   border-radius: 4px;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(11, 31, 74, 0.07);
 }
 
 /* 01 · Class board ------------------------------------------ */
@@ -493,7 +469,7 @@
   border: 1px solid var(--home-line);
   border-bottom: 0;
   border-radius: 10px 10px 0 0;
-  background: var(--home-surface-raised);
+  background: var(--home-surface);
 }
 
 .scene-bars {
@@ -519,7 +495,7 @@
   gap: 6px;
   min-width: 0;
   padding: 8px;
-  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border: 1px dashed rgba(11, 31, 74, 0.14);
   border-radius: 8px;
 }
 
@@ -539,10 +515,10 @@
   padding: 0 8px 0 3px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(11, 31, 74, 0.05);
   font-size: 10.5px;
   white-space: nowrap;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--ink-soft);
 }
 
 .student-chip b {
@@ -591,15 +567,15 @@
   top: 22px;
   right: 24px;
   padding: 3px 8px;
-  border: 1px solid rgba(107, 158, 232, 0.35);
+  border: 1px solid var(--blue-line);
   border-radius: 4px;
-  background: rgba(46, 114, 210, 0.18);
+  background: var(--blue-soft);
   font-family: var(--font-mono);
   font-size: 10px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
   white-space: nowrap;
-  color: #9cc0f5;
+  color: var(--blue);
   opacity: 0;
 }
 
@@ -627,15 +603,15 @@
 
 @keyframes chip-hold {
   to {
-    box-shadow: inset 0 0 0 1px rgba(246, 193, 119, 0.7);
+    box-shadow: inset 0 0 0 1px rgba(180, 83, 9, 0.45);
     color: var(--warning);
   }
 }
 
 @keyframes column-done {
   to {
-    border-color: rgba(107, 158, 232, 0.6);
-    background: rgba(46, 114, 210, 0.08);
+    border-color: rgba(46, 114, 210, 0.45);
+    background: rgba(46, 114, 210, 0.06);
   }
 }
 
@@ -647,7 +623,7 @@
   to {
     opacity: 1;
     transform: none;
-    box-shadow: 0 0 22px rgba(46, 114, 210, 0.45);
+    box-shadow: 0 6px 18px -6px rgba(46, 114, 210, 0.4);
   }
 }
 
@@ -664,8 +640,8 @@
   padding: 14px 16px;
   border: 1px solid var(--home-line-strong);
   border-radius: 12px;
-  background: var(--home-surface-raised);
-  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.8);
+  background: var(--home-surface);
+  box-shadow: 0 20px 40px -24px rgba(11, 31, 74, 0.35);
 }
 
 .invoice-top {
@@ -683,7 +659,7 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--blue-soft);
 }
 
 .invoice-title {
@@ -712,7 +688,7 @@
   height: 6px;
   overflow: hidden;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.08);
+  background: rgba(11, 31, 74, 0.08);
 }
 
 .invoice-progress i {
@@ -744,14 +720,14 @@
   padding: 0 9px;
   border: 1px solid var(--home-line-strong);
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--home-surface-raised);
   font-size: 11.5px;
   font-weight: 500;
   white-space: nowrap;
 }
 
 .status-chip.is-done {
-  border-color: rgba(126, 226, 168, 0.3);
+  border-color: rgba(21, 128, 61, 0.25);
   background: var(--success-soft);
   color: var(--success);
   opacity: 0;
@@ -794,7 +770,7 @@
   }
   100% {
     width: 100%;
-    background: #4ade80;
+    background: #22c55e;
   }
 }
 
@@ -858,7 +834,7 @@
 .log-action {
   overflow: hidden;
   text-overflow: ellipsis;
-  color: #c9d3e6;
+  color: var(--ink-soft);
 }
 
 .log-line.is-ok {
@@ -919,8 +895,8 @@
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(45% 60% at 10% 100%, rgba(26, 74, 156, 0.5), transparent 70%),
-    radial-gradient(40% 60% at 90% 100%, rgba(251, 244, 236, 0.08), transparent 70%);
+    radial-gradient(45% 60% at 10% 100%, rgba(46, 114, 210, 0.14), transparent 70%),
+    radial-gradient(40% 60% at 90% 100%, rgba(251, 228, 200, 0.55), transparent 70%);
 }
 
 .quote-card blockquote {
@@ -930,7 +906,7 @@
   font-size: clamp(24px, 2.8vw, 34px);
   line-height: 1.3;
   text-align: center;
-  color: #fff;
+  color: var(--ink);
 }
 
 /* Word i comes into focus once progress × count passes i */
@@ -955,7 +931,7 @@
 .quote-card figcaption strong {
   display: block;
   font-weight: 500;
-  color: #fff;
+  color: var(--ink);
 }
 
 .quote-avatar {
@@ -1030,7 +1006,7 @@
   padding: 0;
   list-style: none;
   font-size: 14.5px;
-  color: rgba(255, 255, 255, 0.78);
+  color: var(--ink-soft);
 }
 
 /* The screenshot: wider than its column, so it runs off the right edge */
@@ -1051,7 +1027,7 @@
   padding: clamp(28px, 5vw, 64px);
   border: 1px solid var(--home-line);
   border-radius: 20px;
-  background: var(--home-surface);
+  background: linear-gradient(180deg, var(--home-surface-raised), var(--home-surface));
 }
 
 .trust-head {
@@ -1097,7 +1073,7 @@
   margin-bottom: 12px;
   border: 1px solid var(--home-line-strong);
   border-radius: 12px;
-  background: linear-gradient(160deg, rgba(255, 255, 255, 0.08), transparent), var(--home-surface-raised);
+  background: linear-gradient(160deg, var(--home-surface), var(--blue-soft));
   color: var(--home-accent);
 }
 
@@ -1175,13 +1151,13 @@
   height: 40px;
   border: 1px solid var(--home-line-strong);
   border-radius: 8px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--home-surface);
   cursor: pointer;
   transition: background 200ms ease;
 }
 
 .day-arrow:hover {
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--home-surface-raised);
 }
 
 .day-arrow.is-back .arrow-icon {
@@ -1241,7 +1217,6 @@
   height: 320px;
   background: var(--home-glow);
   filter: blur(40px);
-  opacity: 0.55;
 }
 
 .closing-inner {
