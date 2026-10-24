@@ -1,5 +1,5 @@
-import type { CSSProperties, ReactNode } from "react";
-import { useInView } from "./useScrollEffects";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { prefersReducedMotion, useInView } from "./useScrollEffects";
 import "./shared.css";
 
 /* ── Reveal ────────────────────────────────────────────────
@@ -75,18 +75,62 @@ export function Accent({ text }: { text: string }) {
   );
 }
 
+/* ── LoopVideo ─────────────────────────────────────────────
+ * A short silent clip on an endless loop (the XVS screen recordings).
+ * It only downloads and plays while it is on screen, and pauses when it
+ * scrolls away or its panel closes. A visitor who prefers reduced motion
+ * sees the still (`poster`) instead.
+ */
+export function LoopVideo({ src, poster, label, className = "" }: { src: string; poster: string; label: string; className?: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  const [reduced] = useState(prefersReducedMotion);
+
+  useEffect(() => {
+    const video = ref.current;
+    if (!video || reduced) return;
+    const io = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) video.play().catch(() => undefined);
+      else video.pause();
+    }, { threshold: 0.25 });
+    io.observe(video);
+    return () => io.disconnect();
+  }, [reduced]);
+
+  return (
+    <video
+      ref={ref}
+      className={className}
+      src={reduced ? undefined : src}
+      poster={poster}
+      aria-label={label}
+      width={1280}
+      height={800}
+      muted
+      loop
+      playsInline
+      preload="none"
+      disablePictureInPicture
+    />
+  );
+}
+
+/** A clip in /public/videos/services, with the still beside it (same name, .jpg). */
+export type Clip = { src: string; poster: string };
+
 /* ── BrowserFrame ──────────────────────────────────────────
- * Wraps an XVS screenshot in a simple app window.
+ * Wraps an XVS screenshot, or a looping screen recording (`video`), in a simple app window.
  */
 export function BrowserFrame({
   src,
   alt,
+  video,
   url = "XVS · Bright Star Schools",
   eager = false,
   className = "",
 }: {
   src: string;
   alt: string;
+  video?: Clip;
   url?: string;
   eager?: boolean;
   className?: string;
@@ -101,7 +145,11 @@ export function BrowserFrame({
         </span>
         <span className="browser-url">{url}</span>
       </div>
-      <img src={src} alt={alt} width={1600} height={1000} loading={eager ? "eager" : "lazy"} decoding="async" />
+      {video ? (
+        <LoopVideo src={video.src} poster={video.poster} label={alt} />
+      ) : (
+        <img src={src} alt={alt} width={1600} height={1000} loading={eager ? "eager" : "lazy"} decoding="async" />
+      )}
     </div>
   );
 }

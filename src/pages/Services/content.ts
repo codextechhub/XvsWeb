@@ -16,6 +16,7 @@
  * ─────────────────────────────────────────────────────────────
  */
 import type { IconName } from "../../components/shared/icons";
+import type { Clip } from "../../components/shared/ui";
 
 export type Service = {
   /** Used for the #link, e.g. /services#billing-invoicing */
@@ -35,6 +36,8 @@ export type Service = {
   story: string;
   /** Optional screenshot from /public/images/xvs */
   image?: string;
+  /** Optional looping screen recording, shown instead of the screenshot */
+  video?: Clip;
 };
 
 export type ServiceGroup = {
@@ -46,6 +49,8 @@ export type ServiceGroup = {
   /** Screenshot shown beside the group heading */
   image: string;
   imageAlt: string;
+  /** Optional looping screen recording, shown instead of the screenshot */
+  video?: Clip;
   services: Service[];
 };
 
@@ -64,6 +69,15 @@ export const DEMO_SCHOOL = {
 
 const IMG = "/images/xvs";
 
+/**
+ * Short silent screen recordings of the real XVS apps, each on an endless loop.
+ * ✏️ They live in /public/videos/services as <name>.mp4, with a still of the
+ * same name (.jpg) shown while the clip loads. To swap one, replace both files;
+ * to go back to the screenshot, delete the service's `video:` line.
+ */
+const VID = "/videos/services";
+const clip = (name: string): Clip => ({ src: `${VID}/${name}.mp4`, poster: `${VID}/${name}.jpg` });
+
 /* ── The six groups ──────────────────────────────────────── */
 export const SERVICE_GROUPS: ServiceGroup[] = [
   /* ─── 01 · Run the School ─── */
@@ -75,6 +89,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     summary: "The records every school runs on: its branches, students, staff, classes and timetable.",
     image: `${IMG}/school-dashboard.jpg`,
     imageAlt: "XVS school dashboard with students on roll, staff, classes and pending approvals",
+    video: clip("group-run-the-school"),
     services: [
       {
         id: "school-branch-management",
@@ -100,6 +115,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "Bright Star opens its Lekki Branch in September. The administrator adds it in two minutes, names Mrs Okafor as branch admin, and Lekki's staff log in the same afternoon. Mr Adebayo, the owner, now sees Ikeja and Lekki enrolment side by side without asking anyone for a report.",
         image: `${IMG}/branch-list.jpg`,
+        video: clip("school-branch-management"),
       },
       {
         id: "student-management",
@@ -125,6 +141,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "Chinedu in JSS 2 has asthma. The school nurse records it on his profile, and only she and his form teacher can see it. At the end of the year the administrator promotes all of JSS 2 to JSS 3 in one run, previewing first to hold back the two students repeating the year.",
         image: `${IMG}/student-profile.jpg`,
+        video: clip("student-management"),
       },
       {
         id: "staff-management",
@@ -150,6 +167,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "Mr Bello, a maths teacher at the Lekki Branch, goes on leave for two weeks. His leave is approved in XVS, and the coverage grid immediately shows SS 1A and SS 1B with no maths teacher, so the principal arranges cover before Monday.",
         image: `${IMG}/staff-duties.jpg`,
+        video: clip("staff-management"),
       },
       {
         id: "identity-team-organogram",
@@ -175,6 +193,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "Mrs Eze, a bursar, resigns on Friday. The administrator suspends her account before she leaves the building, and her open sessions on two devices end at once. Nothing she could see on Thursday is reachable on Saturday.",
         image: `${IMG}/login-page.jpg`,
+        video: clip("identity-team-organogram"),
       },
       {
         id: "academic-structure",
@@ -200,6 +219,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "In July, Bright Star's academic head rolls the 2025/2026 structure into 2026/2027. All 36 classes, their arms and subjects copy across. The only thing she adds by hand is JSS 1C, for the larger intake.",
         image: `${IMG}/academic-structure.jpg`,
+        video: clip("academic-structure"),
       },
       {
         id: "timetable-calendar",
@@ -225,6 +245,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "The timetable officer puts Mr Bello in SS 2A for period 3 on Tuesday, but he already teaches at the Ikeja Branch then. XVS flags the clash before it is saved, and she moves the lesson to period 5.",
         image: `${IMG}/class-timetable.jpg`,
+        video: clip("timetable-calendar"),
       },
     ],
   },
@@ -238,6 +259,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     summary: "What happens in the classroom: who was there and how they performed.",
     image: `${IMG}/class-timetable.jpg`,
     imageAlt: "XVS class timetable grid for a week of lessons",
+    video: clip("group-teaching-learning"),
     services: [
       {
         id: "attendance-management",
@@ -262,6 +284,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         ],
         story:
           "Amaka in Primary 4 is absent on Monday and Tuesday. Her mother gets an in-app notice and an email by 9am on both days. On Wednesday the head teacher's dashboard shows Amaka has missed three days in two weeks, and the school calls home.",
+        video: clip("attendance-management"),
       },
       {
         id: "gradebook-assessments",
@@ -286,6 +309,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         ],
         story:
           "Mrs Obi uploads her SS 3 chemistry scores on Thursday. XVS works out every student's total and grade. The principal approves on Friday, and parents have report cards on Monday instead of two weeks later.",
+        video: clip("gradebook-assessments"),
       },
     ],
   },
@@ -299,6 +323,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     summary: "Fees billed, collected, adjusted and accounted for.",
     image: `${IMG}/finance-dashboard.jpg`,
     imageAlt: "XVS finance dashboard showing fees collected and money owed",
+    video: clip("group-money"),
     services: [
       {
         id: "billing-invoicing",
@@ -324,6 +349,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "At the start of term the bursar invoices all 420 students at the Ikeja Branch in one go. Mr Okonkwo gets his daughter's invoice by email, taps the pay link, pays ₦185,000 from his phone, and receives his receipt immediately.",
         image: `${IMG}/invoices.jpg`,
+        video: clip("billing-invoicing"),
       },
       {
         id: "payments-collections",
@@ -349,6 +375,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "Mrs Adeleke transfers ₦120,000 at 10pm. By morning it is matched to her son's invoice, booked and receipted. When the bursar pays a ₦750,000 supplier bill, it waits for the owner's approval, because it is over ₦500,000.",
         image: `${IMG}/collections.jpg`,
+        video: clip("payments-collections"),
       },
       {
         id: "finance-accounting",
@@ -374,6 +401,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "At the end of March, Bright Star's accountant closes the period. Fees, supplier bills and petty cash have already posted themselves. She reconciles the bank in an afternoon and hands the owner a profit and loss statement the same day.",
         image: `${IMG}/bank-reconciliation.jpg`,
+        video: clip("finance-accounting"),
       },
       {
         id: "adjustments-concessions",
@@ -399,6 +427,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "The Nwosu family has three children at Bright Star and gets a 10% sibling discount. The bursar records it for each child, the principal approves, and all three invoices drop. When an auditor asks a year later, the reason and the approver are right there.",
         image: `${IMG}/concessions.jpg`,
+        video: clip("adjustments-concessions"),
       },
     ],
   },
@@ -412,6 +441,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     summary: "Spending under control, from a request to a delivered, paid-for item.",
     image: `${IMG}/requisitions.jpg`,
     imageAlt: "XVS requisitions list with budget checks and approval status",
+    video: clip("group-buying-stock"),
     services: [
       {
         id: "vendor-management",
@@ -437,6 +467,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "An email tells Bright Star its uniform supplier has a new bank account. Changing the details sends the supplier back for verification, and no payment can go out until it is checked. A phone call to the supplier shows the email was fake.",
         image: `${IMG}/supplier-list.jpg`,
+        video: clip("vendor-management"),
       },
       {
         id: "procurement-requisitions",
@@ -462,6 +493,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "Mr Danjuma, the Ikeja lab coordinator, requests ₦340,000 of chemicals. The budget check passes, the principal approves, and three suppliers quote. The procurement officer picks the best-value quote, and everyone can see why.",
         image: `${IMG}/requisitions.jpg`,
+        video: clip("procurement-requisitions"),
       },
       {
         id: "purchase-orders-delivery-ap",
@@ -487,6 +519,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "Bright Star orders 50 desks. The store keeper records 40 delivered and 10 rejected as damaged. The supplier bills for 50, XVS flags the mismatch, and the bursar pays for 40.",
         image: `${IMG}/purchase-orders.jpg`,
+        video: clip("purchase-orders-delivery-ap"),
       },
       {
         id: "inventory-stock-ledger",
@@ -511,6 +544,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "The Lekki Branch store receives 2,000 exercise books, and the delivery adds them to stock. As classes collect them, the count drops. At 300 the store keeper gets a reorder alert, two weeks before the store would have run out.",
         image: `${IMG}/stock-items.jpg`,
+        video: clip("inventory-stock-ledger"),
       },
     ],
   },
@@ -524,6 +558,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     summary: "Parents and students kept informed, without calling the school.",
     image: `${IMG}/notifications.jpg`,
     imageAlt: "XVS notification centre with in-app notices and delivery status",
+    video: clip("group-families"),
     services: [
       {
         id: "parent-portal",
@@ -549,6 +584,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "Mrs Ibrahim has two children at Bright Star, one at each branch. On Sunday evening she checks both, reads her son's term report, pays the balance on her daughter's fees and signs the excursion consent form, all without calling the school.",
         image: `${IMG}/parent-pay.jpg`,
+        video: clip("parent-portal"),
       },
       {
         id: "student-portal",
@@ -572,6 +608,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         ],
         story:
           "Tolu in SS 2 checks her timetable on Sunday night, sees her physics test has moved to Wednesday, and finds last term's results waiting for her.",
+        video: clip("student-portal"),
       },
       {
         id: "notifications-delivery",
@@ -597,6 +634,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "When the principal approves the lab chemicals, Mr Danjuma gets an in-app notice and an email with Bright Star's logo straight away. He never has to ask whether his request went through.",
         image: `${IMG}/notifications.jpg`,
+        video: clip("notifications-delivery"),
       },
     ],
   },
@@ -610,6 +648,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     summary: "Who can do what, who approved it, and what the numbers say.",
     image: `${IMG}/approval-inbox.jpg`,
     imageAlt: "XVS approval inbox listing requests waiting for a decision",
+    video: clip("dashboards-analytics"),
     services: [
       {
         id: "dashboards-analytics",
@@ -634,6 +673,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "Mr Adebayo opens XVS on Monday morning: fees collected last week at each branch, ₦2.1m still owed, and four purchase requests waiting for him. He approves two before his first meeting.",
         image: `${IMG}/finance-analytics.jpg`,
+        video: clip("dashboards-analytics"),
       },
       {
         id: "reporting-exports",
@@ -658,6 +698,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "Every Friday the bursar runs her saved 'Debtors by class' report for both branches, downloads it and sends it to the principals, in under a minute.",
         image: `${IMG}/export-queue.jpg`,
+        video: clip("reporting-exports"),
       },
       {
         id: "workflow-approvals",
@@ -707,6 +748,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "Mrs Okafor is branch admin at Lekki. She manages Lekki's students and staff, but cannot see Ikeja's records or anyone's salary. When her role is given access to fees, the change goes for approval before it takes effect.",
         image: `${IMG}/roles.jpg`,
+        video: clip("roles-permissions"),
       },
       {
         id: "audit-activity-logging",
@@ -731,6 +773,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "A student's balance drops by ₦50,000 overnight. The owner searches the log and sees a credit note raised by the accounts officer at 4:12pm and approved by the bursar, with the reason: overpayment last term.",
         image: `${IMG}/audit-trail.jpg`,
+        video: clip("audit-activity-logging"),
       },
     ],
   },

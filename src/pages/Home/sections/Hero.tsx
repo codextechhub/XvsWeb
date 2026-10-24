@@ -3,15 +3,17 @@ import { Link } from "react-router-dom";
 import { ArrowIcon } from "../../../components/shared/icons";
 import { usePageScroll } from "../../../components/shared/useScrollEffects";
 import { HERO } from "../content";
-import HeroReel from "./HeroReel";
+import HeroFilm from "./HeroFilm";
 
 /**
  * Opening scene, two columns:
  *   left   the headline, word by word
  *   right  the short intro and the two buttons
- * Under them, the "How XVS works" reel sits in a window centred on the
- * page (a little wider than the text), with coloured XVS light glowing
- * out from behind its sides and along its top edge.
+ * Under them, the hero film (a silent, looping tour of the real XVS apps
+ * that ends on animated closing words) sits centred on the page (a little
+ * wider than the text), with coloured XVS light glowing out from behind
+ * its sides and along its top edge.
+ * ✏️ The film and its closing words are in content.ts → HERO_FILM.
  * The window starts laid back and stands up straight as you scroll
  * (driven by the `--page-scroll` CSS variable, see home.css).
  * ✏️ The glow colours, the window width and the tilt are in home.css → "1. Hero".
@@ -62,7 +64,7 @@ export default function Hero() {
 
       <div className="hero-stage load-in" style={{ "--delay": "800ms" } as CSSProperties}>
         <div className="hero-glow" aria-hidden="true" />
-        <HeroReel className="hero-frame" />
+        <HeroFilm className="hero-frame" />
       </div>
     </section>
   );

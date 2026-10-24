@@ -24,38 +24,34 @@ export const HERO = {
 };
 
 /**
- * The "How XVS works" reel that plays under the hero headline
- * (ported from the Claude Design file "XVS How It Works v2").
- * `dur` is how long each scene plays for, in seconds; `nat` is the length the
- * choreography was written at, so changing `dur` speeds a scene up or slows it
- * down without cutting it off. The camera moves live in sections/HeroReel.tsx.
+ * The film under the hero headline: a short tour of the real XVS apps at a
+ * demo school (the principal, the bursar, then a parent on her phone). It is
+ * silent and loops forever. When it ends, the closing words below animate in
+ * over the film's empty last frame, hold, and the film starts again.
+ * The film itself lives in /public/videos (hero.mp4 and its still, hero-poster.jpg).
  */
-const REEL = "/images/xvs/how-it-works";
-
-export const HERO_REEL = {
+export const HERO_FILM = {
+  src: "/videos/hero.mp4",
+  poster: "/videos/hero-poster.jpg",
   label:
-    "How XVS works: a school's branches, a student profile, an exam room clash being flagged, " +
-    "an invoice paid by a parent and matched to a receipt, an approval routed, and the school dashboard.",
-  scenes: [
-    { name: "Intro", dur: 1.2, nat: 1.6 },
-    { name: "Setup", dur: 2.9, nat: 2.8 },
-    { name: "Day", dur: 2.8, nat: 2.6 },
-    { name: "Fees", dur: 3.4 },
-    { name: "Approve", dur: 2, nat: 2.2 },
-    { name: "Overview", dur: 2.8, nat: 2.4 },
-  ],
-  screens: {
-    branches: `${REEL}/branches.webp`,
-    profile: `${REEL}/profile.webp`,
-    clash: `${REEL}/clash.webp`,
-    invoices: `${REEL}/invoices.webp`,
-    pay: `${REEL}/pay.webp`,
-    receipts: `${REEL}/receipts.webp`,
-    approvals: `${REEL}/approvals.webp`,
-    dashboard: `${REEL}/dashboard.webp`,
+    "A tour of XVS: the principal's dashboard, a pupil's record, results being approved, " +
+    "the bursar's fees overview and invoices, and a parent checking her children's results on her phone.",
+
+  /**
+   * ✏️ THE CLOSING WORDS: change them here.
+   *   eyebrow   small line above the headline
+   *   lines     the headline, one entry per line; put *asterisks* around the
+   *             words that should glow in the italic serif
+   *   tagline   the line under it
+   */
+  finale: {
+    eyebrow: "XVS",
+    lines: ["The platform", "your school *runs on.*"],
+    tagline: "Students, staff, fees, buying and approvals. One system, every branch.",
   },
-  /** Frame shown (in playback seconds) when the visitor prefers reduced motion: the full dashboard. */
-  stillAt: 14.3,
+
+  /** ✏️ How long the closing words stay on screen before the film starts again (milliseconds). */
+  finaleMs: 6000,
 } as const;
 
 /* ── 2. BUILT FOR (logo-style strip under the hero) ────────

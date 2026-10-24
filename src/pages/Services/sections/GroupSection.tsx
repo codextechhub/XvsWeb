@@ -3,7 +3,7 @@ import { Icon } from "../../../components/shared/icons";
 import type { ServiceGroup } from "../content";
 import ServiceRow from "./ServiceRow";
 
-/** One service group: its heading and screenshot, then its services. */
+/** One service group: its heading and screen recording (or screenshot), then its services. */
 export default function GroupSection({ group }: { group: ServiceGroup }) {
   return (
     <section id={group.id} className="group-section">
@@ -25,7 +25,7 @@ export default function GroupSection({ group }: { group: ServiceGroup }) {
             </ul>
           </Reveal>
           <Reveal className="group-head-visual" delay={120}>
-            <BrowserFrame src={group.image} alt={group.imageAlt} />
+            <BrowserFrame src={group.image} alt={group.imageAlt} video={group.video} />
           </Reveal>
         </div>
 

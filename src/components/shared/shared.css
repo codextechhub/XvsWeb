@@ -66,8 +66,11 @@
   text-overflow: ellipsis;
 }
 
-.browser img {
+.browser img,
+.browser video {
+  display: block;
   width: 100%;
+  height: auto;
   aspect-ratio: 16 / 10;
   object-fit: cover;
   object-position: top left;

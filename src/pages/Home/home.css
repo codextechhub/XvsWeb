@@ -1,7 +1,7 @@
 /* ─────────────────────────────────────────────────────────────
  *  HOME PAGE: same order as HomePage.tsx
  *  0. Colours and shared bits      ← change the look here
- *  1. Hero (headline, "How XVS works" reel)
+ *  1. Hero (headline, the hero film and its closing words)
  *  2. Built for (label + scrolling strip)
  *  3. Statement + three summary cards
  *  4. Quote
@@ -106,7 +106,7 @@
 /* ── 1. Hero ──────────────────────────────────────────────── */
 .hero {
   position: relative;
-  /* ✏️ Space above the headline, and the same space below the reel */
+  /* ✏️ Space above the headline, and the same space below the film */
   padding-top: clamp(56px, 7vw, 96px);
   padding-bottom: clamp(56px, 7vw, 96px);
   overflow-x: clip; /* the glow may spill below the hero, but never sideways */
@@ -160,7 +160,7 @@
   gap: 10px;
 }
 
-/* ✏️ The reel window: centred on the page, the same space left and right.
+/* ✏️ The film window: centred on the page, the same space left and right.
    Change 1040px to make it wider or narrower. */
 .hero-stage {
   position: relative;
@@ -201,81 +201,248 @@
     0 30px 80px -30px rgba(11, 31, 74, 0.35);
 }
 
-/* "How XVS works" reel (see sections/HeroReel.tsx). Uses the shared
- * .browser window; the content is drawn at a fixed size and scaled to fit. */
-.reel-box {
+/* ── Hero film (see sections/HeroFilm.tsx) ──
+ * The film fills a 16:9 window. Every size in the closing words is in `cqi`
+ * (a hundredth of the window's width), so they scale with the window.
+ * ✏️ Change the closing words in content.ts → HERO_FILM.finale. */
+.hero-film {
   position: relative;
-  width: 100%;
-  aspect-ratio: 16 / 10;
+  container-type: inline-size;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: #f8f8f8;
+  background: #0b2150;
 }
 
-.reel-scale {
-  position: absolute;
-  top: 0;
-  left: 0;
-  transform-origin: 0 0;
+.hero-film-video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.reel-view {
-  position: relative;
-  user-select: none;
-}
-
-.reel-screen {
+/* The film's last frame is its empty navy stage; the closing words play on it. */
+.hero-finale {
+  --finale-in: 0ms;
   position: absolute;
   inset: 0;
+  display: grid;
+  place-items: center;
   overflow: hidden;
-  background: #f8f8f8;
+  color: #fff;
+  text-align: center;
+  background:
+    radial-gradient(90% 80% at 30% 35%, #1b3c77 0%, #102958 55%, #081a3c 100%);
+  animation:
+    finale-in 600ms var(--ease) both,
+    finale-out 700ms var(--ease) calc(var(--finale-ms) - 700ms) both;
 }
 
-.browser .reel-screen img {
+/* The same dotted texture as the film's stage, drifting slowly. */
+.hero-finale::before {
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  max-width: none;
-  aspect-ratio: auto;
-  transform-origin: 0 0;
+  inset: -40px;
+  background-image: radial-gradient(#9bbbf1 1px, transparent 1px);
+  background-size: 2.4cqi 2.4cqi;
+  opacity: 0.14;
+  mask-image: radial-gradient(60% 70% at 50% 50%, #000, transparent 80%);
+  animation: finale-drift 9s linear infinite;
 }
 
-.reel-ring,
-.reel-sweep {
+/* ✏️ The light that blooms behind the words: XVS blue with a warm centre. */
+.finale-aura {
   position: absolute;
-  box-sizing: border-box;
-  border-radius: 12px;
-  border: 4px solid;
-}
-
-.reel-sweep {
-  border: 3px solid #2e9e6b;
-  border-radius: 10px;
-  background: rgba(46, 158, 107, 0.16);
-}
-
-.reel-cursor {
-  position: absolute;
-  z-index: 20;
-  width: 0;
-  height: 0;
-}
-
-.reel-cursor svg {
-  position: absolute;
-  top: -2px;
-  left: -3px;
-  transform-origin: 3px 2px;
-  filter: drop-shadow(0 3px 5px rgba(0, 0, 0, 0.35));
-}
-
-.reel-ripple {
-  position: absolute;
-  top: -28px;
-  left: -28px;
-  width: 56px;
-  height: 56px;
-  border: 3px solid rgba(74, 100, 168, 0.7);
+  width: 70cqi;
+  aspect-ratio: 1;
   border-radius: 50%;
+  background:
+    radial-gradient(closest-side, rgba(251, 228, 200, 0.28), transparent 60%),
+    radial-gradient(closest-side, rgba(74, 132, 230, 0.55), transparent 100%);
+  filter: blur(4cqi);
+  animation: finale-bloom 2600ms var(--ease) both, finale-breathe 4s ease-in-out 2600ms infinite;
+}
+
+/* Two rings ripple out from the shield as it lands. */
+.finale-ring {
+  position: absolute;
+  top: calc(50% - 15cqi);
+  left: 50%;
+  width: 9cqi;
+  aspect-ratio: 1;
+  margin-left: -4.5cqi;
+  border: 1.5px solid rgba(194, 215, 255, 0.7);
+  border-radius: 50%;
+  opacity: 0;
+  animation: finale-ripple 1800ms cubic-bezier(0.2, 0.7, 0.2, 1) 350ms both;
+}
+
+.finale-ring-late {
+  animation-delay: 750ms;
+}
+
+.finale-copy {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.4cqi;
+  padding: 0 6cqi;
+  animation: finale-copy-out 700ms var(--ease) calc(var(--finale-ms) - 700ms) both;
+}
+
+.finale-mark {
+  display: block;
+  width: 6.2cqi;
+  margin-bottom: 0.6cqi;
+  filter: drop-shadow(0 0 2.4cqi rgba(110, 160, 255, 0.75));
+  animation:
+    finale-mark-in 1000ms cubic-bezier(0.34, 1.56, 0.64, 1) 150ms both,
+    finale-float 4s ease-in-out 1200ms infinite;
+}
+
+.finale-mark img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.finale-eyebrow {
+  font-family: var(--font-mono);
+  font-size: max(1.35cqi, 9px);
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-indent: 0.42em; /* keeps the spaced letters centred */
+  color: #9fb9e8;
+  animation: finale-eyebrow-in 1100ms var(--ease) 450ms both;
+}
+
+.finale-title {
+  margin: 0;
+  font-size: 6.4cqi;
+  font-weight: 600;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  perspective: 60cqi;
+}
+
+.finale-line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 0.24em;
+}
+
+/* Each word swings up out of a blur, one after another. */
+.finale-word {
+  display: inline-block;
+  transform-origin: 50% 100%;
+  animation: finale-word-in 900ms var(--ease) calc(650ms + var(--i) * 110ms) both;
+}
+
+/* ✏️ The *accent* words: italic serif with a light sweeping across them. */
+.finale-accent {
+  padding: 0 0.04em 0.08em; /* room for the italic's overhang */
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  background: linear-gradient(100deg, #8fb4ff 0%, #c9dcff 30%, #fff3df 45%, #c9dcff 60%, #6f9cf0 100%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation:
+    finale-word-in 900ms var(--ease) calc(650ms + var(--i) * 110ms) both,
+    finale-shimmer 3.2s ease-in-out 1500ms infinite;
+}
+
+.finale-rule {
+  display: block;
+  width: 16cqi;
+  height: 2px;
+  margin-top: 0.8cqi;
+  border-radius: 2px;
+  background: linear-gradient(90deg, transparent, #9fc0ff, #fff3df, #9fc0ff, transparent);
+  transform-origin: 50% 50%;
+  animation: finale-rule-in 900ms var(--ease) 1350ms both;
+}
+
+.finale-tagline {
+  max-width: 54cqi;
+  font-size: max(1.75cqi, 11px);
+  line-height: 1.45;
+  color: #d4e2fb;
+  animation: finale-rise 900ms var(--ease) 1550ms both;
+}
+
+/* On a phone the window is short: the headline carries it alone. */
+@container (max-width: 520px) {
+  .finale-tagline,
+  .finale-rule {
+    display: none;
+  }
+
+  .finale-title {
+    font-size: 8cqi;
+  }
+}
+
+@keyframes finale-in {
+  from { opacity: 0; }
+}
+
+@keyframes finale-out {
+  to { opacity: 0; }
+}
+
+@keyframes finale-copy-out {
+  to { opacity: 0; transform: translateY(-2cqi) scale(0.98); filter: blur(6px); }
+}
+
+@keyframes finale-drift {
+  to { transform: translate(2.4cqi, 2.4cqi); }
+}
+
+@keyframes finale-bloom {
+  from { opacity: 0; transform: scale(0.4); }
+}
+
+@keyframes finale-breathe {
+  50% { transform: scale(1.08); opacity: 0.85; }
+}
+
+@keyframes finale-ripple {
+  0% { opacity: 0.9; transform: scale(0.6); }
+  100% { opacity: 0; transform: scale(5.5); }
+}
+
+@keyframes finale-mark-in {
+  from { opacity: 0; transform: scale(0.4) rotate(-12deg); filter: blur(8px); }
+}
+
+@keyframes finale-float {
+  50% { transform: translateY(-0.5cqi); }
+}
+
+@keyframes finale-eyebrow-in {
+  from { opacity: 0; letter-spacing: 1.2em; filter: blur(4px); }
+}
+
+@keyframes finale-word-in {
+  from { opacity: 0; transform: translateY(0.45em) rotateX(-70deg); filter: blur(10px); }
+}
+
+@keyframes finale-shimmer {
+  0%, 100% { background-position: 100% 0; }
+  50% { background-position: 0% 0; }
+}
+
+@keyframes finale-rule-in {
+  from { opacity: 0; transform: scaleX(0); }
+}
+
+@keyframes finale-rise {
+  from { opacity: 0; transform: translateY(1cqi); filter: blur(4px); }
 }
 
 /* ── 2. Built for ─────────────────────────────────────────── */

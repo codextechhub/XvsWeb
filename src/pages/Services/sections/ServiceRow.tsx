@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Reveal } from "../../../components/shared/ui";
+import { LoopVideo, Reveal } from "../../../components/shared/ui";
 import { ArrowIcon, Icon } from "../../../components/shared/icons";
 import { DEMO_LINK } from "../../../components/navigation";
 import type { Service } from "../content";
@@ -84,7 +84,7 @@ export default function ServiceRow({ service, index }: { service: Service; index
             </div>
           </div>
 
-          <div className={`service-story ${service.image ? "" : "no-image"}`}>
+          <div className={`service-story ${service.image || service.video ? "" : "no-image"}`}>
             <div className="service-story-copy">
               <p className="service-block-label">A day at Bright Star</p>
               <blockquote>{service.story}</blockquote>
@@ -93,7 +93,15 @@ export default function ServiceRow({ service, index }: { service: Service; index
                 <ArrowIcon />
               </Link>
             </div>
-            {service.image && (
+            {/* A closed panel's clip stays unloaded; it starts once the panel opens into view. */}
+            {service.video ? (
+              <LoopVideo
+                className="service-story-image"
+                src={service.video.src}
+                poster={service.video.poster}
+                label={`XVS screen recording for ${service.name}`}
+              />
+            ) : service.image && (
               <img
                 className="service-story-image"
                 src={service.image}
