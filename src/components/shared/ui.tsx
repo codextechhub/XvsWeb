@@ -119,12 +119,17 @@ export type Clip = { src: string; poster: string };
 
 /* ── BrowserFrame ──────────────────────────────────────────
  * Wraps an XVS screenshot, or a looping screen recording (`video`), in a simple app window.
+ * ✏️ The address bar reads `url`. Without one it names the school on screen:
+ *    the recordings were filmed at the demo school Lagoon View Academy, the screenshots at Bright Star.
  */
+const SCREENSHOT_URL = "XVS · Bright Star Schools";
+const RECORDING_URL = "lagoon-view.xvs.codexng.com";
+
 export function BrowserFrame({
   src,
   alt,
   video,
-  url = "XVS · Bright Star Schools",
+  url,
   eager = false,
   className = "",
 }: {
@@ -143,7 +148,7 @@ export function BrowserFrame({
           <i />
           <i />
         </span>
-        <span className="browser-url">{url}</span>
+        <span className="browser-url">{url ?? (video ? RECORDING_URL : SCREENSHOT_URL)}</span>
       </div>
       {video ? (
         <LoopVideo src={video.src} poster={video.poster} label={alt} />

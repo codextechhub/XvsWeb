@@ -648,7 +648,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     summary: "Who can do what, who approved it, and what the numbers say.",
     image: `${IMG}/approval-inbox.jpg`,
     imageAlt: "XVS approval inbox listing requests waiting for a decision",
-    video: clip("dashboards-analytics"),
+    video: clip("group-oversight-control"),
     services: [
       {
         id: "dashboards-analytics",
@@ -724,6 +724,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         story:
           "At Bright Star, purchases over ₦1m need the bursar and then the owner. When Mr Adebayo is in Abuja for a week, he delegates to the principal, so requests keep moving and each decision is recorded against the person who made it.",
         image: `${IMG}/approval-inbox.jpg`,
+        video: clip("workflow-approvals"),
       },
       {
         id: "roles-permissions",

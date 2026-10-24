@@ -25,7 +25,7 @@ export const HERO = {
 
 /**
  * The film under the hero headline: a short tour of the real XVS apps at a
- * demo school (the principal, the bursar, then a parent on her phone). It is
+ * demo school (the principal, the bursar's fees and buying, a parent's phone, then a pupil's). It is
  * silent and loops forever. When it ends, the closing words below animate in
  * over the film's empty last frame, hold, and the film starts again.
  * The film itself lives in /public/videos (hero.mp4 and its still, hero-poster.jpg).
@@ -35,7 +35,8 @@ export const HERO_FILM = {
   poster: "/videos/hero-poster.jpg",
   label:
     "A tour of XVS: the principal's dashboard, a pupil's record, results being approved, " +
-    "the bursar's fees overview and invoices, and a parent checking her children's results on her phone.",
+    "the bursar's fees overview and invoices, purchase orders for the school, " +
+    "a parent checking her children's results on her phone, and a pupil opening her timetable and results in her own app.",
 
   /**
    * ✏️ THE CLOSING WORDS: change them here.
