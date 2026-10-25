@@ -20,7 +20,7 @@ import HeroFilm from "./HeroFilm";
  */
 export default function Hero() {
   // ✏️ Fully straight after scrolling 60% of the screen height
-  const sectionRef = usePageScroll<HTMLElement>(Math.round(window.innerHeight * 0.6));
+  const sectionRef = usePageScroll<HTMLElement>(Math.round((typeof window === "undefined" ? 900 : window.innerHeight) * 0.6));
   let wordIndex = 0;
 
   return (

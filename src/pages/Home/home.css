@@ -1368,6 +1368,100 @@
   color: var(--home-muted);
 }
 
+/* ── 8b. Questions (see sections/Faq.tsx) ─────────────────── */
+.faq {
+  padding: clamp(80px, 10vw, 130px) 0;
+  border-top: 1px solid var(--home-line);
+}
+
+.faq-inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(32px, 6vw, 88px);
+  align-items: start;
+}
+
+.faq-heading {
+  position: sticky;
+  top: calc(var(--header-height) + 32px);
+}
+
+.faq-heading .more-link { margin-top: 6px; color: var(--home-accent); }
+
+.faq-list {
+  display: grid;
+  gap: 10px;
+}
+
+.faq-item {
+  border: 1px solid var(--home-line);
+  border-radius: var(--radius);
+  background: var(--home-surface);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 200ms ease, box-shadow 300ms ease;
+}
+
+.faq-item[open] {
+  border-color: var(--blue-line);
+  box-shadow: var(--shadow);
+}
+
+.faq-item summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 20px;
+  font-size: 16.5px;
+  font-weight: 500;
+  color: var(--home-text);
+  cursor: pointer;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:focus-visible { outline: 2px solid var(--blue-bright); outline-offset: 2px; border-radius: var(--radius); }
+
+/* A plus that turns into a minus */
+.faq-mark {
+  position: relative;
+  flex: none;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: var(--home-accent-soft);
+}
+
+.faq-mark::before,
+.faq-mark::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 1.6px;
+  border-radius: 2px;
+  background: var(--home-accent);
+  transform: translate(-50%, -50%);
+  transition: transform 300ms var(--ease);
+}
+
+.faq-mark::after { transform: translate(-50%, -50%) rotate(90deg); }
+.faq-item[open] .faq-mark::after { transform: translate(-50%, -50%) rotate(0deg); }
+
+.faq-item p {
+  margin: 0;
+  padding: 0 20px 20px;
+  max-width: 62ch;
+  color: var(--home-muted);
+  line-height: 1.65;
+}
+
+@media (max-width: 900px) {
+  .faq-inner { grid-template-columns: 1fr; }
+  .faq-heading { position: static; }
+}
+
 /* ── 9. Closing ───────────────────────────────────────────── */
 .closing {
   position: relative;

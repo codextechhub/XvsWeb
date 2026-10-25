@@ -1,4 +1,5 @@
 import { useState, type ChangeEvent, type CSSProperties, type FormEvent } from "react";
+import { track } from "../../lib/analytics";
 import { sendContactEmail } from "../../lib/emailjs";
 import { COMPANY } from "../../components/navigation";
 import { ArrowIcon, Icon } from "../../components/shared/icons";
@@ -80,6 +81,7 @@ export default function ContactForm() {
     try {
       await sendContactEmail({ ...values, name: `${values.firstName} ${values.lastName}`.trim() });
       setStatus("sent");
+      track("Demo request sent", { reason: values.reason });
     } catch (error) {
       console.error("EmailJS error", error);
       setStatus("error");

@@ -1,0 +1,13 @@
+{
+  "name": "XVS - School management software",
+  "short_name": "XVS",
+  "description": "Students, staff, results, fees, buying and approvals in one system, for every branch.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f4f6fb",
+  "theme_color": "#0B1F4A",
+  "icons": [
+    { "src": "/favicon.png", "sizes": "64x64", "type": "image/png" },
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" }
+  ]
+}

@@ -1,7 +1,10 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import ScrollManager from "./components/ScrollManager";
+import Analytics from "./components/Analytics";
+import WhatsAppButton from "./components/WhatsAppButton";
 import HomePage from "./pages/Home/HomePage";
 import ServicesPage from "./pages/Services/ServicesPage";
+import ServicePage from "./pages/Services/ServicePage";
 import AboutPage from "./pages/About/AboutPage";
 import ContactPage from "./pages/Contact/ContactPage";
 import LegalPage from "./pages/Legal/LegalPage";
@@ -18,9 +21,14 @@ export default function App() {
     <>
       {/* Scrolls to the top (or to a #section) whenever the page changes */}
       <ScrollManager />
+      {/* Visitor analytics (off until set in .env) and the WhatsApp chat button (off until a number is set) */}
+      <Analytics />
+      <WhatsAppButton />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/services" element={<ServicesPage />} />
+        {/* Each service on its own page, e.g. /services/billing-invoicing */}
+        <Route path="/services/:id" element={<ServicePage />} />
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<LegalPage kind="privacy" />} />

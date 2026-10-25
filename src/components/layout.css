@@ -635,3 +635,52 @@
   font-size: 18px;
   color: rgba(255, 255, 255, 0.75);
 }
+
+/* Social links under the footer email (only shown once accounts are set in navigation.ts) */
+.site-footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  margin-top: 4px;
+  font-size: 14px;
+}
+
+.site-footer-social a { color: rgba(255, 255, 255, 0.62); }
+.site-footer-social a:hover { color: #fff; }
+
+/* ── WhatsApp button ──────────────────────────────────────────
+ * Bottom corner of every page, once a number is set in navigation.ts.
+ * ✏️ Colour: WhatsApp green. Position: right / bottom below.
+ */
+.whatsapp-button {
+  position: fixed;
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  z-index: 40;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 52px;
+  padding: 0 18px 0 14px;
+  border-radius: 999px;
+  color: #fff;
+  background: #25d366;
+  box-shadow: 0 14px 30px -12px rgba(7, 94, 44, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  font-weight: 600;
+  font-size: 15px;
+  animation: whatsapp-in 600ms var(--ease) 1.2s both;
+  transition: transform 220ms var(--ease), box-shadow 220ms ease;
+}
+
+.whatsapp-button:hover { transform: translateY(-2px); box-shadow: 0 18px 34px -12px rgba(7, 94, 44, 0.7); }
+.whatsapp-button:focus-visible { outline: 3px solid var(--blue-bright); outline-offset: 3px; }
+
+@keyframes whatsapp-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.9); }
+}
+
+/* On phones, just the round icon */
+@media (max-width: 560px) {
+  .whatsapp-button { width: 52px; padding: 0; justify-content: center; }
+  .whatsapp-button span { display: none; }
+}

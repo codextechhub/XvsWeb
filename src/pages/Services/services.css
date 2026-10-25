@@ -548,3 +548,129 @@
 @media (prefers-reduced-motion: reduce) {
   .group-nav-tab { transition: none; }
 }
+
+/* ── 5. A service on its own page (ServicePage.tsx) ───────── */
+.service-page-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 22px;
+  font-weight: 500;
+  color: var(--blue);
+}
+
+.service-page-link:hover .arrow-icon { transform: translateX(3px); }
+
+.service-page-hero h1 {
+  max-width: 18ch;
+  font-size: clamp(38px, 5.6vw, 68px);
+  text-wrap: balance;
+}
+
+.service-page-hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.service-page-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 22px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.service-page-crumbs a { color: var(--blue); }
+.service-page-crumbs a:hover { text-decoration: underline; }
+
+.service-page-also {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  max-width: 760px;
+  margin: 22px 0 0;
+  font-size: 14px;
+}
+
+.service-page-also span {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.service-page-also em {
+  padding: 4px 11px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  font-style: normal;
+  color: var(--ink-soft);
+}
+
+.service-page-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+/* On its own page the details line up with the heading (the list indents them past the row number) */
+.service-page-body .service-panel-grid { margin-top: 8px; padding-left: 0; }
+.service-page-body .service-story { margin-left: 0; margin-bottom: 0; }
+.service-page-link { margin-left: 72px; margin-bottom: 28px; }
+@media (max-width: 960px) { .service-page-link { margin-left: 0; } }
+
+.service-page-note {
+  margin: 18px 0 0;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+
+.service-page-more {
+  display: grid;
+  gap: 22px;
+  padding-top: clamp(64px, 8vw, 104px);
+}
+
+.service-page-more h2 { font-size: clamp(26px, 3vw, 34px); }
+
+.service-page-siblings {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+
+.service-page-sibling {
+  position: relative;
+  display: grid;
+  gap: 6px;
+  padding: 20px 48px 20px 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-sm);
+  transition: border-color 200ms ease, box-shadow 300ms ease, transform 300ms var(--ease);
+}
+
+.service-page-sibling strong { font-weight: 600; color: var(--ink); }
+.service-page-sibling span { font-size: 14.5px; color: var(--muted); }
+.service-page-sibling .arrow-icon { position: absolute; top: 22px; right: 20px; color: var(--blue); }
+.service-page-sibling:hover { border-color: var(--blue-line); box-shadow: var(--shadow); transform: translateY(-2px); }
+
+.service-page-groups {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin: 0;
+  font-size: 14.5px;
+}
+
+.service-page-groups span { color: var(--muted); }
+.service-page-groups a { color: var(--blue); }
+.service-page-groups a[aria-current] { font-weight: 600; }
+.service-page-groups a:hover { text-decoration: underline; }

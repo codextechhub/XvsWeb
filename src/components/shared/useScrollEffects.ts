@@ -9,8 +9,9 @@ export const prefersReducedMotion = () =>
  */
 export function useInView<T extends HTMLElement>(rootMargin = "0px 0px -12% 0px") {
   const ref = useRef<T | null>(null);
-  // With reduced motion, everything counts as already visible.
-  const [inView, setInView] = useState(prefersReducedMotion);
+  // Starts hidden on the server and in the browser alike, so the pre-rendered page matches.
+  // (With reduced motion, the CSS shows each reveal without movement.)
+  const [inView, setInView] = useState(false);
 
   useEffect(() => {
     const node = ref.current;

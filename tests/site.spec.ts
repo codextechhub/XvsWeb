@@ -36,6 +36,16 @@ test("services page lists all 24 services and opens one", async ({ page }) => {
   await expect(page.getByText("Without XVS").first()).toBeVisible();
 });
 
+test("each service has its own page, linked from the list", async ({ page }) => {
+  await page.goto("/services#parent-portal");
+  await page.getByRole("link", { name: "More about Parent Portal" }).click();
+  await expect(page).toHaveURL("/services/parent-portal");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText("Parent portal and app for schools");
+  await expect(page).toHaveTitle("Parent portal and app for schools | XVS");
+  await page.goto("/services/not-a-service");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("not in the register");
+});
+
 test("a link to a service opens it", async ({ page }) => {
   await page.goto("/services#audit-activity-logging");
   await expect(page.getByRole("button", { name: /Audit & Activity Logging/ })).toHaveAttribute("aria-expanded", "true");

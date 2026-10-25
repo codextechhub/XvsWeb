@@ -236,3 +236,58 @@ export const DAY = {
     { time: "22:00", title: "A transfer matched", body: "Mrs Adeleke sends ₦120,000. By morning it's matched, booked and receipted." },
   ],
 };
+
+/* ── 9. QUESTIONS (FAQ) ───────────────────────────────────── *
+ * Shown as an accordion near the end of the home page, and sent to
+ * Google as an FAQ so the answers can appear in search results.
+ * ✏️ Add, remove or reword questions here. Keep each answer to a few
+ *    plain sentences, and only say what XVS really does today.
+ */
+export const FAQ = {
+  eyebrow: "Questions",
+  title: "What schools ask us *before a demo*",
+  intro: "Short answers to the questions we hear most. Anything else, ask us during your demo.",
+  items: [
+    {
+      q: "What is XVS?",
+      a: "XVS is a school management platform from CodeX Technologies in Lagos. It keeps students, staff, classes, attendance, results, fees, purchasing and approvals in one system, with an app for parents and an app for students.",
+    },
+    {
+      q: "Which schools is XVS for?",
+      a: "Primary and secondary schools in Nigeria, from a single branch to a group of branches. Classes, arms, sessions and terms (or semesters) are set up to match the way your school already works.",
+    },
+    {
+      q: "Is XVS a school portal?",
+      a: "Yes, and more than a portal. Parents and students each get their own portal and app for results, report cards, timetables, attendance and fees, while staff run admissions, records, fees, procurement and approvals in the same system.",
+    },
+    {
+      q: "Can we run more than one branch on XVS?",
+      a: "Yes. Each branch keeps its own students, staff and classes, while the owner sees every branch side by side. People can be given access to one branch or to all of them.",
+    },
+    {
+      q: "How do we bring in our existing records?",
+      a: "Students and staff can be imported from a spreadsheet, and XVS catches duplicates before anything is saved. During your demo we look at your current records with you and plan how they come across.",
+    },
+    {
+      q: "Do parents and students get an app?",
+      a: "Yes. Parents see each of their children's attendance, timetable, results and fees, pay online and message teachers. Students see their own timetable, results and messages. Both apps install on a phone straight from the browser, with no app store needed.",
+    },
+    {
+      q: "How do parents pay school fees?",
+      a: "Parents pay from the invoice online through Paystack, or by bank transfer into a dedicated account. Each payment is matched to the right invoice automatically, and a receipt is sent.",
+    },
+    {
+      q: "Who can see our school's information?",
+      a: "Only the people you allow. Access is set by role and by branch, down to single fields such as salaries or medical notes, and every change is recorded with who made it and when.",
+    },
+    {
+      q: "Does XVS work without internet?",
+      a: "XVS runs in the browser, so staff need a connection to work in it. The student app keeps the last update on the phone, so a pupil can still check their timetable and results without a signal.",
+    },
+    {
+      // ✏️ Replace with your pricing approach when you are ready to say more.
+      q: "How much does XVS cost?",
+      a: "Pricing depends on the size of your school and the services you use. Book a demo and we will send a quote for your school.",
+    },
+  ],
+};

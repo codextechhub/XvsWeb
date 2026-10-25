@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="theme-color" content="#0B1F4A" />
 
     <!-- Fonts: Inter (text), Instrument Serif (accent words), JetBrains Mono (small labels) -->
@@ -18,8 +19,20 @@
       rel="stylesheet"
     />
 
-    <meta name="description" content="XVS is the school management platform by CodeX Technologies: students, staff, fees, buying and approvals in one system, for every branch." />
-    <title>XVS - Run your whole school from one place</title>
+    <!-- Search and share details. While developing these are the home page's;
+         `npm run build` writes each page's own (scripts/prerender.mjs, text from src/pageTitles.ts). -->
+    <!--seo:start-->
+    <title>XVS - School management software for Nigerian schools</title>
+    <meta name="description" content="XVS is the school management platform by CodeX Technologies: students, staff, results, fees, buying and approvals in one system, with apps for parents and students, for every branch." />
+    <meta property="og:title" content="XVS - School management software for Nigerian schools" />
+    <meta property="og:description" content="XVS is the school management platform by CodeX Technologies." />
+    <meta name="twitter:title" content="XVS - School management software for Nigerian schools" />
+    <meta name="twitter:description" content="XVS is the school management platform by CodeX Technologies." />
+    <!--seo:end-->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="XVS by CodeX" />
+    <meta property="og:locale" content="en_NG" />
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
   <body>
     <div id="root"></div>

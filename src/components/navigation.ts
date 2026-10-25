@@ -20,7 +20,25 @@ export const COMPANY = {
   email: "info@codexng.com",
   city: "Lagos, Nigeria",
   responseTime: "Within one business day",
+  /**
+   * ✏️ WhatsApp number in international form, digits only (e.g. "2348012345678").
+   * While it is empty the green chat button stays hidden.
+   */
+  whatsapp: "",
+  /** ✏️ The message a visitor's WhatsApp opens with. */
+  whatsappMessage: "Hello, I'd like to know more about XVS for my school.",
 };
+
+/**
+ * ✏️ Social accounts, shown in the footer and told to Google.
+ * Paste each full address (https://…); empty ones are left out.
+ */
+export const SOCIAL_LINKS = [
+  { label: "LinkedIn", href: "" },
+  { label: "Instagram", href: "" },
+  { label: "X", href: "" },
+  { label: "Facebook", href: "" },
+].filter((link) => link.href);
 
 /** Footer columns. */
 export const FOOTER_COLUMNS = [

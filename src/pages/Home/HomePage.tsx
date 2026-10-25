@@ -8,6 +8,7 @@ import Features from "./sections/Features";
 import Trust from "./sections/Trust";
 import ServicesPreview from "./sections/ServicesPreview";
 import DayAtBrightStar from "./sections/DayAtBrightStar";
+import Faq from "./sections/Faq";
 import ClosingCta from "./sections/ClosingCta";
 import "./home.css";
 
@@ -22,6 +23,7 @@ import "./home.css";
  *   Trust            the security card: access, approvals and audit
  *   ServicesPreview  the six service groups in three columns, linking to /services
  *   DayAtBrightStar  a school day as a sliding row of moments
+ *   Faq              common questions, as an accordion (also sent to Google)
  *   ClosingCta       the headline again, with the buttons
  *
  * To change any text or image, edit ./content.ts.
@@ -41,6 +43,7 @@ export default function HomePage() {
       <Trust />
       <ServicesPreview />
       <DayAtBrightStar />
+      <Faq />
       <ClosingCta />
     </PageLayout>
   );

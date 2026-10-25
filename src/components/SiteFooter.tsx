@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import Logo from "./Logo";
-import { COMPANY, FOOTER_COLUMNS } from "./navigation";
+import { COMPANY, FOOTER_COLUMNS, SOCIAL_LINKS } from "./navigation";
 
 /**
  * Site-wide footer. Links and contact details come from ./navigation.ts
@@ -21,6 +21,15 @@ export default function SiteFooter() {
             <a href={`mailto:${COMPANY.email}`} className="site-footer-email">
               {COMPANY.email}
             </a>
+            {SOCIAL_LINKS.length > 0 && (
+              <p className="site-footer-social">
+                {SOCIAL_LINKS.map((link) => (
+                  <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">
+                    {link.label}
+                  </a>
+                ))}
+              </p>
+            )}
           </div>
 
           {FOOTER_COLUMNS.map((column) => (
