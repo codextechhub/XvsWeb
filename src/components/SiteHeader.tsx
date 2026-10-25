@@ -1,10 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { useLiquidNav } from "./shared/useLiquidNav";
 import Logo from "./Logo";
-import { DEMO_LINK, NAV_LINKS } from "./navigation";
+import { COMPANY, DEMO_LINK, NAV_LINKS } from "./navigation";
 import { getPreviousNavPath, rememberNavPath } from "./navMemory";
-import { ArrowIcon, Icon } from "./shared/icons";
+import { ArrowIcon } from "./shared/icons";
 
 
 /**
@@ -13,12 +13,15 @@ import { ArrowIcon, Icon } from "./shared/icons";
  *
  * Menu links come from ./navigation.ts
  * ✏️ Slide speed and colours are set in layout.css,
- *    under "NAV ANIMATION SETTINGS".
+ *    under "NAV ANIMATION SETTINGS" (desktop) and "PHONE MENU".
  */
 export default function SiteHeader() {
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
+  // The phone menu remembers the page it was opened on, so it is closed again on any other page.
+  const [menuPath, setMenuPath] = useState<string | null>(null);
+  const menuOpen = menuPath === pathname;
+  const closeMenu = () => setMenuPath(null);
 
   // The link that currently looks active. Starts on the previous page's
   // link (see ./navMemory.ts), then switches to this page's link a moment
@@ -49,8 +52,21 @@ export default function SiteHeader() {
 
   useLiquidNav(navRef, pillRef, `[data-path="${shownPath}"]`);
 
+  // Escape closes the phone menu. While it is open the page behind it stays still.
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && closeMenu();
+    const overflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = overflow;
+      window.removeEventListener("keydown", onKey);
+    };
+  }, [menuOpen]);
+
   return (
-    <header className={`site-header ${scrolled || menuOpen ? "is-solid" : ""}`}>
+    <header className={`site-header ${scrolled || menuOpen ? "is-solid" : ""} ${menuOpen ? "is-menu-open" : ""}`}>
       <div className="container site-header-inner">
         <Link to="/" className="site-header-logo" aria-label="XVS home">
           <Logo />
@@ -84,25 +100,50 @@ export default function SiteHeader() {
           aria-label="Menu"
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
-          onClick={() => setMenuOpen((open) => !open)}
+          onClick={() => setMenuPath(menuOpen ? null : pathname)}
         >
-          <Icon name={menuOpen ? "close" : "menu"} />
+          {/* Two bars that turn into a cross */}
+          <span className="menu-toggle-bars" aria-hidden="true"><i /><i /></span>
         </button>
       </div>
 
-      {menuOpen && (
+      {/* The phone menu: always in the page so it can animate, but hidden and inert while closed. */}
+      <div className={`mobile-menu-scrim ${menuOpen ? "is-open" : ""}`} aria-hidden="true" onClick={closeMenu} />
+      <nav
+        id="mobile-menu"
+        className={`mobile-menu ${menuOpen ? "is-open" : ""}`}
+        aria-label="Main"
+        inert={!menuOpen}
         // Any click on a link inside the menu closes it
-        <nav id="mobile-menu" className="mobile-menu container" aria-label="Main" onClick={() => setMenuOpen(false)}>
-          {NAV_LINKS.map((link) => (
-            <NavLink key={link.href} to={link.href} end className="mobile-menu-link">
-              {link.label}
-            </NavLink>
+        onClick={(e) => (e.target as HTMLElement).closest("a") && closeMenu()}
+      >
+        <p className="mobile-menu-eyebrow">Menu</p>
+        <ul className="mobile-menu-list">
+          {NAV_LINKS.map((link, i) => (
+            <li key={link.href} style={{ "--i": i } as CSSProperties}>
+              {/* Named by its label alone; the hint is read as its description */}
+              <NavLink to={link.href} end className="mobile-menu-link" aria-describedby={`mobile-menu-hint-${i}`}>
+                <span className="mobile-menu-index" aria-hidden="true">{String(i + 1).padStart(2, "0")}</span>
+                <span className="mobile-menu-text">
+                  <span className="mobile-menu-label">{link.label}</span>
+                  <span className="mobile-menu-hint" id={`mobile-menu-hint-${i}`} aria-hidden="true">{link.hint}</span>
+                </span>
+                <span className="mobile-menu-arrow" aria-hidden="true"><ArrowIcon /></span>
+              </NavLink>
+            </li>
           ))}
-          <Link to={DEMO_LINK.href} className="btn btn-primary">
+        </ul>
+        <div className="mobile-menu-foot" style={{ "--i": NAV_LINKS.length } as CSSProperties}>
+          <Link to={DEMO_LINK.href} className="btn btn-primary mobile-menu-cta">
             {DEMO_LINK.label}
+            <ArrowIcon />
           </Link>
-        </nav>
-      )}
+          <a className="mobile-menu-mail" href={`mailto:${COMPANY.email}`}>
+            {COMPANY.email}
+            <span>Replies {COMPANY.responseTime.toLowerCase()}</span>
+          </a>
+        </div>
+      </nav>
     </header>
   );
 }

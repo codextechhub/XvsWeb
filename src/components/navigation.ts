@@ -4,12 +4,12 @@
  * so a change in this file shows up everywhere.
  */
 
-/** The main menu, in order. */
+/** The main menu, in order. `hint` is the small line under each link in the phone menu. */
 export const NAV_LINKS = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/", hint: "The platform at a glance" },
+  { label: "Services", href: "/services", hint: "24 services in 6 groups" },
+  { label: "About", href: "/about", hint: "Who builds XVS, and why" },
+  { label: "Contact", href: "/contact", hint: "Book a demo or ask a question" },
 ];
 
 /** The button on the right of the header, and most "Book a demo" links. */

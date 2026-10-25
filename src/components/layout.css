@@ -160,6 +160,17 @@
   flex: none;
 }
 
+/* ─────────────────────────────────────────────────────────────
+ *  ✏️ PHONE MENU
+ *  The menu button, and the navy glass panel it opens.
+ *  --menu-speed: how long the panel and its links take to arrive.
+ *  --menu-stagger: the delay between one link and the next.
+ * ───────────────────────────────────────────────────────────── */
+.site-header {
+  --menu-speed: 520ms;
+  --menu-stagger: 55ms;
+}
+
 .menu-toggle {
   display: none;
   align-items: center;
@@ -168,34 +179,269 @@
   height: 44px;
   margin-left: auto;
   border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  box-shadow: inset 0 1px 0 #fff, var(--shadow-sm);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   cursor: pointer;
+  transition: background 300ms ease, border-color 300ms ease, transform 200ms var(--ease);
+}
+
+.menu-toggle:active { transform: scale(0.94); }
+.menu-toggle:focus-visible { outline: 2px solid var(--blue-bright); outline-offset: 3px; }
+
+.menu-toggle-bars {
+  position: relative;
+  width: 18px;
+  height: 12px;
+}
+
+.menu-toggle-bars i {
+  position: absolute;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--navy);
+  transition: transform 420ms var(--ease), width 420ms var(--ease), top 420ms var(--ease), background 300ms ease;
+}
+
+.menu-toggle-bars i:first-child { top: 1px; width: 18px; }
+.menu-toggle-bars i:last-child { top: 9px; width: 12px; }
+
+.is-menu-open .menu-toggle {
+  background: var(--navy);
+  border-color: var(--navy);
+}
+
+.is-menu-open .menu-toggle-bars i { top: 5px; width: 18px; background: #fff; }
+.is-menu-open .menu-toggle-bars i:first-child { transform: rotate(45deg); }
+.is-menu-open .menu-toggle-bars i:last-child { transform: rotate(-45deg); }
+
+/* The page behind the menu, dimmed and softened. (The header's blur makes it the
+   positioning box, so these hang from the bottom of the header, not the window.) */
+.mobile-menu-scrim {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 100dvh;
+  background: rgba(7, 20, 47, 0.32);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 360ms ease, visibility 0s linear 360ms;
+}
+
+.mobile-menu-scrim.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 360ms ease;
 }
 
 .mobile-menu {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding-top: 8px;
-  padding-bottom: 20px;
-  border-top: 1px solid var(--line);
+  position: absolute;
+  top: calc(100% + 8px);
+  left: var(--gutter);
+  right: var(--gutter);
+  isolation: isolate;
+  overflow: hidden;
+  max-height: calc(100dvh - var(--header-height) - 24px);
+  overflow-y: auto;
+  padding: 22px 18px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-lg);
+  color: #fff;
+  background:
+    radial-gradient(120% 70% at 100% 0%, rgba(46, 114, 210, 0.45), transparent 60%),
+    radial-gradient(90% 60% at 0% 100%, rgba(251, 228, 200, 0.16), transparent 65%),
+    linear-gradient(160deg, var(--navy) 0%, var(--navy-deep) 100%);
+  box-shadow: var(--shadow-lg), inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px) scale(0.97);
+  transform-origin: top right;
+  transition:
+    opacity 280ms ease,
+    transform var(--menu-speed) var(--ease),
+    visibility 0s linear var(--menu-speed);
+}
+
+/* The faint grid from the page background, carried into the panel */
+.mobile-menu::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(90% 70% at 100% 0%, #000, transparent 75%);
+  -webkit-mask-image: radial-gradient(90% 70% at 100% 0%, #000, transparent 75%);
+  pointer-events: none;
+}
+
+.mobile-menu.is-open {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 220ms ease, transform var(--menu-speed) var(--ease);
+}
+
+.mobile-menu-eyebrow {
+  margin: 0 4px 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.mobile-menu-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Each link (and the foot) rises into place a moment after the one before */
+.mobile-menu-list li,
+.mobile-menu-foot {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.mobile-menu.is-open .mobile-menu-list li,
+.mobile-menu.is-open .mobile-menu-foot {
+  opacity: 1;
+  transform: none;
+  transition:
+    opacity 420ms ease calc(90ms + var(--i) * var(--menu-stagger)),
+    transform var(--menu-speed) var(--ease) calc(90ms + var(--i) * var(--menu-stagger));
 }
 
 .mobile-menu-link {
-  padding: 14px 4px;
-  font-size: 17px;
-  font-weight: 500;
-  color: var(--ink-soft);
-  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 10px;
+  border-radius: 16px;
+  color: #fff;
+  transition: background 220ms ease;
 }
 
-.mobile-menu-link.active {
+.mobile-menu-list li + li .mobile-menu-link { margin-top: 2px; }
+.mobile-menu-link:hover,
+.mobile-menu-link:focus-visible { background: rgba(255, 255, 255, 0.07); outline: none; }
+
+.mobile-menu-index {
+  flex: none;
+  width: 26px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.42);
+}
+
+.mobile-menu-text {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobile-menu-label {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+
+.mobile-menu-hint {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.mobile-menu-arrow {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.7);
+  transition: transform 300ms var(--ease), background 220ms ease, color 220ms ease;
+}
+
+.mobile-menu-link:hover .mobile-menu-arrow { transform: translateX(3px); }
+
+/* The page you are on: italic, with a cream dot and a filled arrow */
+.mobile-menu-link.active { background: rgba(255, 255, 255, 0.09); }
+.mobile-menu-link.active .mobile-menu-label { font-style: italic; }
+.mobile-menu-link.active .mobile-menu-index { color: var(--cream); }
+.mobile-menu-link.active .mobile-menu-index::before {
+  content: "";
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: var(--cream);
+  box-shadow: 0 0 0 4px rgba(251, 244, 236, 0.14);
+  vertical-align: middle;
+}
+.mobile-menu-link.active .mobile-menu-arrow {
+  border-color: transparent;
+  background: var(--cream);
   color: var(--navy);
 }
 
-.mobile-menu .btn {
-  margin-top: 16px;
+.mobile-menu-foot {
+  display: grid;
+  gap: 14px;
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Cream on the navy panel, so the main action stands out */
+.mobile-menu .mobile-menu-cta {
+  justify-content: center;
+  width: 100%;
+  min-height: 50px;
+  border-color: transparent;
+  background: linear-gradient(165deg, #fff, var(--cream));
+  color: var(--navy);
+  box-shadow: inset 0 1px 0 #fff, 0 10px 24px -12px rgba(0, 0, 0, 0.5);
+}
+
+.mobile-menu-mail {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 12px;
+  padding: 0 4px;
+  font-size: 13.5px;
+  color: #fff;
+}
+
+.mobile-menu-mail span { color: rgba(255, 255, 255, 0.5); }
+
+@media (prefers-reduced-motion: reduce) {
+  .mobile-menu,
+  .mobile-menu.is-open,
+  .mobile-menu-list li,
+  .mobile-menu-foot,
+  .menu-toggle-bars i { transition-duration: 1ms !important; transition-delay: 0s !important; }
+}
+
+@media (min-width: 861px) {
+  .mobile-menu,
+  .mobile-menu-scrim { display: none; }
 }
 
 @media (max-width: 860px) {

@@ -10,7 +10,7 @@
  *
  *  House style (from the guide):
  *  - It is a branch, never a campus.
- *  - Messages go out in the app and by email (no SMS).
+ *  - Messages go out in the app, as phone alerts and by email (no SMS).
  *  - Money is in naira: ₦185,000.  Online payments go through Paystack.
  *  - No packages or prices on the website: everything ends with "Book a demo".
  * ─────────────────────────────────────────────────────────────
@@ -127,7 +127,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         steps: [
           "Record applicants and admit them into a class and branch.",
           "Link each student to their parents, guardians and emergency contacts.",
-          "Keep documents, medical notes and consent forms on the student's profile.",
+          "Keep documents and medical notes on the student's profile.",
           "Move students through the year: transfers, promotions, withdrawals and graduation.",
         ],
         benefits: [
@@ -555,7 +555,7 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
     number: "05",
     name: "Families",
     icon: "family",
-    summary: "Parents and students kept informed, without calling the school.",
+    summary: "Parents and students kept informed and in touch with teachers, without calling the school.",
     image: `${IMG}/notifications.jpg`,
     imageAlt: "XVS notification centre with in-app notices and delivery status",
     video: clip("group-families"),
@@ -569,20 +569,20 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
           "Parents call the school for everything: fees owed, results, whether their child was in class today. The front office spends the day on the phone.",
         steps: [
           "Parents sign in and see each of their children.",
-          "Check attendance, the timetable and results.",
-          "See invoices and pay fees.",
-          "Read notices and sign consent forms.",
+          "Check attendance, the timetable and results, and download report cards.",
+          "See every bill, then pay one child's fees or every child's in one go.",
+          "Message the class teacher and read the school's notices.",
         ],
         benefits: [
           "One login for all your children",
           "Attendance and timetable",
-          "Results and report cards",
-          "Invoices, balances and receipts",
-          "Pay fees online",
-          "Consent forms and documents",
+          "Report cards to view or download as a PDF",
+          "Pay all your children's fees in one go, with receipts",
+          "Messages with teachers, with read receipts",
+          "Installs on the phone like an app, with alerts",
         ],
         story:
-          "Mrs Ibrahim has two children at Bright Star, one at each branch. On Sunday evening she checks both, reads her son's term report, pays the balance on her daughter's fees and signs the excursion consent form, all without calling the school.",
+          "Mrs Ibrahim has two children at Bright Star, one at each branch. On Sunday evening she checks both, downloads her son's term report card, pays both children's fees in one go and replies to his class teacher's message, all without calling the school.",
         image: `${IMG}/parent-pay.jpg`,
         video: clip("parent-portal"),
       },
@@ -594,20 +594,20 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
         problem: "Students ask their class teacher for their timetable, their scores and what is due, again and again.",
         steps: [
           "Students sign in with the account the school gives them.",
-          "See their timetable and the school calendar.",
-          "Check their attendance and results.",
-          "Download documents and read notices.",
+          "See their timetable for any day of the week.",
+          "Check their attendance, results and term report card.",
+          "Message their teachers and read the school's notices.",
         ],
         benefits: [
-          "Today's lessons, notices and deadlines on one screen",
-          "Timetable and calendar",
-          "Attendance record",
-          "Assessments and results",
+          "Today's classes, attendance and fee balance on one screen",
+          "Timetable for any day",
+          "Results and the term report card",
+          "Messages with teachers, which their parent can also read",
           "Fees and receipts",
-          "Notices, with privacy settings suited to the student's age",
+          "Opens without a signal, showing the last update",
         ],
         story:
-          "Tolu in SS 2 checks her timetable on Sunday night, sees her physics test has moved to Wednesday, and finds last term's results waiting for her.",
+          "Tolu in SS 2 checks her timetable on Sunday night, opens her term report card, and messages her physics teacher to ask about Wednesday's test. Her mother can read the conversation too.",
         video: clip("student-portal"),
       },
       {
@@ -619,13 +619,13 @@ export const SERVICE_GROUPS: ServiceGroup[] = [
           "Important messages go out on WhatsApp groups and get buried, and nobody can tell who actually saw them.",
         steps: [
           "Something happens: an invoice, an approval, an absence.",
-          "XVS sends an in-app notice and an email to the people who need to know.",
+          "XVS sends an in-app notice, a phone alert and an email to the people who need to know.",
           "Every email carries the school's name and logo.",
           "See what was sent and whether it was delivered.",
         ],
         benefits: [
           "In-app inbox with unread counts",
-          "Branded emails",
+          "Phone alerts from the parent and student apps, plus branded emails",
           "Each person chooses which notices they receive",
           "Urgent alerts always delivered",
           "Delivery history",
