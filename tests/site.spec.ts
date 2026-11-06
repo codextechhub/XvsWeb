@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-const PAGES = ["/", "/services", "/about", "/contact", "/privacy", "/terms", "/missing-page"];
+const PAGES = ["/", "/services", "/about", "/contact", "/privacy", "/terms", "/account/delete", "/missing-page"];
 
 for (const width of [320, 390, 768, 1024, 1440]) {
   test(`every page fits ${width}px without errors`, async ({ page }) => {

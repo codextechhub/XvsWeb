@@ -38,6 +38,11 @@ export const PAGE_META = {
   },
   privacy: { path: "/privacy", title: "Privacy policy - XVS", description: "The XVS privacy policy." },
   terms: { path: "/terms", title: "Terms of use - XVS", description: "The XVS terms of use." },
+  accountDelete: {
+    path: "/account/delete",
+    title: "Delete your XVS account - XVS",
+    description: "How parents and pupils delete their XVS account: in the app, on their school's own address, or by email.",
+  },
   notFound: { path: null, title: "Page not found - XVS", description: "This page could not be found." },
 } as const;
 

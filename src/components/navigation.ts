@@ -62,6 +62,7 @@ export const FOOTER_COLUMNS = [
     links: [
       { label: "Privacy", href: "/privacy" },
       { label: "Terms", href: "/terms" },
+      { label: "Delete your account", href: "/account/delete" },
     ],
   },
 ];

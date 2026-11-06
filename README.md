@@ -38,7 +38,7 @@ src/
     Services/    ServicesPage.tsx · content.ts · services.css · sections/
     About/       AboutPage.tsx · content.ts · about.css · sections/
     Contact/     ContactPage.tsx · ContactForm.tsx · content.ts · contact.css
-    Legal/       Privacy + Terms placeholders
+    Legal/       Privacy + Terms placeholders, and how to delete an account (/account/delete)
     NotFound/    404 page
 ```
 
@@ -108,6 +108,7 @@ serve the home page's text at every address and undo the per-page search work):
 | `/contact` | `/contact/index.html` | Rewrite |
 | `/privacy` | `/privacy/index.html` | Rewrite |
 | `/terms` | `/terms/index.html` | Rewrite |
+| `/account/delete` | `/account/delete/index.html` | Rewrite |
 | `/*` | `/404.html` | Rewrite |
 
 Real files (images, videos, `sitemap.xml`, `llms.txt`…) are always served as they are; Render

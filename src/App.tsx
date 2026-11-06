@@ -8,6 +8,7 @@ import ServicePage from "./pages/Services/ServicePage";
 import AboutPage from "./pages/About/AboutPage";
 import ContactPage from "./pages/Contact/ContactPage";
 import LegalPage from "./pages/Legal/LegalPage";
+import AccountDeletePage from "./pages/Legal/AccountDeletePage";
 import NotFoundPage from "./pages/NotFound/NotFoundPage";
 
 /**
@@ -33,6 +34,8 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy" element={<LegalPage kind="privacy" />} />
         <Route path="/terms" element={<LegalPage kind="terms" />} />
+        {/* The address the app stores name for deleting an account without the app */}
+        <Route path="/account/delete" element={<AccountDeletePage />} />
 
         {/* Old addresses that people may still have bookmarked */}
         <Route path="/products" element={<Navigate to="/services" replace />} />

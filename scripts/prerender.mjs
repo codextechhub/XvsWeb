@@ -4,7 +4,7 @@
  * real content:
  *
  *   dist/index.html, services/index.html, about/index.html, contact/index.html,
- *   privacy/index.html, terms/index.html, 404.html
+ *   privacy/index.html, terms/index.html, account/delete/index.html, 404.html
  *                            each with its own title, description, canonical
  *                            link, share preview and Google structured data
  *   dist/services/<id>/index.html  one page per service, named for how schools search for it
