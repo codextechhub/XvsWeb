@@ -113,3 +113,11 @@ serve the home page's text at every address and undo the per-page search work):
 
 Real files (images, videos, `sitemap.xml`, `llms.txt`…) are always served as they are; Render
 only applies these rules where no file exists. A new page needs its own rewrite line here.
+
+Headers: add `/.well-known/apple-app-site-association` with `Content-Type: application/json`.
+
+## App links
+
+The store apps open school links only once this site serves two small files under
+`/.well-known/`. They are built from `APP_LINK_*` environment variables and are not published
+until those are set. See [the app links guide](docs/app-links.md).
