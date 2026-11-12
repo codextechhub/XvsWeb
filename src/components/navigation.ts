@@ -16,7 +16,7 @@ export const NAV_LINKS = [
 export const DEMO_LINK = { label: "Book a demo", href: "/contact" };
 
 export const COMPANY = {
-  name: "CodeX Technologies",
+  name: "Code X",
   email: "info@codexng.com",
   city: "Lagos, Nigeria",
   responseTime: "Within one business day",

@@ -35,7 +35,7 @@ export const MESSAGE_MAX_LENGTH = 600;
 
 export const SUCCESS = {
   title: "Thank you. Your message has been received.",
-  body: "A member of the CodeX team will reply by email within one business day.",
+  body: "A member of the Code X team will reply by email within one business day.",
   again: "Send another message",
 };
 

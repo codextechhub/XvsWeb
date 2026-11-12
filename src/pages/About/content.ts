@@ -10,7 +10,7 @@ export const HERO = {
   eyebrow: "About XVS",
   title: "The system behind *every school day.*",
   intro:
-    "XVS is a school management platform developed by CodeX Technologies in Lagos. It gives owners, administrators and teachers one reliable record of students, staff, finances and approvals.",
+    "XVS is a school management platform developed by Code X in Lagos. It gives owners, administrators and teachers one reliable record of students, staff, finances and approvals.",
   body: "Schools use XVS to replace disconnected spreadsheets and paper files, run several branches from one system, and give leadership an accurate view of day-to-day operations.",
   primaryCta: { label: "Speak with our team", href: "/contact" },
   secondaryCta: { label: "Why we built XVS", href: "#why-xvs" },

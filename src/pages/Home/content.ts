@@ -250,7 +250,7 @@ export const FAQ = {
   items: [
     {
       q: "What is XVS?",
-      a: "XVS is a school management platform from CodeX Technologies in Lagos. It keeps students, staff, classes, attendance, results, fees, purchasing and approvals in one system, with an app for parents and an app for students.",
+      a: "XVS is a school management platform from Code X in Lagos. It keeps students, staff, classes, attendance, results, fees, purchasing and approvals in one system, with an app for parents and an app for students.",
     },
     {
       q: "Which schools is XVS for?",

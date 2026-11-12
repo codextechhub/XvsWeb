@@ -37,7 +37,7 @@ export default function LegalPage({ kind }: { kind: keyof typeof DOCUMENTS }) {
               {title.toLowerCase()}.
             </p>
             <Link to="/contact" className="text-link">
-              Contact CodeX →
+              Contact Code X →
             </Link>
           </>
         )}

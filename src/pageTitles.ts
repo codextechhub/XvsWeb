@@ -17,7 +17,7 @@ export const PAGE_META = {
     path: "/",
     title: "XVS - School management software for Nigerian schools",
     description:
-      "XVS is the school management platform by CodeX Technologies: students, staff, results, fees, buying and approvals in one system, with apps for parents and students, for every branch.",
+      "XVS is the school management platform by Code X: students, staff, results, fees, buying and approvals in one system, with apps for parents and students, for every branch.",
   },
   services: {
     path: "/services",
@@ -27,14 +27,14 @@ export const PAGE_META = {
   },
   about: {
     path: "/about",
-    title: "About XVS - School management software by CodeX, Lagos",
+    title: "About XVS - School management software by Code X, Lagos",
     description:
-      "Why CodeX Technologies built XVS, and who it is for: the owners, bursars, administrators and teachers who keep a school running.",
+      "Why Code X built XVS, and who it is for: the owners, bursars, administrators and teachers who keep a school running.",
   },
   contact: {
     path: "/contact",
     title: "Book a demo - XVS",
-    description: "Book a demo of XVS for your school, or ask the CodeX team a question. We reply within one business day.",
+    description: "Book a demo of XVS for your school, or ask the Code X team a question. We reply within one business day.",
   },
   privacy: { path: "/privacy", title: "Privacy policy - XVS", description: "The XVS privacy policy." },
   terms: { path: "/terms", title: "Terms of use - XVS", description: "The XVS terms of use." },

@@ -240,7 +240,7 @@ Contact: ${COMPANY.email}. Book a demo: ${abs("/contact")}
 
 - [Home](${abs("/")}): what XVS is and who it is for
 - [Services](${abs("/services")}): all ${ALL_SERVICES.length} services in ${SERVICE_GROUPS.length} groups
-- [About](${abs("/about")}): why CodeX built XVS
+- [About](${abs("/about")}): why Code X built XVS
 - [Book a demo](${abs("/contact")})
 
 ## Services
