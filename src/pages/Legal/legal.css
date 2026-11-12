@@ -1,0 +1,110 @@
+/* Long-form legal text: the privacy policy. Headings, lists and the lawful-basis table. */
+
+.legal-doc h2 {
+  font-size: 22px;
+  margin: 40px 0 12px;
+}
+
+.legal-doc p {
+  margin: 0 0 12px;
+}
+
+.legal-doc a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.legal-doc ul {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 12px;
+  padding-left: 22px;
+}
+
+.legal-doc ul ul {
+  margin: 10px 0 0;
+}
+
+.legal-doc li {
+  line-height: 1.6;
+}
+
+.legal-doc .legal-table-wrap {
+  margin: 0 0 16px;
+}
+
+.legal-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.legal-table th,
+.legal-table td {
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+  border: 1px solid var(--line-strong);
+}
+
+.legal-table thead th {
+  background: var(--blue-soft);
+  color: var(--navy);
+  font-weight: 600;
+}
+
+.legal-table tbody th {
+  font-weight: 500;
+  width: 45%;
+}
+
+/* On narrow screens each row becomes a card: purpose first, then its basis. */
+@media (max-width: 640px) {
+  .legal-table,
+  .legal-table tbody,
+  .legal-table tr,
+  .legal-table th,
+  .legal-table td {
+    display: block;
+  }
+
+  .legal-table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .legal-table tbody tr {
+    margin-bottom: 12px;
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .legal-table tbody th,
+  .legal-table tbody td {
+    width: auto;
+    border: 0;
+    padding: 10px 14px;
+  }
+
+  .legal-table tbody th {
+    background: var(--blue-soft);
+    color: var(--navy);
+  }
+
+  .legal-table tbody td::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+}

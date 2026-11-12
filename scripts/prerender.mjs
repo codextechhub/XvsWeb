@@ -35,8 +35,8 @@ const SITE_URL = (process.env.SITE_URL || hostUrl || FALLBACK_URL).replace(/\/+$
 // On Render the host's address is the onrender.com one: set SITE_URL to your own domain.
 if (!process.env.SITE_URL) console.warn(`prerender: SITE_URL is not set, using ${SITE_URL}`);
 
-// ✏️ Pages kept out of search results. Take privacy and terms out once they are published.
-const NOINDEX = new Set(["notFound", "privacy", "terms"]);
+// ✏️ Pages kept out of search results. Take terms out once it is published.
+const NOINDEX = new Set(["notFound", "terms"]);
 
 const { render, PAGE_META, SHARE_IMAGE, COMPANY, SOCIAL_LINKS, FAQ, SERVICE_GROUPS, ALL_SERVICES, serviceMeta } = await import(
   pathToFileURL(SSR).href
