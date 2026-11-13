@@ -65,8 +65,9 @@ export default function PrivacyPolicy() {
           and payment records.
         </li>
         <li>
-          School staff: name, contact details, date of birth, photo, ethnicity, address, job and employment history,
-          qualifications and documents, leave, and for payroll: pay, tax ID, pension PIN and bank account.
+          School staff: name, contact details, date of birth, photo, state of origin and local government area,
+          address, job and employment history, qualifications and documents, leave, and for payroll: pay, tax ID,
+          pension PIN and bank account.
         </li>
         <li>
           Everyone who signs in: your email or ID, your password (stored only as a one-way scramble that cannot be read
@@ -124,6 +125,7 @@ export default function PrivacyPolicy() {
           Service providers who process data for us, under contract:
           <ul>
             <li>Render (hosting and database), in Frankfurt, Germany (European Union), with Cloudflare in front of it;</li>
+            <li>Cloudflare R2 (encrypted backup copies of the database), in the European Union;</li>
             <li>Zoho Mail (sending emails), in the United States;</li>
             <li>Google Firebase (phone notifications), and your browser maker's push service for browser notifications;</li>
             <li>Sentry (error reports from the staff web apps), in the European Union.</li>

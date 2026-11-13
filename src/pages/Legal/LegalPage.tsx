@@ -26,7 +26,7 @@ export default function LegalPage({ kind }: { kind: keyof typeof DOCUMENTS }) {
         {kind === "privacy" ? (
           <>
             <p className="lead" style={{ marginBottom: 28 }}>
-              Version 1, effective 12 November 2026.
+              Version 1, effective 12 November 2026; updated 13 November 2026.
             </p>
             <PrivacyPolicy />
           </>
