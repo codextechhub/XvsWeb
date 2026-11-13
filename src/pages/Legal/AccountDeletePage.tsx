@@ -24,7 +24,7 @@ export default function AccountDeletePage() {
         <p className="lead" style={{ marginBottom: 28 }}>
           Parents and pupils can delete their XVS account in any of these ways.
         </p>
-        <ol style={{ paddingLeft: 22, display: "grid", gap: 16, marginBottom: 32 }}>
+        <ol style={{ paddingLeft: 22, display: "grid", gap: 16, marginBottom: 32, overflowWrap: "anywhere" }}>
           <li>
             <strong>In the app.</strong> In XVS Parent or XVS Student, open <strong>Profile</strong>, then{" "}
             <strong>Delete my account</strong>.
