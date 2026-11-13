@@ -134,7 +134,7 @@ export default function PrivacyPolicy() {
         <li>
           Paystack, which takes card and bank-transfer payments. Card details are typed only on Paystack's page and
           never reach XVS. Paystack receives your name, email and the amount, and for a pupil's own bank-transfer
-          account, the pupil's name.
+          account, the pupil's name and the phone number and email address of their parent or guardian.
         </li>
         <li>Authorities, when the law requires it.</li>
       </ul>
